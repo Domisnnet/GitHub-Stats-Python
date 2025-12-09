@@ -8,8 +8,8 @@
       body {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         line-height: 1.6;
-        background-color: #151b23; /* Cor de fundo escura */
-        color: #ccc; /* Cor do texto clara */
+        background-color: #151b23;
+        color: #ccc;
         max-width: 800px;
         margin: 0 auto;
         padding: 2rem;
@@ -78,22 +78,25 @@
       <button type="submit">Gerar Estatísticas</button>
     </form>
     <div id="stats-container">
-      </div>
+    </div>
     <script>
-      const form = document.getElementById('github-form');
-      const usernameInput = document.getElementById('username');
-      const themeSelector = document.getElementById('theme-selector');
-      const statsContainer = document.getElementById('stats-container');
-
-      form.addEventListener('submit', function(event) {
+      document.getElementById('github-form').addEventListener('submit', function(event) {
         event.preventDefault();
-        const username = usernameInput.value;
-        const theme = themeSelector.value;
+        const username = document.getElementById('username').value;
+        const theme = document.getElementById('theme-selector').value;
+        const statsContainer = document.getElementById('stats-container');
 
-        statsContainer.innerHTML = `
-          <img src="https://github-readme-stats.vercel.app/api?username=${username}&theme=${theme}&show_icons=true" alt="GitHub Stats">
-          <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=${username}&theme=${theme}&layout=compact" alt="Top Languages">
-        `;
+        const statsImg = document.createElement('img');
+        statsImg.src = `https://github-readme-stats.vercel.app/api?username=${username}&theme=${theme}&show_icons=true`;
+        statsImg.alt = 'GitHub Stats';
+
+        const langImg = document.createElement('img');
+        langImg.src = `https://github-readme-stats.vercel.app/api/top-langs/?username=${username}&theme=${theme}&layout=compact`;
+        langImg.alt = 'Top Languages';
+
+        statsContainer.innerHTML = '';
+        statsContainer.appendChild(statsImg);
+        statsContainer.appendChild(langImg);
       });
     </script>
   </body>
