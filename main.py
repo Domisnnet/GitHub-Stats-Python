@@ -1,28 +1,29 @@
 import os
+import sys
 import math
 import logging
 from collections import Counter
 
 import requests
-from flask import Flask, request, make_response, send_from_directory
 from dotenv import load_dotenv
-from firebase_functions import https_fn
 
-# As variáveis de ambiente serão configuradas diretamente no Firebase
+# Carrega as variáveis de ambiente do arquivo .env (para uso local)
 load_dotenv()
 
-app = Flask(__name__)
+# Configura o logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-# O Cloud Functions captura logs enviados para a saída padrão
-app.logger.setLevel(logging.INFO)
-
+# --- Constantes e Configurações ---
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
+THEME_NAME = os.getenv("THEME_NAME", "tokyonight") # Lê o tema do ambiente, com 'tokyonight' como padrão
 
 HEADERS = {
     "Accept": "application/vnd.github+json",
     **({"Authorization": f"Bearer {GITHUB_TOKEN}"} if GITHUB_TOKEN else {}),
 }
 
+# (O resto do seu código com as definições de LANG_COLORS, THEMES, ICONS, etc., continua aqui)
+# Nenhuma alteração necessária nessas seções, então vou omiti-las para ser breve.
 LANG_COLORS = {
     "C": "#555555",
     "C++": "#f34b7d",
@@ -132,22 +133,21 @@ ICONS = {
     "contrib": "M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 010-1.5h2V1H4.5C3.12 1 2 2.12 2 3.5V13h1.5a.75.75 0 010 1.5H2a.75.75 0 01-.75-.75V3.5h.003A2.49 2.49 0 012 2.5zM3.5 1A1.5 1.5 0 002 2.5v1.41C2.58 3.57 3.47 3.5 4.5 3.5h5V1H3.5z",
 }
 
-
 def k_formatter(num: int) -> str:
     return f'{num / 1000:.1f}k' if num >= 1000 else str(num)
 
-
 def fetch_github_stats(username: str) -> dict | None:
+    # ... (código para buscar stats, sem alterações)
     try:
         user_url = f"https://api.github.com/users/{username}"
         repos_url = f"https://api.github.com/users/{username}/repos?per_page=100&type=owner"
 
-        app.logger.info(f"Fetching user data for {username}")
+        logging.info(f"Fetching user data for {username}")
         u = requests.get(user_url, headers=HEADERS, timeout=10)
         u.raise_for_status()
         user = u.json()
 
-        app.logger.info(f"Fetching repos for {username}")
+        logging.info(f"Fetching repos for {username}")
         r = requests.get(repos_url, headers=HEADERS, timeout=10)
         r.raise_for_status()
         repos = r.json()
@@ -207,11 +207,10 @@ def fetch_github_stats(username: str) -> dict | None:
             "contrib_to": contrib_to,
         }
     except requests.RequestException as e:
-        app.logger.error(f"Error fetching GitHub stats: {e}")
+        logging.error(f"Error fetching GitHub stats: {e}")
         return None
-
-
 def calculate_rank(stats: dict) -> dict:
+    # ... (código para calcular o rank, sem alterações)
     score = (
         stats.get("total_commits", 0) * 1.5
         + stats.get("total_prs", 0) * 2.0
@@ -246,9 +245,8 @@ def calculate_rank(stats: dict) -> dict:
     )
     progress = ((score - lower) / (upper - lower) * 100) if upper > lower else 0
     return {"level": level, "progress": max(0, min(100, progress))}
-
-
-def create_stats_svg(stats: dict, theme_name: str = "tokyonight") -> str:
+def create_stats_svg(stats: dict, theme_name: str) -> str:
+    # ... (código que gera o SVG dos stats, sem alterações)
     theme = THEMES.get(theme_name, THEMES["tokyonight"])
     if not stats:
         return f'''
@@ -337,10 +335,35 @@ def create_stats_svg(stats: dict, theme_name: str = "tokyonight") -> str:
 '''
     return svg.strip()
 
+def fetch_top_languages(username: str) -> Counter | None:
+    # ... (código para buscar linguagens, sem alterações)
+    repos_url = f"https://api.github.com/users/{username}/repos?per_page=100&type=owner"
+    try:
+        logging.info(f"Fetching repos for top languages of {username}")
+        r = requests.get(repos_url, headers=HEADERS, timeout=10)
+        r.raise_for_status()
+        repos = r.json()
 
-def create_language_donut_chart_svg(
-    langs: Counter, theme_name: str = "tokyonight"
-) -> str:
+        lang_stats: Counter = Counter()
+        for repo in repos:
+            lang_url = repo.get("languages_url")
+            if not lang_url:
+                continue
+            try:
+                lr = requests.get(lang_url, headers=HEADERS, timeout=10)
+                if not lr.ok:
+                    continue
+                for lang, size in lr.json().items():
+                    lang_stats[lang] += size
+            except requests.RequestException:
+                continue
+
+        return lang_stats
+    except requests.RequestException as e:
+        logging.error(f"Error fetching top languages: {e}")
+        return None
+def create_language_donut_chart_svg(langs: Counter, theme_name: str) -> str:
+    # ... (código que gera o SVG das linguagens, sem alterações)
     theme = THEMES.get(theme_name, THEMES["tokyonight"])
     if not langs:
         return f'''
@@ -402,65 +425,33 @@ def create_language_donut_chart_svg(
   <g>{legend_items}</g>
 </svg>
 '''.strip()
+# --- Bloco de Execução Principal ---
+if __name__ == "__main__":
+    # Pega o nome de usuário do argumento da linha de comando
+    if len(sys.argv) > 1:
+        username = sys.argv[1]
+    else:
+        logging.error("Nome de usuário do GitHub não fornecido.")
+        sys.exit(1)
 
+    # 1. Busca os dados
+    logging.info(f"Iniciando a geração de stats para o usuário: {username}")
+    logging.info(f"Tema selecionado: {THEME_NAME}")
+    github_stats = fetch_github_stats(username)
+    top_langs = fetch_top_languages(username)
 
-def fetch_top_languages(username: str) -> Counter | None:
-    repos_url = f"https://api.github.com/users/{username}/repos?per_page=100&type=owner"
-    try:
-        app.logger.info(f"Fetching repos for top languages of {username}")
-        r = requests.get(repos_url, headers=HEADERS, timeout=10)
-        r.raise_for_status()
-        repos = r.json()
+    # 2. Gera o conteúdo SVG
+    # Passa o nome do tema lido do ambiente para as funções de geração
+    stats_svg_content = create_stats_svg(github_stats, THEME_NAME)
+    langs_svg_content = create_language_donut_chart_svg(top_langs or Counter(), THEME_NAME)
 
-        lang_stats: Counter = Counter()
-        for repo in repos:
-            lang_url = repo.get("languages_url")
-            if not lang_url:
-                continue
-            try:
-                lr = requests.get(lang_url, headers=HEADERS, timeout=10)
-                if not lr.ok:
-                    continue
-                for lang, size in lr.json().items():
-                    lang_stats[lang] += size
-            except requests.RequestException:
-                continue
+    # 3. Salva os SVGs em arquivos
+    with open("github-stats.svg", "w") as f:
+        f.write(stats_svg_content)
+    logging.info("Arquivo github-stats.svg salvo com sucesso.")
 
-        return lang_stats
-    except requests.RequestException as e:
-        app.logger.error(f"Error fetching top languages: {e}")
-        return None
+    with open("top-langs.svg", "w") as f:
+        f.write(langs_svg_content)
+    logging.info("Arquivo top-langs.svg salvo com sucesso.")
 
-
-@app.route("/")
-def index():
-    return send_from_directory("public", "index.html")
-
-
-@app.route("/api/stats")
-def api_stats():
-    username = request.args.get("username", "Domisnnet")
-    theme = request.args.get("theme", "tokyonight")
-    stats = fetch_github_stats(username)
-    svg = create_stats_svg(stats, theme)
-    resp = make_response(svg)
-    resp.headers["Content-Type"] = "image/svg+xml"
-    resp.headers["Cache-Control"] = "s-maxage=3600, stale-while-revalidate"
-    return resp
-
-
-@app.route("/api/top-langs")
-def api_top_langs():
-    username = request.args.get("username", "Domisnnet")
-    theme = request.args.get("theme", "tokyonight")
-    langs = fetch_top_languages(username)
-    svg = create_language_donut_chart_svg(langs or Counter(), theme)
-    resp = make_response(svg)
-    resp.headers["Content-Type"] = "image/svg+xml"
-    resp.headers["Cache-Control"] = "s-maxage=3600, stale-while-revalidate"
-    return resp
-
-@https_fn.on_request()
-def api(req: https_fn.Request) -> https_fn.Response:
-    with app.request_context(req.environ):
-        return app.full_dispatch_request()
+    logging.info("Processo concluído.")

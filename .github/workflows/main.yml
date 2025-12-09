@@ -24,6 +24,7 @@ jobs:
       - name: Generate stats cards
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          THEME_NAME: merko # <-- TROQUE O TEMA AQUI
         run: python main.py Domisnnet
 
       - name: Commit and push changes
