@@ -4,7 +4,7 @@ import logging
 from collections import Counter
 
 import requests
-from flask import Flask, request, make_response
+from flask import Flask, request, make_response, send_from_directory
 from dotenv import load_dotenv
 from firebase_functions import https_fn
 
@@ -430,6 +430,11 @@ def fetch_top_languages(username: str) -> Counter | None:
     except requests.RequestException as e:
         app.logger.error(f"Error fetching top languages: {e}")
         return None
+
+
+@app.route("/")
+def index():
+    return send_from_directory("public", "index.html")
 
 
 @app.route("/api/stats")
