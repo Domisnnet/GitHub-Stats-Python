@@ -85,22 +85,17 @@
         const theme = document.getElementById('theme-selector').value;
         const statsContainer = document.getElementById('stats-container');
         
-        // Limpa o container
         statsContainer.innerHTML = '';
 
-        // URL da API de estatísticas (NÃO precisa de barra no final)
-        const statsUrl = `https://github-readme-stats.vercel.app/api?username=${username}&theme=${theme}&show_icons=true`;
-        
-        // URL da API de linguagens (PRECISA de barra no final)
-        const langUrl = `https://github-readme-stats.vercel.app/api/top-langs/?username=${username}&theme=${theme}&layout=compact`;
+        // CORRIGIDO: APONTAR PARA O BACKEND LOCAL
+        const statsUrl = `/api/stats?username=${username}&theme=${theme}`;
+        const langUrl = `/api/top-langs?username=${username}&theme=${theme}`;
 
-        // Cria e adiciona a imagem de estatísticas de forma segura
         const statsImg = document.createElement('img');
         statsImg.src = statsUrl;
         statsImg.alt = 'GitHub Stats';
         statsContainer.appendChild(statsImg);
 
-        // Cria e adiciona a imagem de linguagens de forma segura
         const langImg = document.createElement('img');
         langImg.src = langUrl;
         langImg.alt = 'Top Languages';
