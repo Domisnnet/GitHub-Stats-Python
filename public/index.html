@@ -77,23 +77,34 @@
       </select>
       <button type="submit">Gerar Estatísticas</button>
     </form>
-    <div id="stats-container">
-    </div>
+    <div id="stats-container"></div>
     <script>
       document.getElementById('github-form').addEventListener('submit', function(event) {
         event.preventDefault();
         const username = document.getElementById('username').value;
         const theme = document.getElementById('theme-selector').value;
         const statsContainer = document.getElementById('stats-container');
+        
+        // Limpa o container
+        statsContainer.innerHTML = '';
 
-        // CORREÇÃO FINAL: Adicionando a barra final em AMBAS as URLs
-        const statsUrl = `https://github-readme-stats.vercel.app/api/?username=${username}&theme=${theme}&show_icons=true`;
+        // URL da API de estatísticas (NÃO precisa de barra no final)
+        const statsUrl = `https://github-readme-stats.vercel.app/api?username=${username}&theme=${theme}&show_icons=true`;
+        
+        // URL da API de linguagens (PRECISA de barra no final)
         const langUrl = `https://github-readme-stats.vercel.app/api/top-langs/?username=${username}&theme=${theme}&layout=compact`;
 
-        statsContainer.innerHTML = `
-          <img src="${statsUrl}" alt="GitHub Stats">
-          <img src="${langUrl}" alt="Top Languages">
-        `;
+        // Cria e adiciona a imagem de estatísticas de forma segura
+        const statsImg = document.createElement('img');
+        statsImg.src = statsUrl;
+        statsImg.alt = 'GitHub Stats';
+        statsContainer.appendChild(statsImg);
+
+        // Cria e adiciona a imagem de linguagens de forma segura
+        const langImg = document.createElement('img');
+        langImg.src = langUrl;
+        langImg.alt = 'Top Languages';
+        statsContainer.appendChild(langImg);
       });
     </script>
   </body>
