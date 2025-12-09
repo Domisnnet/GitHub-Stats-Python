@@ -49,7 +49,7 @@
       }
       #stats-container {
         display: flex;
-        flex-direction: column;
+        flex-direction: column; /* Revertido para 'column' */
         align-items: center;
         gap: 1rem;
       }
@@ -73,7 +73,7 @@
         <option value="merko">Merko</option>
         <option value="onedark">One Dark</option>
         <option value="radical">Radical</option>
-        <option value="tokyonight">Tokyonight</option>
+        <option value="tokyonight" selected>Tokyonight</option>
       </select>
       <button type="submit">Gerar Estatísticas</button>
     </form>
@@ -82,23 +82,29 @@
       document.getElementById('github-form').addEventListener('submit', function(event) {
         event.preventDefault();
         const username = document.getElementById('username').value;
+        if (!username) {
+            alert('Por favor, insira um nome de usuário do GitHub.');
+            return;
+        }
         const theme = document.getElementById('theme-selector').value;
         const statsContainer = document.getElementById('stats-container');
         
-        statsContainer.innerHTML = '';
+        statsContainer.innerHTML = 'Carregando...';
 
-        // CORRIGIDO: APONTAR PARA O BACKEND LOCAL
         const statsUrl = `/api/stats?username=${username}&theme=${theme}`;
         const langUrl = `/api/top-langs?username=${username}&theme=${theme}`;
+
+        statsContainer.innerHTML = '';
 
         const statsImg = document.createElement('img');
         statsImg.src = statsUrl;
         statsImg.alt = 'GitHub Stats';
-        statsContainer.appendChild(statsImg);
 
         const langImg = document.createElement('img');
         langImg.src = langUrl;
         langImg.alt = 'Top Languages';
+        
+        statsContainer.appendChild(statsImg);
         statsContainer.appendChild(langImg);
       });
     </script>
