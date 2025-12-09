@@ -86,17 +86,14 @@
         const theme = document.getElementById('theme-selector').value;
         const statsContainer = document.getElementById('stats-container');
 
-        const statsImg = document.createElement('img');
-        statsImg.src = `https://github-readme-stats.vercel.app/api?username=${username}&theme=${theme}&show_icons=true`;
-        statsImg.alt = 'GitHub Stats';
+        // CORREÇÃO FINAL: Adicionando a barra final em AMBAS as URLs
+        const statsUrl = `https://github-readme-stats.vercel.app/api/?username=${username}&theme=${theme}&show_icons=true`;
+        const langUrl = `https://github-readme-stats.vercel.app/api/top-langs/?username=${username}&theme=${theme}&layout=compact`;
 
-        const langImg = document.createElement('img');
-        langImg.src = `https://github-readme-stats.vercel.app/api/top-langs/?username=${username}&theme=${theme}&layout=compact`;
-        langImg.alt = 'Top Languages';
-
-        statsContainer.innerHTML = '';
-        statsContainer.appendChild(statsImg);
-        statsContainer.appendChild(langImg);
+        statsContainer.innerHTML = `
+          <img src="${statsUrl}" alt="GitHub Stats">
+          <img src="${langUrl}" alt="Top Languages">
+        `;
       });
     </script>
   </body>
