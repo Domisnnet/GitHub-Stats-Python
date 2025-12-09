@@ -4,7 +4,7 @@ import logging
 from collections import Counter
 
 import requests
-from flask import Flask, send_file, request, make_response
+from flask import Flask, request, make_response
 from dotenv import load_dotenv
 
 # As variáveis de ambiente serão configuradas diretamente no Firebase
@@ -429,11 +429,6 @@ def fetch_top_languages(username: str) -> Counter | None:
     except requests.RequestException as e:
         app.logger.error(f"Error fetching top languages: {e}")
         return None
-
-
-@app.route("/")
-def index():
-    return send_file("src/index.html")
 
 
 @app.route("/api/stats")

@@ -1,14 +1,17 @@
 {
-  "functions": {
-    "source": "functions"
-  },
   "hosting": {
     "public": "public",
     "rewrites": [
       {
-        "source": "**",
+        "source": "/api/**",
         "function": "api"
       }
     ]
-  }
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "runtime": "python3.11"
+    }
+  ]
 }
