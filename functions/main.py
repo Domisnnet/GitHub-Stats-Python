@@ -6,6 +6,7 @@ from collections import Counter
 import requests
 from flask import Flask, request, make_response
 from dotenv import load_dotenv
+from firebase_functions import https_fn
 
 # As variáveis de ambiente serão configuradas diretamente no Firebase
 load_dotenv()
@@ -133,7 +134,7 @@ ICONS = {
 
 
 def k_formatter(num: int) -> str:
-    return f"{num / 1000:.1f}k" if num >= 1000 else str(num)
+    return f'{num / 1000:.1f}k' if num >= 1000 else str(num)
 
 
 def fetch_github_stats(username: str) -> dict | None:
@@ -453,3 +454,8 @@ def api_top_langs():
     resp.headers["Content-Type"] = "image/svg+xml"
     resp.headers["Cache-Control"] = "s-maxage=3600, stale-while-revalidate"
     return resp
+
+@https_fn.on_request()
+def api(req: https_fn.Request) -> https_fn.Response:
+    with app.request_context(req.environ):
+        return app.full_dispatch_request()
