@@ -2,8 +2,8 @@ name: Generate GitHub Stats
 
 on:
   schedule:
-    - cron: '0 * * * *' # Roda a cada hora
-  workflow_dispatch: # Permite rodar manualmente
+    - cron: '0 * * * *'
+  workflow_dispatch:
 
 jobs:
   build:
@@ -24,11 +24,5 @@ jobs:
       - name: Generate stats cards
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          THEME_NAME: merko # <-- TROQUE O TEMA AQUI
+          THEME_NAME: tokyonight
         run: python main.py Domisnnet
-
-      - name: Commit and push changes
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: "chore: update stats images"
-          file_pattern: "*.svg"
