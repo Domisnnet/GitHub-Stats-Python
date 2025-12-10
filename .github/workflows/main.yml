@@ -23,6 +23,7 @@ jobs:
 
       - name: Generate stats cards
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          THEME_NAME: tokyonight
+          env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_GH_TOKEN }}
+          THEME_NAME: merko
         run: python main.py Domisnnet
