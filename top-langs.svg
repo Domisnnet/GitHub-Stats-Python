@@ -1,5 +1,45 @@
 <svg width="495" height="195" xmlns="http://www.w3.org/2000/svg">
-  <rect width="100%" height="100%" fill="#1a1b27" rx="5" ry="5"/>
-  <text x="50%" y="50%" fill="#ff4a4a" text-anchor="middle"
-        font-family="Segoe UI, Ubuntu, Sans-Serif">Failed to fetch language data</text>
+  <rect width="493" height="193" x="1" y="1" rx="5" ry="5"
+        fill="#1a1b27" stroke="#414868"
+  />
+  <text x="20" y="30" font-family="Segoe UI, Ubuntu, Sans-Serif"
+        font-size="18" font-weight="bold" fill="#70a5fd">Top Languages</text>
+  <g transform="translate(200, 0)"><path d="M 225.0 40.0 A 50 50 0 1 1 180.36655563979397 67.46434725719281 L 198.2199333838764 76.4786083543157 A 30 30 0 1 0 225.0 60.0 Z" fill="#3572A5" /> <path d="M 180.36655563979397 67.46434725719281 A 50 50 0 0 1 213.59970718035066 41.31701196900244 L 218.1598243082104 60.79020718140146 A 30 30 0 0 0 198.2199333838764 76.4786083543157 Z" fill="#DA5B0B" /> <path d="M 213.59970718035066 41.31701196900244 A 50 50 0 0 1 219.9645482765326 40.25420393700962 L 221.97872896591957 60.15252236220577 A 30 30 0 0 0 218.1598243082104 60.79020718140146 Z" fill="#fedf5b" /> <path d="M 219.9645482765326 40.25420393700962 A 50 50 0 0 1 221.9462827321488 40.09333901323364 L 223.16776963928928 60.05600340794018 A 30 30 0 0 0 221.97872896591957 60.15252236220577 Z" fill="#555555" /> <path d="M 221.9462827321488 40.09333901323364 A 50 50 0 0 1 223.17427506066824 40.033343833653404 L 223.90456503640095 60.020006300192044 A 30 30 0 0 0 223.16776963928928 60.05600340794018 Z" fill="#f1e05a" /> <path d="M 223.17427506066824 40.033343833653404 A 50 50 0 0 1 223.78505959082574 40.01476298143465 L 224.27103575449544 60.008857788860794 A 30 30 0 0 0 223.90456503640095 60.020006300192044 Z" fill="#f34b7d" /></g>
+  <g>
+<g transform="translate(20, 50)">
+  <rect width="10" height="10" fill="#3572A5" rx="2" ry="2"/>
+  <text x="15" y="10" font-family="Segoe UI, Ubuntu, Sans-Serif"
+        font-size="12" fill="#a9b1d6"> Python (82.4%)</text>
+</g>
+
+<g transform="translate(20, 70)">
+  <rect width="10" height="10" fill="#DA5B0B" rx="2" ry="2"/>
+  <text x="15" y="10" font-family="Segoe UI, Ubuntu, Sans-Serif"
+        font-size="12" fill="#a9b1d6"> Jupyter Notebook (13.9%)</text>
+</g>
+
+<g transform="translate(20, 90)">
+  <rect width="10" height="10" fill="#fedf5b" rx="2" ry="2"/>
+  <text x="15" y="10" font-family="Segoe UI, Ubuntu, Sans-Serif"
+        font-size="12" fill="#a9b1d6"> Cython (2.1%)</text>
+</g>
+
+<g transform="translate(20, 110)">
+  <rect width="10" height="10" fill="#555555" rx="2" ry="2"/>
+  <text x="15" y="10" font-family="Segoe UI, Ubuntu, Sans-Serif"
+        font-size="12" fill="#a9b1d6"> C (0.6%)</text>
+</g>
+
+<g transform="translate(20, 130)">
+  <rect width="10" height="10" fill="#f1e05a" rx="2" ry="2"/>
+  <text x="15" y="10" font-family="Segoe UI, Ubuntu, Sans-Serif"
+        font-size="12" fill="#a9b1d6"> JavaScript (0.4%)</text>
+</g>
+
+<g transform="translate(20, 150)">
+  <rect width="10" height="10" fill="#f34b7d" rx="2" ry="2"/>
+  <text x="15" y="10" font-family="Segoe UI, Ubuntu, Sans-Serif"
+        font-size="12" fill="#a9b1d6"> C++ (0.2%)</text>
+</g>
+</g>
 </svg>
