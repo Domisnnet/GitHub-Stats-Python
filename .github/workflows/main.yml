@@ -28,7 +28,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_GH_TOKEN }}
           THEME_NAME: merko
-        run: python main.py Domisnet 
+        run: python main.py Domisnnet
 
       - name: Commitar e Fazer Push dos Novos SVGs
         uses: stefanzweifel/git-auto-commit-action@v5
