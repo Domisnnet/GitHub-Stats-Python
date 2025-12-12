@@ -250,7 +250,7 @@ def create_stats_svg(stats: dict, theme_name: str) -> str:
 
     rank = calculate_rank(stats)
 
-    width, height = 600, 210
+    width, height = 1200, 210
     padding = 20
 
     stat_items = {
@@ -316,7 +316,7 @@ def create_stats_svg(stats: dict, theme_name: str) -> str:
   </style>
   <rect x="0.5" y="0.5" rx="4.5" height="99%" width="{width - 1}"
         fill="{theme['background']}" stroke="{theme['border']}"
-        stroke-width="2"
+        stroke-width="3"
   />
   <g transform="translate({padding}, {padding})">
     <text x="0" y="18" class="header">{stats['name']}\'s GitHub Stats</text>
