@@ -33,7 +33,7 @@
 <text x="25" y="37" fill="#a2a2a2"
       font-size="14" font-family="Segoe UI, Ubuntu, Sans-Serif">
   <tspan font-weight="bold">Total Commits:</tspan>
-  <tspan x="150" text-anchor="start">66</tspan>
+  <tspan x="150" text-anchor="start">78</tspan>
 </text>
 </g>
 <g>
@@ -45,7 +45,7 @@
 <text x="25" y="62" fill="#a2a2a2"
       font-size="14" font-family="Segoe UI, Ubuntu, Sans-Serif">
   <tspan font-weight="bold">Total PRs:</tspan>
-  <tspan x="150" text-anchor="start">0</tspan>
+  <tspan x="150" text-anchor="start">2</tspan>
 </text>
 </g>
 <g>
@@ -79,7 +79,7 @@
           stroke="#2d2d2d" stroke-width="10"/>
   <circle r="50" cx="50" cy="50" fill="none"
           stroke="#ef553b" stroke-width="10"
-          stroke-dasharray="314.1592653589793" stroke-dashoffset="114.66813185602746"
+          stroke-dasharray="314.1592653589793" stroke-dashoffset="80.11061266653974"
           stroke-linecap="round" transform="rotate(-90 50 50)"/>
   <text x="50" y="60" text-anchor="middle"
         fill="#a2a2a2" font-size="28" font-weight="bold"
