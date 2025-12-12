@@ -325,7 +325,9 @@ def fetch_top_languages(username: str) -> Counter | None:
         return lang_stats
     except requests.RequestException:
         return None
-def create_language_donut_chart_svg(langs: Counter, theme_name: str) -> str:
+
+# --- FUNÇÃO SUBSTITUÍDA: NOVO GRÁFICO DE BARRAS HORIZONTAIS EMPILHADAS ---
+def create_language_horizontal_bar_svg(langs: Counter, theme_name: str) -> str:
     theme = THEMES.get(theme_name, THEMES["tokyonight"])
     if not langs:
         return f'''
@@ -335,38 +337,57 @@ def create_language_donut_chart_svg(langs: Counter, theme_name: str) -> str:
         font-family="Segoe UI, Ubuntu, Sans-Serif">Failed to fetch language data</text>
 </svg>
 '''.strip()
+    
     total_size = sum(langs.values())
     top_langs = langs.most_common(6)
-    paths = []
+    
+    # Configurações do Gráfico
+    BAR_HEIGHT = 10
+    MAX_BAR_WIDTH = 550 # Largura total da barra, deixando 25px de padding em cada lado
+    
+    bar_segments = []
     legend_items = ""
-    start_angle = -90
+    current_x = 0
+    
+    # 1. Geração da Barra Empilhada
+    for lang, size in top_langs:
+        percent = (size / total_size) * 100
+        bar_width = (percent / 100) * MAX_BAR_WIDTH
+        color = theme["lang_colors"].get(lang, "#ededed")
+        
+        # Criação do segmento da barra
+        bar_segments.append(f'''
+<rect x="{current_x}" y="0" width="{bar_width}" height="{BAR_HEIGHT}" fill="{color}"/>
+''')
+        current_x += bar_width
+        
+        # 2. Geração da Legenda (em 2 colunas)
+        # 3 itens por coluna.
+        
+    num_langs = len(top_langs)
+    col_size = math.ceil(num_langs / 2)
+    
     for i, (lang, size) in enumerate(top_langs):
         percent = (size / total_size) * 100
-        angle = (size / total_size) * 360
-        end_angle = start_angle + angle
-        large_arc_flag = 1 if angle > 180 else 0
-        x1_outer = 225 + 50 * math.cos(math.radians(start_angle))
-        y1_outer = 90 + 50 * math.sin(math.radians(start_angle))
-        x2_outer = 225 + 50 * math.cos(math.radians(end_angle))
-        y2_outer = 90 + 50 * math.sin(math.radians(end_angle))
-        x1_inner = 225 + 30 * math.cos(math.radians(start_angle))
-        y1_inner = 90 + 30 * math.sin(math.radians(start_angle))
-        x2_inner = 225 + 30 * math.cos(math.radians(end_angle))
-        y2_inner = 90 + 30 * math.sin(math.radians(end_angle))
         color = theme["lang_colors"].get(lang, "#ededed")
-        path_d = (
-            f"M {x1_outer} {y1_outer} A 50 50 0 {large_arc_flag} 1 {x2_outer} {y2_outer} "
-            f"L {x2_inner} {y2_inner} A 30 30 0 {large_arc_flag} 0 {x1_inner} {y1_inner} Z"
-        )
-        paths.append(f'<path d="{path_d}" fill="{color}" />')
+
+        if i < col_size:
+            # Coluna da esquerda
+            x_offset = 20
+            y_offset = 80 + i * 25
+        else:
+            # Coluna da direita
+            x_offset = 300
+            y_offset = 80 + (i - col_size) * 25
+            
         legend_items += f'''
-<g transform="translate(20, {50 + i * 20})">
+<g transform="translate({x_offset}, {y_offset})">
   <rect width="10" height="10" fill="{color}" rx="2" ry="2"/>
   <text x="15" y="10" font-family="Segoe UI, Ubuntu, Sans-Serif"
         font-size="12" fill="{theme['text']}"> {lang} ({percent:.1f}%)</text>
 </g>
 '''
-        start_angle = end_angle
+
     return f'''
 <svg width="600" height="195" xmlns="http://www.w3.org/2000/svg">
   <rect width="598" height="193" x="1" y="1" rx="5" ry="5"
@@ -375,8 +396,15 @@ def create_language_donut_chart_svg(langs: Counter, theme_name: str) -> str:
   />
   <text x="20" y="30" font-family="Segoe UI, Ubuntu, Sans-Serif"
         font-size="18" font-weight="bold" fill="{theme['title']}">Top Languages</text>
-  <g transform="translate(300, 0)">{' '.join(paths)}</g>
-  <g>{legend_items}</g>
+
+  <g transform="translate(25, 55)">
+    <rect x="0" y="0" width="{MAX_BAR_WIDTH}" height="{BAR_HEIGHT}" fill="{theme['rank_circle_bg']}" rx="5"/>
+    {''.join(bar_segments)}
+  </g>
+  
+  <g>
+    {legend_items}
+  </g>
 </svg>
 '''.strip()
 
@@ -387,8 +415,12 @@ if __name__ == "__main__":
         sys.exit(1)
     github_stats = fetch_github_stats(username)
     top_langs = fetch_top_languages(username)
+    
     stats_svg_content = create_stats_svg(github_stats, THEME_NAME)
-    langs_svg_content = create_language_donut_chart_svg(top_langs or Counter(), THEME_NAME)
+    
+    # --- Chamando a nova função de barra ---
+    langs_svg_content = create_language_horizontal_bar_svg(top_langs or Counter(), THEME_NAME)
+
     with open("github-stats.svg", "w") as f:
         f.write(stats_svg_content)
     with open("top-langs.svg", "w") as f:
