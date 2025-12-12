@@ -5,6 +5,9 @@ on:
     - cron: '0 * * * *'
   workflow_dispatch:
 
+permissions:
+  contents: write 
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -23,7 +26,16 @@ jobs:
 
       - name: Generate stats cards
         env:
-          env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_GH_TOKEN }}
           THEME_NAME: merko
-        run: python main.py Domisnnet
+        run: python main.py Domisnet 
+
+      - name: Commitar e Fazer Push dos Novos SVGs
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'bot: Atualiza SVG dos Stats e Linguagens (Barra Premium)'
+          files: |
+            github-stats.svg
+            top-langs.svg
+          commit_user_name: 'github-actions[bot]'
+          commit_user_email: '41898282+github-actions[bot]@users.noreply.github.com'
