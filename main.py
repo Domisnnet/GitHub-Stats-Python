@@ -134,30 +134,22 @@ def fetch_github_stats(username: str) -> dict | None:
     try:
         user_url = f"https://api.github.com/users/{username}"
         repos_url = f"https://api.github.com/users/{username}/repos?per_page=100&type=owner"
-
-        logging.info(f"Fetching user data for {username}")
         u = requests.get(user_url, headers=HEADERS, timeout=10)
         u.raise_for_status()
         user = u.json()
-
-        logging.info(f"Fetching repos for {username}")
         r = requests.get(repos_url, headers=HEADERS, timeout=10)
         r.raise_for_status()
         repos = r.json()
-
         total_stars = sum(repo.get("stargazers_count", 0) for repo in repos)
         total_commits = 0
         total_prs = 0
         total_issues = 0
-
         for repo in repos:
             name = repo.get("name")
             owner = repo.get("owner", {}).get("login", username)
-
             commits_url = f"https://api.github.com/repos/{owner}/{name}/commits?per_page=1"
             prs_url = f"https://api.github.com/search/issues?q=repo:{owner}/{name}+type:pr"
             issues_url = f"https://api.github.com/search/issues?q=repo:{owner}/{name}+type:issue"
-
             try:
                 c = requests.get(commits_url, headers=HEADERS, timeout=10)
                 if "Link" in c.headers:
@@ -167,17 +159,14 @@ def fetch_github_stats(username: str) -> dict | None:
                         total_commits += int(last)
                 elif c.ok:
                     total_commits += len(c.json())
-
                 p = requests.get(prs_url, headers=HEADERS, timeout=10)
                 if p.ok:
                     total_prs += p.json().get("total_count", 0)
-
                 iss = requests.get(issues_url, headers=HEADERS, timeout=10)
                 if iss.ok:
                     total_issues += iss.json().get("total_count", 0)
             except requests.RequestException:
                 continue
-
         contrib_url = f"https://api.github.com/users/{username}/repos?per_page=100&type=all"
         contrib_to = 0
         try:
@@ -190,7 +179,6 @@ def fetch_github_stats(username: str) -> dict | None:
                 )
         except requests.RequestException:
             pass
-
         return {
             "name": user.get("name") or user.get("login"),
             "total_stars": total_stars,
@@ -199,8 +187,7 @@ def fetch_github_stats(username: str) -> dict | None:
             "total_issues": total_issues,
             "contrib_to": contrib_to,
         }
-    except requests.RequestException as e:
-        logging.error(f"Error fetching GitHub stats: {e}")
+    except requests.RequestException:
         return None
 def calculate_rank(stats: dict) -> dict:
     score = (
@@ -210,7 +197,6 @@ def calculate_rank(stats: dict) -> dict:
         + stats.get("total_stars", 0) * 1.0
         + stats.get("contrib_to", 0) * 2.5
     )
-
     THRESHOLDS = {
         "S++": 6000,
         "S+": 5000,
@@ -222,12 +208,10 @@ def calculate_rank(stats: dict) -> dict:
         "B": 200,
     }
     RANK_ORDER = ["C", "B", "B+", "A", "A+", "A++", "S", "S+", "S++"]
-
     level = "C"
     for r, threshold in sorted(THRESHOLDS.items(), key=lambda item: item[1]):
         if score >= threshold:
             level = r
-
     current_index = RANK_ORDER.index(level)
     lower = THRESHOLDS.get(level, 0) if level != "C" else 0
     upper = (
@@ -247,12 +231,9 @@ def create_stats_svg(stats: dict, theme_name: str) -> str:
         font-family="Segoe UI, Ubuntu, Sans-Serif">Failed to fetch GitHub stats</text>
 </svg>
 '''.strip()
-
     rank = calculate_rank(stats)
-
-    width, height = 1200, 210
+    width, height = 600, 210
     padding = 20
-
     stat_items = {
         "Total Stars": stats.get("total_stars", 0),
         "Total Commits": stats.get("total_commits", 0),
@@ -260,7 +241,6 @@ def create_stats_svg(stats: dict, theme_name: str) -> str:
         "Total Issues": stats.get("total_issues", 0),
         "Contributed to": stats.get("contrib_to", 0),
     }
-
     icons = [
         ICONS["star"],
         ICONS["commit"],
@@ -268,7 +248,6 @@ def create_stats_svg(stats: dict, theme_name: str) -> str:
         ICONS["issue"],
         ICONS["contrib"],
     ]
-
     stats_svg = ""
     for i, (label, value) in enumerate(stat_items.items()):
         icon_svg = f'''
@@ -285,12 +264,10 @@ def create_stats_svg(stats: dict, theme_name: str) -> str:
 </text>
 '''
         stats_svg += f"<g>{icon_svg}{text_svg}</g>\n"
-
     radius = 50
     cx, cy = radius, radius
     circumference = 2 * math.pi * radius
     offset = circumference - (rank["progress"] / 100 * circumference)
-
     rank_circle_svg = f'''
 <g>
   <circle r="{radius}" cx="{cx}" cy="{cy}" fill="none"
@@ -304,7 +281,6 @@ def create_stats_svg(stats: dict, theme_name: str) -> str:
         font-family="Segoe UI, Ubuntu, Sans-Serif">{rank['level']}</text>
 </g>
 '''
-
     svg = f'''
 <svg width="{width}" height="{height}" viewBox="0 0 {width} {height}"
       fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -321,7 +297,7 @@ def create_stats_svg(stats: dict, theme_name: str) -> str:
   <g transform="translate({padding}, {padding})">
     <text x="0" y="18" class="header">{stats['name']}\'s GitHub Stats</text>
     <g transform="translate(0, 40)">{stats_svg}</g>
-    <g transform="translate(420, 30)">{rank_circle_svg}</g>
+    <g transform="translate(460, 30)">{rank_circle_svg}</g>
   </g>
 </svg>
 '''
@@ -330,11 +306,9 @@ def create_stats_svg(stats: dict, theme_name: str) -> str:
 def fetch_top_languages(username: str) -> Counter | None:
     repos_url = f"https://api.github.com/users/{username}/repos?per_page=100&type=owner"
     try:
-        logging.info(f"Fetching repos for top languages of {username}")
         r = requests.get(repos_url, headers=HEADERS, timeout=10)
         r.raise_for_status()
         repos = r.json()
-
         lang_stats: Counter = Counter()
         for repo in repos:
             lang_url = repo.get("languages_url")
@@ -348,10 +322,8 @@ def fetch_top_languages(username: str) -> Counter | None:
                     lang_stats[lang] += size
             except requests.RequestException:
                 continue
-
         return lang_stats
-    except requests.RequestException as e:
-        logging.error(f"Error fetching top languages: {e}")
+    except requests.RequestException:
         return None
 def create_language_donut_chart_svg(langs: Counter, theme_name: str) -> str:
     theme = THEMES.get(theme_name, THEMES["tokyonight"])
@@ -363,37 +335,30 @@ def create_language_donut_chart_svg(langs: Counter, theme_name: str) -> str:
         font-family="Segoe UI, Ubuntu, Sans-Serif">Failed to fetch language data</text>
 </svg>
 '''.strip()
-
     total_size = sum(langs.values())
     top_langs = langs.most_common(6)
-
     paths = []
     legend_items = ""
     start_angle = -90
-
     for i, (lang, size) in enumerate(top_langs):
         percent = (size / total_size) * 100
         angle = (size / total_size) * 360
         end_angle = start_angle + angle
         large_arc_flag = 1 if angle > 180 else 0
-
         x1_outer = 225 + 50 * math.cos(math.radians(start_angle))
         y1_outer = 90 + 50 * math.sin(math.radians(start_angle))
         x2_outer = 225 + 50 * math.cos(math.radians(end_angle))
         y2_outer = 90 + 50 * math.sin(math.radians(end_angle))
-
         x1_inner = 225 + 30 * math.cos(math.radians(start_angle))
         y1_inner = 90 + 30 * math.sin(math.radians(start_angle))
         x2_inner = 225 + 30 * math.cos(math.radians(end_angle))
         y2_inner = 90 + 30 * math.sin(math.radians(end_angle))
-
         color = theme["lang_colors"].get(lang, "#ededed")
         path_d = (
             f"M {x1_outer} {y1_outer} A 50 50 0 {large_arc_flag} 1 {x2_outer} {y2_outer} "
             f"L {x2_inner} {y2_inner} A 30 30 0 {large_arc_flag} 0 {x1_inner} {y1_inner} Z"
         )
         paths.append(f'<path d="{path_d}" fill="{color}" />')
-
         legend_items += f'''
 <g transform="translate(20, {50 + i * 20})">
   <rect width="10" height="10" fill="{color}" rx="2" ry="2"/>
@@ -401,9 +366,7 @@ def create_language_donut_chart_svg(langs: Counter, theme_name: str) -> str:
         font-size="12" fill="{theme['text']}"> {lang} ({percent:.1f}%)</text>
 </g>
 '''
-
         start_angle = end_angle
-
     return f'''
 <svg width="600" height="195" xmlns="http://www.w3.org/2000/svg">
   <rect width="598" height="193" x="1" y="1" rx="5" ry="5"
@@ -421,23 +384,12 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         username = sys.argv[1]
     else:
-        logging.error("Nome de usuário do GitHub não fornecido.")
         sys.exit(1)
-
-    logging.info(f"Iniciando a geração de stats para o usuário: {username}")
-    logging.info(f"Tema selecionado: {THEME_NAME}")
     github_stats = fetch_github_stats(username)
     top_langs = fetch_top_languages(username)
-
     stats_svg_content = create_stats_svg(github_stats, THEME_NAME)
     langs_svg_content = create_language_donut_chart_svg(top_langs or Counter(), THEME_NAME)
-
     with open("github-stats.svg", "w") as f:
         f.write(stats_svg_content)
-    logging.info("Arquivo github-stats.svg salvo com sucesso.")
-
     with open("top-langs.svg", "w") as f:
         f.write(langs_svg_content)
-    logging.info("Arquivo top-langs.svg salvo com sucesso.")
-
-    logging.info("Processo concluído.")
