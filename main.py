@@ -3,27 +3,21 @@ import sys
 import math
 import logging
 from collections import Counter
-
 import requests
 from dotenv import load_dotenv
 
-# Carrega as variáveis de ambiente do arquivo .env (para uso local)
 load_dotenv()
 
-# Configura o logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-# --- Constantes e Configurações ---
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
-THEME_NAME = os.getenv("THEME_NAME", "merko") # Lê o tema do ambiente, com 'tokyonight' como padrão, podendo ser trocado
+THEME_NAME = os.getenv("THEME_NAME", "merko")
 
 HEADERS = {
     "Accept": "application/vnd.github+json",
     **({"Authorization": f"Bearer {GITHUB_TOKEN}"} if GITHUB_TOKEN else {}),
 }
 
-# (O resto do seu código com as definições de LANG_COLORS, THEMES, ICONS, etc., continua aqui)
-# Nenhuma alteração necessária nessas seções, então vou omiti-las para ser breve.
 LANG_COLORS = {
     "C": "#555555",
     "C++": "#f34b7d",
@@ -137,7 +131,6 @@ def k_formatter(num: int) -> str:
     return f'{num / 1000:.1f}k' if num >= 1000 else str(num)
 
 def fetch_github_stats(username: str) -> dict | None:
-    # ... (código para buscar stats, sem alterações)
     try:
         user_url = f"https://api.github.com/users/{username}"
         repos_url = f"https://api.github.com/users/{username}/repos?per_page=100&type=owner"
@@ -210,7 +203,6 @@ def fetch_github_stats(username: str) -> dict | None:
         logging.error(f"Error fetching GitHub stats: {e}")
         return None
 def calculate_rank(stats: dict) -> dict:
-    # ... (código para calcular o rank, sem alterações)
     score = (
         stats.get("total_commits", 0) * 1.5
         + stats.get("total_prs", 0) * 2.0
@@ -246,11 +238,10 @@ def calculate_rank(stats: dict) -> dict:
     progress = ((score - lower) / (upper - lower) * 100) if upper > lower else 0
     return {"level": level, "progress": max(0, min(100, progress))}
 def create_stats_svg(stats: dict, theme_name: str) -> str:
-    # ... (código que gera o SVG dos stats, sem alterações)
     theme = THEMES.get(theme_name, THEMES["tokyonight"])
     if not stats:
         return f'''
-<svg width="495" height="195" xmlns="http://www.w3.org/2000/svg">
+<svg width="600" height="210" xmlns="http://www.w3.org/2000/svg">
   <rect width="100%" height="100%" fill="{theme['background']}" rx="5" ry="5"/>
   <text x="50%" y="50%" fill="#ff4a4a" text-anchor="middle"
         font-family="Segoe UI, Ubuntu, Sans-Serif">Failed to fetch GitHub stats</text>
@@ -259,7 +250,7 @@ def create_stats_svg(stats: dict, theme_name: str) -> str:
 
     rank = calculate_rank(stats)
 
-    width, height = 495, 195
+    width, height = 600, 210
     padding = 20
 
     stat_items = {
@@ -282,7 +273,7 @@ def create_stats_svg(stats: dict, theme_name: str) -> str:
     for i, (label, value) in enumerate(stat_items.items()):
         icon_svg = f'''
 <svg x="0" y="{i * 25}" width="16" height="16" viewBox="0 0 24 24"
-     fill="{theme['icon']}" xmlns="http://www.w3.org/2000/svg">
+      fill="{theme['icon']}" xmlns="http://www.w3.org/2000/svg">
   <path d="{icons[i]}"/>
 </svg>
 '''
@@ -316,7 +307,7 @@ def create_stats_svg(stats: dict, theme_name: str) -> str:
 
     svg = f'''
 <svg width="{width}" height="{height}" viewBox="0 0 {width} {height}"
-     fill="none" xmlns="http://www.w3.org/2000/svg">
+      fill="none" xmlns="http://www.w3.org/2000/svg">
   <style>
     .header {{
       font: 600 18px 'Segoe UI', Ubuntu, Sans-Serif;
@@ -325,18 +316,18 @@ def create_stats_svg(stats: dict, theme_name: str) -> str:
   </style>
   <rect x="0.5" y="0.5" rx="4.5" height="99%" width="{width - 1}"
         fill="{theme['background']}" stroke="{theme['border']}"
+        stroke-width="2"
   />
   <g transform="translate({padding}, {padding})">
     <text x="0" y="18" class="header">{stats['name']}\'s GitHub Stats</text>
     <g transform="translate(0, 40)">{stats_svg}</g>
-    <g transform="translate(320, 30)">{rank_circle_svg}</g>
+    <g transform="translate(420, 30)">{rank_circle_svg}</g>
   </g>
 </svg>
 '''
     return svg.strip()
 
 def fetch_top_languages(username: str) -> Counter | None:
-    # ... (código para buscar linguagens, sem alterações)
     repos_url = f"https://api.github.com/users/{username}/repos?per_page=100&type=owner"
     try:
         logging.info(f"Fetching repos for top languages of {username}")
@@ -363,11 +354,10 @@ def fetch_top_languages(username: str) -> Counter | None:
         logging.error(f"Error fetching top languages: {e}")
         return None
 def create_language_donut_chart_svg(langs: Counter, theme_name: str) -> str:
-    # ... (código que gera o SVG das linguagens, sem alterações)
     theme = THEMES.get(theme_name, THEMES["tokyonight"])
     if not langs:
         return f'''
-<svg width="495" height="195" xmlns="http://www.w3.org/2000/svg">
+<svg width="600" height="195" xmlns="http://www.w3.org/2000/svg">
   <rect width="100%" height="100%" fill="{theme['background']}" rx="5" ry="5"/>
   <text x="50%" y="50%" fill="#ff4a4a" text-anchor="middle"
         font-family="Segoe UI, Ubuntu, Sans-Serif">Failed to fetch language data</text>
@@ -415,37 +405,33 @@ def create_language_donut_chart_svg(langs: Counter, theme_name: str) -> str:
         start_angle = end_angle
 
     return f'''
-<svg width="495" height="195" xmlns="http://www.w3.org/2000/svg">
-  <rect width="493" height="193" x="1" y="1" rx="5" ry="5"
+<svg width="600" height="195" xmlns="http://www.w3.org/2000/svg">
+  <rect width="598" height="193" x="1" y="1" rx="5" ry="5"
         fill="{theme['background']}" stroke="{theme['border']}"
+        stroke-width="2"
   />
   <text x="20" y="30" font-family="Segoe UI, Ubuntu, Sans-Serif"
         font-size="18" font-weight="bold" fill="{theme['title']}">Top Languages</text>
-  <g transform="translate(200, 0)">{' '.join(paths)}</g>
+  <g transform="translate(300, 0)">{' '.join(paths)}</g>
   <g>{legend_items}</g>
 </svg>
 '''.strip()
-# --- Bloco de Execução Principal ---
+
 if __name__ == "__main__":
-    # Pega o nome de usuário do argumento da linha de comando
     if len(sys.argv) > 1:
         username = sys.argv[1]
     else:
         logging.error("Nome de usuário do GitHub não fornecido.")
         sys.exit(1)
 
-    # 1. Busca os dados
     logging.info(f"Iniciando a geração de stats para o usuário: {username}")
     logging.info(f"Tema selecionado: {THEME_NAME}")
     github_stats = fetch_github_stats(username)
     top_langs = fetch_top_languages(username)
 
-    # 2. Gera o conteúdo SVG
-    # Passa o nome do tema lido do ambiente para as funções de geração
     stats_svg_content = create_stats_svg(github_stats, THEME_NAME)
     langs_svg_content = create_language_donut_chart_svg(top_langs or Counter(), THEME_NAME)
 
-    # 3. Salva os SVGs em arquivos
     with open("github-stats.svg", "w") as f:
         f.write(stats_svg_content)
     logging.info("Arquivo github-stats.svg salvo com sucesso.")
