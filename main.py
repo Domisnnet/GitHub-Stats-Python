@@ -11,7 +11,7 @@ load_dotenv()
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
-THEME_NAME = os.getenv("THEME_NAME", "merko")
+THEME_NAME = os.getenv("THEME_NAME", "tokyonight")
 
 HEADERS = {
     "Accept": "application/vnd.github+json",
@@ -157,8 +157,8 @@ def fetch_github_stats(username: str) -> dict | None:
                     if 'rel="last"' in link:
                         last = link.split(",")[0].split("&page=")[-1].split(">")[0]
                         total_commits += int(last)
-                elif c.ok:
-                    total_commits += len(c.json())
+                    elif c.ok:
+                        total_commits += len(c.json())
                 p = requests.get(prs_url, headers=HEADERS, timeout=10)
                 if p.ok:
                     total_prs += p.json().get("total_count", 0)
@@ -316,17 +316,22 @@ def fetch_top_languages(username: str) -> Counter | None:
                 continue
             try:
                 lr = requests.get(lang_url, headers=HEADERS, timeout=10)
+                if lr.status_code == 403: # Adição de tratamento para Rate Limit
+                    logging.warning(f"Rate limit hit for language API on repo {repo.get('name')}. Continuing.")
+                    continue
                 if not lr.ok:
                     continue
                 for lang, size in lr.json().items():
                     lang_stats[lang] += size
             except requests.RequestException:
                 continue
+        if not lang_stats:
+            logging.warning("No language data found after fetching all repos.")
         return lang_stats
     except requests.RequestException:
+        logging.error(f"Error fetching repositories for {username}.")
         return None
 
-# --- FUNÇÃO SUBSTITUÍDA: NOVO GRÁFICO DE BARRAS HORIZONTAIS EMPILHADAS ---
 def create_language_horizontal_bar_svg(langs: Counter, theme_name: str) -> str:
     theme = THEMES.get(theme_name, THEMES["tokyonight"])
     if not langs:
@@ -341,28 +346,22 @@ def create_language_horizontal_bar_svg(langs: Counter, theme_name: str) -> str:
     total_size = sum(langs.values())
     top_langs = langs.most_common(6)
     
-    # Configurações do Gráfico
     BAR_HEIGHT = 10
-    MAX_BAR_WIDTH = 550 # Largura total da barra, deixando 25px de padding em cada lado
+    MAX_BAR_WIDTH = 550
     
     bar_segments = []
     legend_items = ""
     current_x = 0
     
-    # 1. Geração da Barra Empilhada
     for lang, size in top_langs:
         percent = (size / total_size) * 100
         bar_width = (percent / 100) * MAX_BAR_WIDTH
         color = theme["lang_colors"].get(lang, "#ededed")
         
-        # Criação do segmento da barra
         bar_segments.append(f'''
 <rect x="{current_x}" y="0" width="{bar_width}" height="{BAR_HEIGHT}" fill="{color}"/>
 ''')
         current_x += bar_width
-        
-        # 2. Geração da Legenda (em 2 colunas)
-        # 3 itens por coluna.
         
     num_langs = len(top_langs)
     col_size = math.ceil(num_langs / 2)
@@ -372,11 +371,9 @@ def create_language_horizontal_bar_svg(langs: Counter, theme_name: str) -> str:
         color = theme["lang_colors"].get(lang, "#ededed")
 
         if i < col_size:
-            # Coluna da esquerda
             x_offset = 20
             y_offset = 80 + i * 25
         else:
-            # Coluna da direita
             x_offset = 300
             y_offset = 80 + (i - col_size) * 25
             
@@ -418,7 +415,6 @@ if __name__ == "__main__":
     
     stats_svg_content = create_stats_svg(github_stats, THEME_NAME)
     
-    # --- Chamando a nova função de barra ---
     langs_svg_content = create_language_horizontal_bar_svg(top_langs or Counter(), THEME_NAME)
 
     with open("github-stats.svg", "w") as f:
