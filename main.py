@@ -310,26 +310,36 @@ def fetch_top_languages(username: str) -> Counter | None:
         r.raise_for_status()
         repos = r.json()
         lang_stats: Counter = Counter()
+        
         for repo in repos:
             lang_url = repo.get("languages_url")
             if not lang_url:
                 continue
             try:
                 lr = requests.get(lang_url, headers=HEADERS, timeout=10)
+                
+                # NOVO TRATAMENTO DE ERRO: Ignora 403 (Rate Limit)
                 if lr.status_code == 403:
-                    logging.warning(f"Rate limit hit for language API on repo {repo.get('name')}. Continuing.")
+                    logging.warning(f"Rate limit hit for language API on repo {repo.get('name')}. Continuing with next repo.")
                     continue
+                    
                 if not lr.ok:
                     continue
+                
                 for lang, size in lr.json().items():
                     lang_stats[lang] += size
+                    
             except requests.RequestException:
                 continue
+                
         if not lang_stats:
-            logging.warning("No language data found after fetching all repos.")
+            logging.warning("No language data found after checking all repos.")
+            return None
+            
         return lang_stats
-    except requests.RequestException:
-        logging.error(f"Error fetching repositories for {username}.")
+        
+    except requests.RequestException as e:
+        logging.error(f"Critical error fetching repositories for {username}: {e}")
         return None
 
 def create_language_horizontal_bar_svg(langs: Counter, theme_name: str) -> str:
