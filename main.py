@@ -336,7 +336,7 @@ def create_language_horizontal_bar_svg(langs: Counter, theme_name: str) -> str:
     theme = THEMES.get(theme_name, THEMES["tokyonight"])
     if not langs:
         return f'''
-<svg width="600" height="230" xmlns="http://www.w3.org/2000/svg">
+<svg width="600" height="210" xmlns="http://www.w3.org/2000/svg">
   <rect width="100%" height="100%" fill="{theme['background']}" rx="5" ry="5"/>
   <text x="50%" y="50%" fill="#ff4a4a" text-anchor="middle"
         font-family="Segoe UI, Ubuntu, Sans-Serif">Failed to fetch language data</text>
@@ -346,35 +346,31 @@ def create_language_horizontal_bar_svg(langs: Counter, theme_name: str) -> str:
     total_size = sum(langs.values())
     top_langs = langs.most_common(6)
     
-    BAR_HEIGHT = 16
-    MAX_BAR_WIDTH = 550
-    BAR_RADIUS = 8
+    radius = 45
+    cx, cy = 520, 110
     
-    bar_segments = []
-    legend_items = ""
-    current_x = 0
+    circumference = 2 * math.pi * radius
+    current_offset = 0
+    
+    segments = []
     
     for lang, size in top_langs:
         percent = (size / total_size) * 100
-        bar_width = (percent / 100) * MAX_BAR_WIDTH
+        length = (percent / 100) * circumference
         color = theme["lang_colors"].get(lang, "#ededed")
-        
-        segment_radius = ""
-        if current_x == 0:
-            segment_radius = f'rx="{BAR_RADIUS}" ry="{BAR_RADIUS}"'
-        
-        bar_segments.append(f'''
-<rect x="{current_x}" y="0" width="{bar_width}" height="{BAR_HEIGHT}" fill="{color}" {segment_radius}/>
+
+        segments.append(f'''
+<circle r="{radius}" cx="{cx}" cy="{cy}" fill="none"
+        stroke="{color}" stroke-width="20"
+        stroke-dasharray="{length} {circumference - length}"
+        stroke-dashoffset="-{current_offset}"
+        transform="rotate(-90 {cx} {cy})"/>
 ''')
-        current_x += bar_width
+        current_offset += length
+
+    segments.append(f'<circle r="25" cx="{cx}" cy="{cy}" fill="{theme["background"]}"/>')
     
-    if bar_segments:
-        last_segment = bar_segments[-1]
-        temp_segment = last_segment.strip()[:-1] 
-        temp_segment = temp_segment.replace(f'width="{bar_width}"', f'width="{bar_width}" rx="{BAR_RADIUS}" ry="{BAR_RADIUS}"')
-        bar_segments[-1] = temp_segment + '/>'
-
-
+    legend_items = ""
     num_langs = len(top_langs)
     col_size = math.ceil(num_langs / 2)
     
@@ -384,10 +380,10 @@ def create_language_horizontal_bar_svg(langs: Counter, theme_name: str) -> str:
 
         if i < col_size:
             x_offset = 20
-            y_offset = 100 + i * 25
+            y_offset = 55 + i * 25
         else:
-            x_offset = 300
-            y_offset = 100 + (i - col_size) * 25
+            x_offset = 250
+            y_offset = 55 + (i - col_size) * 25
             
         legend_items += f'''
 <g transform="translate({x_offset}, {y_offset})">
@@ -398,27 +394,20 @@ def create_language_horizontal_bar_svg(langs: Counter, theme_name: str) -> str:
 '''
 
     return f'''
-<svg width="600" height="230" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
-      <feDropShadow dx="1" dy="1" stdDeviation="2" flood-color="#000000" flood-opacity="0.3"/>
-    </filter>
-  </defs>
-
-  <rect width="598" height="228" x="1" y="1" rx="5" ry="5"
+<svg width="600" height="210" xmlns="http://www.w3.org/2000/svg">
+  <rect width="598" height="208" x="1" y="1" rx="5" ry="5"
         fill="{theme['background']}" stroke="{theme['border']}"
         stroke-width="2"
   />
   <text x="20" y="30" font-family="Segoe UI, Ubuntu, Sans-Serif"
         font-size="18" font-weight="bold" fill="{theme['title']}">Top Languages</text>
 
-  <g transform="translate(25, 65)" style="filter:url(#shadow);">
-    <rect x="0" y="0" width="{MAX_BAR_WIDTH}" height="{BAR_HEIGHT}" fill="{theme['rank_circle_bg']}" rx="{BAR_RADIUS}" ry="{BAR_RADIUS}"/>
-    {''.join(bar_segments)}
+  <g transform="translate(0, 0)">
+    {legend_items}
   </g>
   
   <g>
-    {legend_items}
+    {''.join(segments)}
   </g>
 </svg>
 '''.strip()
