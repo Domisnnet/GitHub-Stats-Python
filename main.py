@@ -15,7 +15,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 # --- Constantes e Configurações ---
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
-THEME_NAME = os.getenv("THEME_NAME", "tokyonight") # Lê o tema do ambiente, com 'tokyonight' como padrão
+THEME_NAME = os.getenv("THEME_NAME", "merko") # Lê o tema do ambiente, com 'tokyonight' como padrão, podendo ser trocado
 
 HEADERS = {
     "Accept": "application/vnd.github+json",
