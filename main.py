@@ -10,12 +10,12 @@ load_dotenv()
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-PERSONAL_GH_TOKEN = os.getenv("PERSONAL_TOKEN")
+TOKEN = os.getenv("GITHUB_TOKEN")
 THEME_NAME = os.getenv("THEME_NAME", "merko")
 
 HEADERS = {
     "Accept": "application/vnd.github+json",
-    **({"Authorization": f"Bearer {PERSONAL_TOKEN}"} if GITHUB_TOKEN else {}),
+    **({"Authorization": f"Bearer {TOKEN}"} if TOKEN else {}),
 }
 
 LANG_COLORS = {
