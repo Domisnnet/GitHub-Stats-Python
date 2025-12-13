@@ -439,3 +439,4 @@ if __name__ == "__main__":
         f.write(stats_svg_content)
     with open("top-langs.svg", "w") as f:
         f.write(langs_svg_content)
+        
