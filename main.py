@@ -316,7 +316,7 @@ def fetch_top_languages(username: str) -> Counter | None:
                 continue
             try:
                 lr = requests.get(lang_url, headers=HEADERS, timeout=10)
-                if lr.status_code == 403: # Adição de tratamento para Rate Limit
+                if lr.status_code == 403:
                     logging.warning(f"Rate limit hit for language API on repo {repo.get('name')}. Continuing.")
                     continue
                 if not lr.ok:
@@ -336,7 +336,7 @@ def create_language_horizontal_bar_svg(langs: Counter, theme_name: str) -> str:
     theme = THEMES.get(theme_name, THEMES["tokyonight"])
     if not langs:
         return f'''
-<svg width="600" height="195" xmlns="http://www.w3.org/2000/svg">
+<svg width="600" height="230" xmlns="http://www.w3.org/2000/svg">
   <rect width="100%" height="100%" fill="{theme['background']}" rx="5" ry="5"/>
   <text x="50%" y="50%" fill="#ff4a4a" text-anchor="middle"
         font-family="Segoe UI, Ubuntu, Sans-Serif">Failed to fetch language data</text>
@@ -346,8 +346,9 @@ def create_language_horizontal_bar_svg(langs: Counter, theme_name: str) -> str:
     total_size = sum(langs.values())
     top_langs = langs.most_common(6)
     
-    BAR_HEIGHT = 10
+    BAR_HEIGHT = 16
     MAX_BAR_WIDTH = 550
+    BAR_RADIUS = 8
     
     bar_segments = []
     legend_items = ""
@@ -358,11 +359,22 @@ def create_language_horizontal_bar_svg(langs: Counter, theme_name: str) -> str:
         bar_width = (percent / 100) * MAX_BAR_WIDTH
         color = theme["lang_colors"].get(lang, "#ededed")
         
+        segment_radius = ""
+        if current_x == 0:
+            segment_radius = f'rx="{BAR_RADIUS}" ry="{BAR_RADIUS}"'
+        
         bar_segments.append(f'''
-<rect x="{current_x}" y="0" width="{bar_width}" height="{BAR_HEIGHT}" fill="{color}"/>
+<rect x="{current_x}" y="0" width="{bar_width}" height="{BAR_HEIGHT}" fill="{color}" {segment_radius}/>
 ''')
         current_x += bar_width
-        
+    
+    if bar_segments:
+        last_segment = bar_segments[-1]
+        temp_segment = last_segment.strip()[:-1] 
+        temp_segment = temp_segment.replace(f'width="{bar_width}"', f'width="{bar_width}" rx="{BAR_RADIUS}" ry="{BAR_RADIUS}"')
+        bar_segments[-1] = temp_segment + '/>'
+
+
     num_langs = len(top_langs)
     col_size = math.ceil(num_langs / 2)
     
@@ -372,10 +384,10 @@ def create_language_horizontal_bar_svg(langs: Counter, theme_name: str) -> str:
 
         if i < col_size:
             x_offset = 20
-            y_offset = 80 + i * 25
+            y_offset = 100 + i * 25
         else:
             x_offset = 300
-            y_offset = 80 + (i - col_size) * 25
+            y_offset = 100 + (i - col_size) * 25
             
         legend_items += f'''
 <g transform="translate({x_offset}, {y_offset})">
@@ -386,16 +398,22 @@ def create_language_horizontal_bar_svg(langs: Counter, theme_name: str) -> str:
 '''
 
     return f'''
-<svg width="600" height="195" xmlns="http://www.w3.org/2000/svg">
-  <rect width="598" height="193" x="1" y="1" rx="5" ry="5"
+<svg width="600" height="230" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="1" dy="1" stdDeviation="2" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <rect width="598" height="228" x="1" y="1" rx="5" ry="5"
         fill="{theme['background']}" stroke="{theme['border']}"
         stroke-width="2"
   />
   <text x="20" y="30" font-family="Segoe UI, Ubuntu, Sans-Serif"
         font-size="18" font-weight="bold" fill="{theme['title']}">Top Languages</text>
 
-  <g transform="translate(25, 55)">
-    <rect x="0" y="0" width="{MAX_BAR_WIDTH}" height="{BAR_HEIGHT}" fill="{theme['rank_circle_bg']}" rx="5"/>
+  <g transform="translate(25, 65)" style="filter:url(#shadow);">
+    <rect x="0" y="0" width="{MAX_BAR_WIDTH}" height="{BAR_HEIGHT}" fill="{theme['rank_circle_bg']}" rx="{BAR_RADIUS}" ry="{BAR_RADIUS}"/>
     {''.join(bar_segments)}
   </g>
   
