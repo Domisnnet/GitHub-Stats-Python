@@ -10,12 +10,12 @@ load_dotenv()
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
-THEME_NAME = os.getenv("THEME_NAME", "tokyonight")
+PERSONAL_GH_TOKEN = os.getenv("PERSONAL_GH_TOKEN")
+THEME_NAME = os.getenv("THEME_NAME", "merko")
 
 HEADERS = {
     "Accept": "application/vnd.github+json",
-    **({"Authorization": f"Bearer {GITHUB_TOKEN}"} if GITHUB_TOKEN else {}),
+    **({"Authorization": f"Bearer {PERSONAL_GH_TOKEN}"} if GITHUB_TOKEN else {}),
 }
 
 LANG_COLORS = {
@@ -333,7 +333,7 @@ def fetch_top_languages(username: str) -> Counter | None:
         return None
 
 def create_language_horizontal_bar_svg(langs: Counter, theme_name: str) -> str:
-    theme = THEMES.get(theme_name, THEMES["tokyonight"])
+    theme = THEMES.get(theme_name, THEMES["merko"])
     if not langs:
         return f'''
 <svg width="600" height="230" xmlns="http://www.w3.org/2000/svg">
