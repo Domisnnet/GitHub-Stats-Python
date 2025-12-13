@@ -1,5 +1,6 @@
 <svg width="600" height="195" xmlns="http://www.w3.org/2000/svg">
   <rect width="598" height="193" x="1" y="1" rx="5" ry="5"
+<<<<<<< HEAD
         fill="#1a1b27" stroke="#414868"
         stroke-width="2"
   />
@@ -20,6 +21,28 @@
 <rect x="546.4411826507012" y="0" width="1.0731856692615658" height="10" fill="#f34b7d"/>
 
 <rect x="547.5143683199627" y="0" width="0.6420363796385611" height="10" fill="#e34c26"/>
+=======
+        fill="#0a0f0d" stroke="#ef553b"
+        stroke-width="2"
+  />
+  <text x="20" y="30" font-family="Segoe UI, Ubuntu, Sans-Serif"
+        font-size="18" font-weight="bold" fill="#ef553b">Top Languages</text>
+
+  <g transform="translate(25, 55)">
+    <rect x="0" y="0" width="550" height="10" fill="#2d2d2d" rx="5"/>
+    
+<rect x="0" y="0" width="523.0680306815159" height="10" fill="#3572A5"/>
+
+<rect x="523.0680306815159" y="0" width="18.0433808892147" height="10" fill="#fedf5b"/>
+
+<rect x="541.1114115707306" y="0" width="5.204416817588105" height="10" fill="#555555"/>
+
+<rect x="546.3158283883188" y="0" width="1.7074512336347931" height="10" fill="#f34b7d"/>
+
+<rect x="548.0232796219535" y="0" width="0.8605069066342814" height="10" fill="#DA5B0B"/>
+
+<rect x="548.8837865285878" y="0" width="0.29504828714607945" height="10" fill="#ededed"/>
+>>>>>>> 332dc97a6dc54fc1f91e9d4842b251db03caa4d9
 
   </g>
   
@@ -28,6 +51,7 @@
 <g transform="translate(20, 80)">
   <rect width="10" height="10" fill="#3572A5" rx="2" ry="2"/>
   <text x="15" y="10" font-family="Segoe UI, Ubuntu, Sans-Serif"
+<<<<<<< HEAD
         font-size="12" fill="#a9b1d6"> Python (82.7%)</text>
 </g>
 
@@ -59,6 +83,39 @@
   <rect width="10" height="10" fill="#e34c26" rx="2" ry="2"/>
   <text x="15" y="10" font-family="Segoe UI, Ubuntu, Sans-Serif"
         font-size="12" fill="#a9b1d6"> HTML (0.1%)</text>
+=======
+        font-size="12" fill="#a2a2a2"> Python (95.1%)</text>
+</g>
+
+<g transform="translate(20, 105)">
+  <rect width="10" height="10" fill="#fedf5b" rx="2" ry="2"/>
+  <text x="15" y="10" font-family="Segoe UI, Ubuntu, Sans-Serif"
+        font-size="12" fill="#a2a2a2"> Cython (3.3%)</text>
+</g>
+
+<g transform="translate(20, 130)">
+  <rect width="10" height="10" fill="#555555" rx="2" ry="2"/>
+  <text x="15" y="10" font-family="Segoe UI, Ubuntu, Sans-Serif"
+        font-size="12" fill="#a2a2a2"> C (0.9%)</text>
+</g>
+
+<g transform="translate(300, 80)">
+  <rect width="10" height="10" fill="#f34b7d" rx="2" ry="2"/>
+  <text x="15" y="10" font-family="Segoe UI, Ubuntu, Sans-Serif"
+        font-size="12" fill="#a2a2a2"> C++ (0.3%)</text>
+</g>
+
+<g transform="translate(300, 105)">
+  <rect width="10" height="10" fill="#DA5B0B" rx="2" ry="2"/>
+  <text x="15" y="10" font-family="Segoe UI, Ubuntu, Sans-Serif"
+        font-size="12" fill="#a2a2a2"> Jupyter Notebook (0.2%)</text>
+</g>
+
+<g transform="translate(300, 130)">
+  <rect width="10" height="10" fill="#ededed" rx="2" ry="2"/>
+  <text x="15" y="10" font-family="Segoe UI, Ubuntu, Sans-Serif"
+        font-size="12" fill="#a2a2a2"> Fortran (0.1%)</text>
+>>>>>>> 332dc97a6dc54fc1f91e9d4842b251db03caa4d9
 </g>
 
   </g>
