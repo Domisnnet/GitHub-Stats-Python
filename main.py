@@ -189,6 +189,7 @@ def fetch_github_stats(username: str) -> dict | None:
         }
     except requests.RequestException:
         return None
+        
 def calculate_rank(stats: dict) -> dict:
     score = (
         stats.get("total_commits", 0) * 1.5
@@ -221,13 +222,14 @@ def calculate_rank(stats: dict) -> dict:
     )
     progress = ((score - lower) / (upper - lower) * 100) if upper > lower else 0
     return {"level": level, "progress": max(0, min(100, progress))}
+    
 def create_stats_svg(stats: dict, theme_name: str) -> str:
     theme = THEMES.get(theme_name, THEMES["tokyonight"])
     if not stats:
         return f'''
 <svg width="600" height="210" xmlns="http://www.w3.org/2000/svg">
-  <rect width="100%" height="100%" fill="{theme['background']}" rx="5" ry="5"/>
-  <text x="50%" y="50%" fill="#ff4a4a" text-anchor="middle"
+    <rect width="100%" height="100%" fill="{theme['background']}" rx="5" ry="5"/>
+    <text x="50%" y="50%" fill="#ff4a4a" text-anchor="middle"
         font-family="Segoe UI, Ubuntu, Sans-Serif">Failed to fetch GitHub stats</text>
 </svg>
 '''.strip()
@@ -252,15 +254,15 @@ def create_stats_svg(stats: dict, theme_name: str) -> str:
     for i, (label, value) in enumerate(stat_items.items()):
         icon_svg = f'''
 <svg x="0" y="{i * 25}" width="16" height="16" viewBox="0 0 24 24"
-      fill="{theme['icon']}" xmlns="http://www.w3.org/2000/svg">
-  <path d="{icons[i]}"/>
+        fill="{theme['icon']}" xmlns="http://www.w3.org/2000/svg">
+    <path d="{icons[i]}"/>
 </svg>
 '''
         text_svg = f'''
 <text x="25" y="{i * 25 + 12}" fill="{theme['text']}"
-      font-size="14" font-family="Segoe UI, Ubuntu, Sans-Serif">
-  <tspan font-weight="bold">{label}:</tspan>
-  <tspan x="150" text-anchor="start">{k_formatter(value)}</tspan>
+        font-size="14" font-family="Segoe UI, Ubuntu, Sans-Serif">
+    <tspan font-weight="bold">{label}:</tspan>
+    <tspan x="150" text-anchor="start">{k_formatter(value)}</tspan>
 </text>
 '''
         stats_svg += f"<g>{icon_svg}{text_svg}</g>\n"
@@ -270,35 +272,35 @@ def create_stats_svg(stats: dict, theme_name: str) -> str:
     offset = circumference - (rank["progress"] / 100 * circumference)
     rank_circle_svg = f'''
 <g>
-  <circle r="{radius}" cx="{cx}" cy="{cy}" fill="none"
-          stroke="{theme['rank_circle_bg']}" stroke-width="10"/>
-  <circle r="{radius}" cx="{cx}" cy="{cy}" fill="none"
-          stroke="{theme['rank_circle_fill']}" stroke-width="10"
-          stroke-dasharray="{circumference}" stroke-dashoffset="{offset}"
-          stroke-linecap="round" transform="rotate(-90 {cx} {cy})"/>
-  <text x="{cx}" y="{cy + 10}" text-anchor="middle"
-        fill="{theme['text']}" font-size="28" font-weight="bold"
-        font-family="Segoe UI, Ubuntu, Sans-Serif">{rank['level']}</text>
+    <circle r="{radius}" cx="{cx}" cy="{cy}" fill="none"
+            stroke="{theme['rank_circle_bg']}" stroke-width="10"/>
+    <circle r="{radius}" cx="{cx}" cy="{cy}" fill="none"
+            stroke="{theme['rank_circle_fill']}" stroke-width="10"
+            stroke-dasharray="{circumference}" stroke-dashoffset="{offset}"
+            stroke-linecap="round" transform="rotate(-90 {cx} {cy})"/>
+    <text x="{cx}" y="{cy + 10}" text-anchor="middle"
+            fill="{theme['text']}" font-size="28" font-weight="bold"
+            font-family="Segoe UI, Ubuntu, Sans-Serif">{rank['level']}</text>
 </g>
 '''
     svg = f'''
 <svg width="{width}" height="{height}" viewBox="0 0 {width} {height}"
-      fill="none" xmlns="http://www.w3.org/2000/svg">
-  <style>
-    .header {{
-      font: 600 18px 'Segoe UI', Ubuntu, Sans-Serif;
-      fill: {theme['title']};
-    }}
-  </style>
-  <rect x="0.5" y="0.5" rx="4.5" height="99%" width="{width - 1}"
-        fill="{theme['background']}" stroke="{theme['border']}"
-        stroke-width="3"
-  />
-  <g transform="translate({padding}, {padding})">
-    <text x="0" y="18" class="header">{stats['name']}\'s GitHub Stats</text>
-    <g transform="translate(0, 40)">{stats_svg}</g>
-    <g transform="translate(460, 30)">{rank_circle_svg}</g>
-  </g>
+        fill="none" xmlns="http://www.w3.org/2000/svg">
+    <style>
+        .header {{
+            font: 600 18px 'Segoe UI', Ubuntu, Sans-Serif;
+            fill: {theme['title']};
+        }}
+    </style>
+    <rect x="0.5" y="0.5" rx="4.5" height="99%" width="{width - 1}"
+            fill="{theme['background']}" stroke="{theme['border']}"
+            stroke-width="3"
+    />
+    <g transform="translate({padding}, {padding})">
+        <text x="0" y="18" class="header">{stats['name']}\'s GitHub Stats</text>
+        <g transform="translate(0, 40)">{stats_svg}</g>
+        <g transform="translate(460, 30)">{rank_circle_svg}</g>
+    </g>
 </svg>
 '''
     return svg.strip()
@@ -315,7 +317,8 @@ def fetch_top_languages(username: str) -> Counter | None:
             if not lang_url:
                 continue
             try:
-                lr = requests.get(lang_url, headers=HEADERS, timeout=10)
+                # TIMEOUT AUMENTADO AQUI (de 10 para 30)
+                lr = requests.get(lang_url, headers=HEADERS, timeout=30)
                 if lr.status_code == 403:
                     logging.warning(f"Rate limit hit for language API on repo {repo.get('name')}. Continuing.")
                     continue
@@ -337,8 +340,8 @@ def create_language_horizontal_bar_svg(langs: Counter, theme_name: str) -> str:
     if not langs:
         return f'''
 <svg width="600" height="230" xmlns="http://www.w3.org/2000/svg">
-  <rect width="100%" height="100%" fill="{theme['background']}" rx="5" ry="5"/>
-  <text x="50%" y="50%" fill="#ff4a4a" text-anchor="middle"
+    <rect width="100%" height="100%" fill="{theme['background']}" rx="5" ry="5"/>
+    <text x="50%" y="50%" fill="#ff4a4a" text-anchor="middle"
         font-family="Segoe UI, Ubuntu, Sans-Serif">Failed to fetch language data</text>
 </svg>
 '''.strip()
@@ -391,35 +394,35 @@ def create_language_horizontal_bar_svg(langs: Counter, theme_name: str) -> str:
             
         legend_items += f'''
 <g transform="translate({x_offset}, {y_offset})">
-  <rect width="10" height="10" fill="{color}" rx="2" ry="2"/>
-  <text x="15" y="10" font-family="Segoe UI, Ubuntu, Sans-Serif"
+    <rect width="10" height="10" fill="{color}" rx="2" ry="2"/>
+    <text x="15" y="10" font-family="Segoe UI, Ubuntu, Sans-Serif"
         font-size="12" fill="{theme['text']}"> {lang} ({percent:.1f}%)</text>
 </g>
 '''
 
     return f'''
 <svg width="600" height="230" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
-      <feDropShadow dx="1" dy="1" stdDeviation="2" flood-color="#000000" flood-opacity="0.3"/>
-    </filter>
-  </defs>
+    <defs>
+        <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+            <feDropShadow dx="1" dy="1" stdDeviation="2" flood-color="#000000" flood-opacity="0.3"/>
+        </filter>
+    </defs>
 
-  <rect width="598" height="228" x="1" y="1" rx="5" ry="5"
-        fill="{theme['background']}" stroke="{theme['border']}"
-        stroke-width="2"
-  />
-  <text x="20" y="30" font-family="Segoe UI, Ubuntu, Sans-Serif"
+    <rect width="598" height="228" x="1" y="1" rx="5" ry="5"
+            fill="{theme['background']}" stroke="{theme['border']}"
+            stroke-width="2"
+    />
+    <text x="20" y="30" font-family="Segoe UI, Ubuntu, Sans-Serif"
         font-size="18" font-weight="bold" fill="{theme['title']}">Top Languages</text>
 
-  <g transform="translate(25, 65)" style="filter:url(#shadow);">
-    <rect x="0" y="0" width="{MAX_BAR_WIDTH}" height="{BAR_HEIGHT}" fill="{theme['rank_circle_bg']}" rx="{BAR_RADIUS}" ry="{BAR_RADIUS}"/>
-    {''.join(bar_segments)}
-  </g>
-  
-  <g>
-    {legend_items}
-  </g>
+    <g transform="translate(25, 65)" style="filter:url(#shadow);">
+        <rect x="0" y="0" width="{MAX_BAR_WIDTH}" height="{BAR_HEIGHT}" fill="{theme['rank_circle_bg']}" rx="{BAR_RADIUS}" ry="{BAR_RADIUS}"/>
+        {''.join(bar_segments)}
+    </g>
+    
+    <g>
+        {legend_items}
+    </g>
 </svg>
 '''.strip()
 
