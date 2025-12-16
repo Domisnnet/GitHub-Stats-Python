@@ -18,16 +18,16 @@
 
   <text x="110" y="45" font-size="22" fill="#ef553b"
         font-family="Segoe UI, Ubuntu, Sans-Serif" font-weight="bold">
-    Domisnet · Developer Dashboard
+    Domisnnet · Developer Dashboard
   </text>
 
   <text x="110" y="70" font-size="13" fill="#a2a2a2" opacity="0.85"
         font-family="Segoe UI, Ubuntu, Sans-Serif">
-    Da faísca da ideia à constelação do código.
+    Da faísca da ideia à Constelação do código.
   </text>
   <text x="110" y="88" font-size="13" fill="#a2a2a2" opacity="0.65"
         font-family="Segoe UI, Ubuntu, Sans-Serif">
-    Construindo um universo de possibilidades.
+    Construindo um Universo de possibilidades!!
   </text>
 
   <!-- Rank -->
@@ -57,9 +57,9 @@
   </text>
 
   <rect x="40" y="200" width="346" height="14" rx="7" fill="#3572A5"/>
-<rect x="386" y="200" width="59" height="14" rx="7" fill="#ccc"/>
-<rect x="445" y="200" width="8" height="14" rx="7" fill="#ccc"/>
-<rect x="453" y="200" width="2" height="14" rx="7" fill="#ccc"/>
-<rect x="455" y="200" width="0" height="14" rx="7" fill="#ccc"/>
+<rect x="386" y="200" width="59" height="14" rx="7" fill="#DA5B0B"/>
+<rect x="445" y="200" width="8" height="14" rx="7" fill="#fedf5b"/>
+<rect x="453" y="200" width="2" height="14" rx="7" fill="#555555"/>
+<rect x="455" y="200" width="0" height="14" rx="7" fill="#f34b7d"/>
 
 </svg>
