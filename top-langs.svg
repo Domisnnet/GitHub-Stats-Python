@@ -1,137 +1,20 @@
+<svg width="600" height="180" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" rx="22"
+        fill="#0a0f0d"
+        stroke="#ef553b"
+        stroke-width="2.5"/>
 
-    <svg width="720" height="380" viewBox="0 0 720 380"
-         xmlns="http://www.w3.org/2000/svg">
-      <rect width="100%" height="100%" rx="20"
-            fill="#0a0f0d" stroke="#ef553b"/>
+  <text x="30" y="45" font-size="18" fill="#ef553b"
+        font-family="Segoe UI, Ubuntu, Sans-Serif"
+        font-weight="bold">
+    Top Languages
+  </text>
 
-      
-    <circle cx="80" cy="80" r="46" fill="#2d2d2d"/>
-    <circle cx="80" cy="80" r="38" fill="#0a0f0d"
-            stroke="#ef553b" stroke-width="2"/>
-    <text x="80" y="92" text-anchor="middle"
-          font-size="36" fill="#ef553b"
-          font-family="monospace" font-weight="bold">
-      &lt;/&gt;
-    </text>
-    
+  <rect x="25" y="90" width="412" height="14" fill="#3572A5" rx="7"/>
+<rect x="437" y="90" width="70" height="14" fill="#ccc" rx="7"/>
+<rect x="507" y="90" width="10" height="14" fill="#ccc" rx="7"/>
+<rect x="517" y="90" width="3" height="14" fill="#ccc" rx="7"/>
+<rect x="520" y="90" width="0" height="14" fill="#ccc" rx="7"/>
+<rect x="520" y="90" width="0" height="14" fill="#e34c26" rx="7"/>
 
-      <text x="140" y="55" fill="#ef553b"
-            font-size="22" font-weight="bold">
-        Domisnnet · Developer Dashboard
-      </text>
-      <text x="140" y="78" fill="#a2a2a2" font-size="13">
-        Da faísca da ideia à constelação do código.
-      </text>
-      <text x="140" y="96" fill="#a2a2a2" font-size="12" opacity="0.85">
-        Construindo um universo de possibilidades.
-      </text>
-
-      <text x="90" y="135" fill="#ef553b"
-            font-size="16" font-weight="bold">
-        Top Languages · GitHub Activity
-      </text>
-
-      
-        <text x="90" y="165" fill="#a2a2a2" font-size="14">
-          1. Python
-        </text>
-        
-    <rect x="220" y="155" width="400" height="10" rx="5"
-          fill="#2d2d2d"/>
-    <rect x="220" y="155" width="329.77748096068973" height="10" rx="5"
-          fill="#00f5a0">
-      <animate attributeName="width" from="0" to="329.77748096068973"
-               dur="1s" fill="freeze"/>
-    </rect>
-    
-        <text x="640" y="165" fill="#a2a2a2" font-size="12">
-          82.4%
-        </text>
-        
-        <text x="90" y="195" fill="#a2a2a2" font-size="14">
-          2. Jupyter Notebook
-        </text>
-        
-    <rect x="220" y="185" width="400" height="10" rx="5"
-          fill="#2d2d2d"/>
-    <rect x="220" y="185" width="56.645349634096355" height="10" rx="5"
-          fill="#da5b0b">
-      <animate attributeName="width" from="0" to="56.645349634096355"
-               dur="1s" fill="freeze"/>
-    </rect>
-    
-        <text x="640" y="195" fill="#a2a2a2" font-size="12">
-          14.2%
-        </text>
-        
-        <text x="90" y="225" fill="#a2a2a2" font-size="14">
-          3. Cython
-        </text>
-        
-    <rect x="220" y="215" width="400" height="10" rx="5"
-          fill="#2d2d2d"/>
-    <rect x="220" y="215" width="8.377995372752332" height="10" rx="5"
-          fill="#888888">
-      <animate attributeName="width" from="0" to="8.377995372752332"
-               dur="1s" fill="freeze"/>
-    </rect>
-    
-        <text x="640" y="225" fill="#a2a2a2" font-size="12">
-          2.1%
-        </text>
-        
-        <text x="90" y="255" fill="#a2a2a2" font-size="14">
-          4. C
-        </text>
-        
-    <rect x="220" y="245" width="400" height="10" rx="5"
-          fill="#2d2d2d"/>
-    <rect x="220" y="245" width="2.5797588905006235" height="10" rx="5"
-          fill="#555555">
-      <animate attributeName="width" from="0" to="2.5797588905006235"
-               dur="1s" fill="freeze"/>
-    </rect>
-    
-        <text x="640" y="255" fill="#a2a2a2" font-size="12">
-          0.6%
-        </text>
-        
-        <text x="90" y="285" fill="#a2a2a2" font-size="14">
-          5. C++
-        </text>
-        
-    <rect x="220" y="275" width="400" height="10" rx="5"
-          fill="#2d2d2d"/>
-    <rect x="220" y="275" width="0.7928125345479616" height="10" rx="5"
-          fill="#f34b7d">
-      <animate attributeName="width" from="0" to="0.7928125345479616"
-               dur="1s" fill="freeze"/>
-    </rect>
-    
-        <text x="640" y="285" fill="#a2a2a2" font-size="12">
-          0.2%
-        </text>
-        
-        <text x="90" y="315" fill="#a2a2a2" font-size="14">
-          6. HTML
-        </text>
-        
-    <rect x="220" y="305" width="400" height="10" rx="5"
-          fill="#2d2d2d"/>
-    <rect x="220" y="305" width="0.47126572131541267" height="10" rx="5"
-          fill="#e34c26">
-      <animate attributeName="width" from="0" to="0.47126572131541267"
-               dur="1s" fill="freeze"/>
-    </rect>
-    
-        <text x="640" y="315" fill="#a2a2a2" font-size="12">
-          0.1%
-        </text>
-        
-
-      <text x="90" y="358" fill="#a2a2a2"
-            font-size="11" opacity="0.6">
-        Updated: 2025-12-16
-      </text>
-    </svg>
-    
+</svg>
