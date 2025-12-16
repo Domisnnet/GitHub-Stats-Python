@@ -86,7 +86,7 @@ THEMES = {
     },
 }
 
-THEME = THEMES.get(THEME_NAME, THEMES["merko"])
+THEME = THEMES.get(THEME_NAME, THEMES["cobalt"])
 
 # ======================================================
 # API SAFE
@@ -227,13 +227,13 @@ def create_dashboard(username, stats, score, langs):
 
     <text x="160" y="55" fill="{THEME['title']}"
         font-size="24" font-weight="bold">
-        Domisnet · Developer Dashboard
+        Domisnnet · Developer Dashboard
     </text>
     <text x="160" y="80" fill="{THEME['text']}" font-size="14">
         Da faísca da ideia à constelação do código.
     </text>
     <text x="160" y="100" fill="{THEME['text']}" font-size="13" opacity="0.85">
-        Construindo um universo de possibilidades.
+        Construindo um Universo de possibilidades!!
     </text>
 
     <text x="160" y="140" fill="{THEME['icon']}" font-size="14">
