@@ -2,6 +2,7 @@ import os
 import sys
 import math
 import time
+import base64
 import requests
 from collections import Counter
 from dotenv import load_dotenv
@@ -17,21 +18,17 @@ HEADERS = {
     **({"Authorization": f"Bearer {TOKEN}"} if TOKEN else {})
 }
 
-# ================= LANG COLORS (alfabético) =================
+# ================= LANG COLORS (ordem alfabética) =================
 
 LANG_COLORS = {
     "CSS": "#563d7c",
-    "Dockerfile": "#384d54",
     "Go": "#00ADD8",
     "HTML": "#e34c26",
     "Java": "#b07219",
     "JavaScript": "#f1e05a",
-    "Markdown": "#083fa1",
     "Python": "#3572A5",
-    "SCSS": "#c6538c",
     "Shell": "#89e051",
     "TypeScript": "#2b7489",
-    "Vue": "#41b883",
     "Other": "#999999",
 }
 
@@ -76,13 +73,13 @@ THEME = THEMES.get(THEME_NAME, THEMES["merko"])
 
 # ================= HELPERS =================
 
-def safe_get(url, retries=3):
+def safe_get(url):
     r = requests.get(url, headers=HEADERS)
-    if r.status_code == 429 and retries > 0:
+    if r.status_code == 429:
         time.sleep(3)
-        return safe_get(url, retries - 1)
+        return safe_get(url)
     r.raise_for_status()
-    return r.json()
+    return r
 
 def k(n):
     return f"{n//1000}k+" if n >= 1000 else str(n)
@@ -90,29 +87,33 @@ def k(n):
 # ================= FETCH =================
 
 def fetch_user():
-    return safe_get(f"https://api.github.com/users/{USERNAME}")
+    return safe_get(f"https://api.github.com/users/{USERNAME}").json()
 
 def fetch_repos():
-    return safe_get(f"https://api.github.com/users/{USERNAME}/repos?per_page=100&type=owner")
+    return safe_get(
+        f"https://api.github.com/users/{USERNAME}/repos?per_page=100&type=owner"
+    ).json()
 
 def fetch_languages(repos):
     counter = Counter()
     for r in repos:
         try:
-            data = safe_get(r["languages_url"])
+            data = safe_get(r["languages_url"]).json()
             for lang, val in data.items():
                 counter[lang] += val
         except Exception:
             continue
     return counter
 
+def fetch_avatar_base64(avatar_url):
+    img = safe_get(f"{avatar_url}&s=128").content
+    encoded = base64.b64encode(img).decode("utf-8")
+    return f"data:image/png;base64,{encoded}"
+
 # ================= SVG BUILD =================
 
 def build_activity_ring(langs, cx, cy, radius):
-    total = sum(langs.values())
-    if total == 0:
-        return ""
-
+    total = sum(langs.values()) or 1
     circumference = 2 * math.pi * radius
     offset = 0
     svg = ""
@@ -122,7 +123,7 @@ def build_activity_ring(langs, cx, cy, radius):
         length = frac * circumference
         color = LANG_COLORS.get(lang, LANG_COLORS["Other"])
 
-        svg += f'''
+        svg += f"""
 <circle cx="{cx}" cy="{cy}" r="{radius}"
   fill="none"
   stroke="{color}"
@@ -131,15 +132,13 @@ def build_activity_ring(langs, cx, cy, radius):
   stroke-dashoffset="{-offset}"
   stroke-linecap="round"
   transform="rotate(-90 {cx} {cy})"/>
-'''
+"""
         offset += length
 
     return svg
 
-def build_avatar(user, cx, cy):
-    avatar_url = user.get("avatar_url", "") + "&s=128"
-
-    return f'''
+def build_avatar(base64_img, cx, cy):
+    return f"""
 <defs>
   <radialGradient id="avatarGlow" r="60%">
     <stop offset="0%" stop-color="{THEME['accent']}" stop-opacity="0.45"/>
@@ -152,54 +151,54 @@ def build_avatar(user, cx, cy):
 </defs>
 
 <circle cx="{cx}" cy="{cy}" r="62" fill="url(#avatarGlow)"/>
+
 <circle cx="{cx}" cy="{cy}" r="52"
   fill="none"
   stroke="{THEME['accent']}"
-  stroke-width="3"/>
+  stroke-width="4"/>
 
-<image href="{avatar_url}"
+<image href="{base64_img}"
   x="{cx-46}" y="{cy-46}"
   width="92" height="92"
   clip-path="url(#avatarClip)"
   preserveAspectRatio="xMidYMid slice"/>
-'''
+"""
 
-def build_svg(user, repos, langs):
+def build_svg(user, repos, langs, avatar_base64):
     stars = sum(r["stargazers_count"] for r in repos)
     cx, cy = 450, 300
 
-    return f'''
+    return f"""
 <svg width="900" height="600" xmlns="http://www.w3.org/2000/svg">
 <rect width="100%" height="100%" rx="28"
   fill="{THEME['bg']}"
   stroke="{THEME['border']}"
   stroke-width="4"/>
 
-<text x="450" y="60" text-anchor="middle"
+<text x="450" y="56" text-anchor="middle"
   fill="{THEME['title']}" font-size="24" font-weight="bold">
-{user.get("name") or user.get("login")}
+{user.get('name') or user['login']}
 </text>
 
-<text x="450" y="88" text-anchor="middle"
+<text x="450" y="84" text-anchor="middle"
   fill="{THEME['text']}" font-size="14">
 Da faísca da ideia à Constelação do código.
 </text>
 
-<text x="450" y="108" text-anchor="middle"
+<text x="450" y="104" text-anchor="middle"
   fill="{THEME['text']}" font-size="13">
 Construindo um Universo de possibilidades!!
 </text>
 
 {build_activity_ring(langs, cx, cy, 150)}
-{build_avatar(user, cx, cy)}
+{build_avatar(avatar_base64, cx, cy)}
 
 <text x="450" y="520" text-anchor="middle"
   fill="{THEME['text']}" font-size="14">
 ⭐ {k(stars)} stars · 📦 {len(repos)} repositórios
 </text>
-
 </svg>
-'''
+"""
 
 # ================= MAIN =================
 
@@ -210,8 +209,9 @@ def main():
     user = fetch_user()
     repos = fetch_repos()
     langs = fetch_languages(repos)
+    avatar_base64 = fetch_avatar_base64(user["avatar_url"])
 
-    svg = build_svg(user, repos, langs)
+    svg = build_svg(user, repos, langs, avatar_base64)
 
     with open("dashboard.svg", "w", encoding="utf-8") as f:
         f.write(svg)
