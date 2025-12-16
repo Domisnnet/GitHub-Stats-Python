@@ -1,60 +1,79 @@
-<svg width="600" height="230" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <clipPath id="rounded-corners-langs">
-      <rect width="550" height="16" rx="8"/>
-    </clipPath>
-  </defs>
 
-  <rect x="1" y="1" width="598" height="228" rx="5"
-        fill="#0a0f0d" stroke="#ef553b" stroke-width="2"/>
+<svg width="720" height="360" viewBox="0 0 720 360"
+     xmlns="http://www.w3.org/2000/svg">
 
-  <text x="20" y="30" font-size="18" font-weight="bold"
-        fill="#ef553b" font-family="Segoe UI, Ubuntu, Sans-Serif">
-    Top Languages
+  <rect width="100%" height="100%" rx="16"
+        fill="#0a0f0d"/>
+
+  <text x="32" y="40"
+        font-family="Segoe UI, sans-serif"
+        font-size="20" font-weight="700"
+        fill="#e6f1e8">
+    Top Languages · GitHub Activity
   </text>
 
-  <g transform="translate(25,65)">
-    <rect width="550" height="16" fill="#2d2d2d" rx="8"/>
-    <g clip-path="url(#rounded-corners-langs)">
-      <rect x="0" y="0" width="453.4325418805772" height="16" fill="#3572A5"/><rect x="453.4325418805772" y="0" width="77.88618839996795" height="16" fill="#DA5B0B"/><rect x="531.3187302805452" y="0" width="11.519570983872477" height="16" fill="#fedf5b"/><rect x="542.8383012644176" y="0" width="3.5471153107876687" height="16" fill="#555555"/><rect x="546.3854165752053" y="0" width="1.0901008967290435" height="16" fill="#f34b7d"/><rect x="547.4755174719344" y="0" width="0.6479806549684572" height="16" fill="#e34c26"/>
-    </g>
-  </g>
+  <text x="32" y="64"
+        font-family="Segoe UI, sans-serif"
+        font-size="14"
+        fill="#00ffa6">
+    Dominant Stack: Python (82.4%)
+  </text>
+
+  <!-- Global bar -->
+  <rect x="32" y="86" width="656" height="14" rx="7"
+        fill="#1f2d2a"/>
+  <rect x="32" y="86"
+        width="540"
+        height="14" rx="7"
+        fill="#00ffa6"/>
 
   
-<g transform="translate(20,110)">
-  <rect width="10" height="10" rx="2" fill="#3572A5"/>
-  <text x="15" y="10" font-size="12" fill="#a2a2a2"
-        font-family="Segoe UI, Ubuntu, Sans-Serif">Python (82.4%)</text>
-</g>
+  <text x="40" y="180" font-size="13" fill="#e6f1e8">1</text>
+  <text x="70" y="180" font-size="13" fill="#e6f1e8">Python</text>
+  <rect x="220" y="170" width="360" height="10" rx="5"
+        fill="#00ffa6"/>
+  <text x="600" y="180" font-size="13" fill="#e6f1e8">
+    82.4%
+  </text>
 
-<g transform="translate(20,135)">
-  <rect width="10" height="10" rx="2" fill="#DA5B0B"/>
-  <text x="15" y="10" font-size="12" fill="#a2a2a2"
-        font-family="Segoe UI, Ubuntu, Sans-Serif">Jupyter Notebook (14.2%)</text>
-</g>
+  <text x="40" y="214" font-size="13" fill="#e6f1e8">2</text>
+  <text x="70" y="214" font-size="13" fill="#e6f1e8">Jupyter Notebook</text>
+  <rect x="220" y="204" width="61" height="10" rx="5"
+        fill="#7fa89a"/>
+  <text x="600" y="214" font-size="13" fill="#e6f1e8">
+    14.2%
+  </text>
 
-<g transform="translate(20,160)">
-  <rect width="10" height="10" rx="2" fill="#fedf5b"/>
-  <text x="15" y="10" font-size="12" fill="#a2a2a2"
-        font-family="Segoe UI, Ubuntu, Sans-Serif">Cython (2.1%)</text>
-</g>
+  <text x="40" y="248" font-size="13" fill="#e6f1e8">3</text>
+  <text x="70" y="248" font-size="13" fill="#e6f1e8">Cython</text>
+  <rect x="220" y="238" width="9" height="10" rx="5"
+        fill="#7fa89a"/>
+  <text x="600" y="248" font-size="13" fill="#e6f1e8">
+    2.1%
+  </text>
 
-<g transform="translate(300,110)">
-  <rect width="10" height="10" rx="2" fill="#555555"/>
-  <text x="15" y="10" font-size="12" fill="#a2a2a2"
-        font-family="Segoe UI, Ubuntu, Sans-Serif">C (0.6%)</text>
-</g>
+  <text x="40" y="282" font-size="13" fill="#e6f1e8">4</text>
+  <text x="70" y="282" font-size="13" fill="#e6f1e8">C</text>
+  <rect x="220" y="272" width="6" height="10" rx="5"
+        fill="#7fa89a"/>
+  <text x="600" y="282" font-size="13" fill="#e6f1e8">
+    0.6%
+  </text>
 
-<g transform="translate(300,135)">
-  <rect width="10" height="10" rx="2" fill="#f34b7d"/>
-  <text x="15" y="10" font-size="12" fill="#a2a2a2"
-        font-family="Segoe UI, Ubuntu, Sans-Serif">C++ (0.2%)</text>
-</g>
+  <text x="40" y="316" font-size="13" fill="#e6f1e8">5</text>
+  <text x="70" y="316" font-size="13" fill="#e6f1e8">C++</text>
+  <rect x="220" y="306" width="6" height="10" rx="5"
+        fill="#7fa89a"/>
+  <text x="600" y="316" font-size="13" fill="#e6f1e8">
+    0.2%
+  </text>
 
-<g transform="translate(300,160)">
-  <rect width="10" height="10" rx="2" fill="#e34c26"/>
-  <text x="15" y="10" font-size="12" fill="#a2a2a2"
-        font-family="Segoe UI, Ubuntu, Sans-Serif">HTML (0.1%)</text>
-</g>
+
+  <text x="32" y="332"
+        font-family="Segoe UI, sans-serif"
+        font-size="12"
+        fill="#7fa89a">
+    Languages: 19 · Updated: 2025-12-16
+  </text>
 
 </svg>
