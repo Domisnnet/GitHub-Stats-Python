@@ -1,5 +1,69 @@
 <svg width="600" height="230" xmlns="http://www.w3.org/2000/svg">
-    <rect width="100%" height="100%" fill="#0a0f0d" rx="5" ry="5"/>
-    <text x="50%" y="50%" fill="#ff4a4a" text-anchor="middle"
-        font-family="Segoe UI, Ubuntu, Sans-Serif">Failed to fetch language data</text>
+    <defs>
+        <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+            <feDropShadow dx="1" dy="1" stdDeviation="2" flood-color="#000000" flood-opacity="0.3"/>
+        </filter>
+    </defs>
+
+    <rect width="598" height="228" x="1" y="1" rx="5" ry="5"
+            fill="#0a0f0d" stroke="#ef553b"
+            stroke-width="2"
+    />
+    <text x="20" y="30" font-family="Segoe UI, Ubuntu, Sans-Serif"
+        font-size="18" font-weight="bold" fill="#ef553b">Top Languages</text>
+
+    <g transform="translate(25, 65)" style="filter:url(#shadow);">
+        <rect x="0" y="0" width="550" height="16" fill="#2d2d2d" rx="8" ry="8"/>
+        
+<rect x="0" y="0" width="453.4411080128385" height="16" fill="#3572A5" rx="8" ry="8"/>
+
+<rect x="453.4411080128385" y="0" width="77.87927564562065" height="16" fill="#DA5B0B" />
+
+<rect x="531.3203836584591" y="0" width="11.518548569423476" height="16" fill="#fedf5b" />
+
+<rect x="542.8389322278827" y="0" width="3.546800488130549" height="16" fill="#555555" />
+
+<rect x="546.3857327160132" y="0" width="1.0900041453040774" height="16" fill="#f34b7d" />
+<rect x="547.4757368613173" y="0" width="0.6479278136827742" rx="8" ry="8" height="16" fill="#e34c26" //>
+    </g>
+    
+    <g>
+        
+<g transform="translate(20, 100)">
+    <rect width="10" height="10" fill="#3572A5" rx="2" ry="2"/>
+    <text x="15" y="10" font-family="Segoe UI, Ubuntu, Sans-Serif"
+        font-size="12" fill="#a2a2a2"> Python (82.4%)</text>
+</g>
+
+<g transform="translate(20, 125)">
+    <rect width="10" height="10" fill="#DA5B0B" rx="2" ry="2"/>
+    <text x="15" y="10" font-family="Segoe UI, Ubuntu, Sans-Serif"
+        font-size="12" fill="#a2a2a2"> Jupyter Notebook (14.2%)</text>
+</g>
+
+<g transform="translate(20, 150)">
+    <rect width="10" height="10" fill="#fedf5b" rx="2" ry="2"/>
+    <text x="15" y="10" font-family="Segoe UI, Ubuntu, Sans-Serif"
+        font-size="12" fill="#a2a2a2"> Cython (2.1%)</text>
+</g>
+
+<g transform="translate(300, 100)">
+    <rect width="10" height="10" fill="#555555" rx="2" ry="2"/>
+    <text x="15" y="10" font-family="Segoe UI, Ubuntu, Sans-Serif"
+        font-size="12" fill="#a2a2a2"> C (0.6%)</text>
+</g>
+
+<g transform="translate(300, 125)">
+    <rect width="10" height="10" fill="#f34b7d" rx="2" ry="2"/>
+    <text x="15" y="10" font-family="Segoe UI, Ubuntu, Sans-Serif"
+        font-size="12" fill="#a2a2a2"> C++ (0.2%)</text>
+</g>
+
+<g transform="translate(300, 150)">
+    <rect width="10" height="10" fill="#e34c26" rx="2" ry="2"/>
+    <text x="15" y="10" font-family="Segoe UI, Ubuntu, Sans-Serif"
+        font-size="12" fill="#a2a2a2"> HTML (0.1%)</text>
+</g>
+
+    </g>
 </svg>
