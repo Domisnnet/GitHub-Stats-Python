@@ -1,271 +1,218 @@
 import os
 import sys
-import time
 import math
+import time
+import logging
 import requests
-from datetime import datetime
-from collections import defaultdict
+from collections import Counter
+from dotenv import load_dotenv
 
-# ======================================================
-# CONFIG
-# ======================================================
+load_dotenv()
 
-GITHUB_API = "https://api.github.com"
+logging.basicConfig(level=logging.INFO, format="%(levelname)s - %(message)s")
+
 TOKEN = os.getenv("GITHUB_TOKEN")
 THEME_NAME = os.getenv("THEME_NAME", "merko")
 
 HEADERS = {
     "Accept": "application/vnd.github+json",
-    "Authorization": f"Bearer {TOKEN}" if TOKEN else None,
+    **({"Authorization": f"Bearer {TOKEN}"} if TOKEN else {})
 }
-
-SESSION = requests.Session()
-SESSION.headers.update({k: v for k, v in HEADERS.items() if v})
-
-# ======================================================
-# LANG COLORS
-# ======================================================
 
 LANG_COLORS = {
-    "Python": "#00f5a0",
+    "Python": "#3572A5",
     "JavaScript": "#f1e05a",
-    "TypeScript": "#3178c6",
+    "TypeScript": "#2b7489",
     "HTML": "#e34c26",
     "CSS": "#563d7c",
-    "C": "#555555",
-    "C++": "#f34b7d",
-    "Jupyter Notebook": "#da5b0b",
+    "Go": "#00ADD8",
+    "Java": "#b07219",
     "Shell": "#89e051",
-    "Other": "#888888",
+    "Other": "#ededed"
 }
-
-# ======================================================
-# THEMES
-# ======================================================
 
 THEMES = {
     "cobalt": {
-        "background": "#0047AB", "title": "#FFC600", "text": "#FFFFFF",
-        "icon": "#FFC600", "border": "#333",
-        "rank_circle_bg": "#333", "rank_circle_fill": "#FFC600",
+        "background": "#0047AB",
+        "title": "#FFC600",
+        "text": "#FFFFFF",
+        "icon": "#FFC600",
+        "border": "#333",
+        "rank_circle_bg": "#333",
+        "rank_circle_fill": "#FFC600",
+        "lang_colors": LANG_COLORS,
     },
     "dark": {
-        "background": "#151515", "title": "#ffffff", "text": "#9f9f9f",
-        "icon": "#ffffff", "border": "#e4e2e2",
-        "rank_circle_bg": "#333", "rank_circle_fill": "#ffffff",
+        "background": "#151515",
+        "title": "#ffffff",
+        "text": "#9f9f9f",
+        "icon": "#ffffff",
+        "border": "#e4e2e2",
+        "rank_circle_bg": "#333",
+        "rank_circle_fill": "#ffffff",
+        "lang_colors": LANG_COLORS,
     },
     "dracula": {
-        "background": "#282a36", "title": "#f8f8f2", "text": "#f8f8f2",
-        "icon": "#f8f8f2", "border": "#44475a",
-        "rank_circle_bg": "#44475a", "rank_circle_fill": "#ff79c6",
+        "background": "#282a36",
+        "title": "#f8f8f2",
+        "text": "#f8f8f2",
+        "icon": "#f8f8f2",
+        "border": "#44475a",
+        "rank_circle_bg": "#44475a",
+        "rank_circle_fill": "#ff79c6",
+        "lang_colors": LANG_COLORS,
     },
     "gruvbox": {
-        "background": "#282828", "title": "#fabd2f", "text": "#ebdbb2",
-        "icon": "#fabd2f", "border": "#504945",
-        "rank_circle_bg": "#504945", "rank_circle_fill": "#fabd2f",
+        "background": "#282828",
+        "title": "#fabd2f",
+        "text": "#ebdbb2",
+        "icon": "#fabd2f",
+        "border": "#504945",
+        "rank_circle_bg": "#504945",
+        "rank_circle_fill": "#fabd2f",
+        "lang_colors": LANG_COLORS,
     },
     "merko": {
-        "background": "#0a0f0d", "title": "#ef553b", "text": "#a2a2a2",
-        "icon": "#ef553b", "border": "#ef553b",
-        "rank_circle_bg": "#2d2d2d", "rank_circle_fill": "#ef553b",
+        "background": "#0a0f0d",
+        "title": "#ef553b",
+        "text": "#a2a2a2",
+        "icon": "#ef553b",
+        "border": "#ef553b",
+        "rank_circle_bg": "#2d2d2d",
+        "rank_circle_fill": "#ef553b",
+        "lang_colors": LANG_COLORS,
     },
     "onedark": {
-        "background": "#282c34", "title": "#61afef", "text": "#abb2bf",
-        "icon": "#61afef", "border": "#3e4451",
-        "rank_circle_bg": "#3e4451", "rank_circle_fill": "#61afef",
+        "background": "#282c34",
+        "title": "#61afef",
+        "text": "#abb2bf",
+        "icon": "#61afef",
+        "border": "#3e4451",
+        "rank_circle_bg": "#3e4451",
+        "rank_circle_fill": "#61afef",
+        "lang_colors": LANG_COLORS,
     },
     "radical": {
-        "background": "#141321", "title": "#fe428e", "text": "#a9fef7",
-        "icon": "#fe428e", "border": "#fe428e",
-        "rank_circle_bg": "#54253a", "rank_circle_fill": "#fe428e",
+        "background": "#141321",
+        "title": "#fe428e",
+        "text": "#a9fef7",
+        "icon": "#fe428e",
+        "border": "#fe428e",
+        "rank_circle_bg": "#54253a",
+        "rank_circle_fill": "#fe428e",
+        "lang_colors": LANG_COLORS,
     },
     "tokyonight": {
-        "background": "#1a1b27", "title": "#70a5fd", "text": "#a9b1d6",
-        "icon": "#70a5fd", "border": "#414868",
-        "rank_circle_bg": "#414868", "rank_circle_fill": "#70a5fd",
+        "background": "#1a1b27",
+        "title": "#70a5fd",
+        "text": "#a9b1d6",
+        "icon": "#70a5fd",
+        "border": "#414868",
+        "rank_circle_bg": "#414868",
+        "rank_circle_fill": "#70a5fd",
+        "lang_colors": LANG_COLORS,
     },
 }
 
-THEME = THEMES.get(THEME_NAME, THEMES["cobalt"])
-
-# ======================================================
-# API SAFE
-# ======================================================
-
-def safe_get(url, params=None):
-    for _ in range(3):
-        r = SESSION.get(url, params=params)
-        if r.status_code == 429:
-            time.sleep(2)
-            continue
-        r.raise_for_status()
-        return r.json()
-    raise RuntimeError("Rate limit excedido.")
-
-# ======================================================
-# FETCH
-# ======================================================
+def safe_get(url, sleep=0.4):
+    time.sleep(sleep)
+    r = requests.get(url, headers=HEADERS, timeout=15)
+    if r.status_code == 429:
+        logging.warning("Rate limit atingido. Abortando execução.")
+        sys.exit(0)
+    r.raise_for_status()
+    return r.json(), r.headers
 
 def fetch_repos(username):
-    repos, page = [], 1
-    while True:
-        data = safe_get(
-            f"{GITHUB_API}/users/{username}/repos",
-            {"per_page": 100, "page": page, "type": "owner"},
-        )
-        if not data:
-            break
-        repos.extend(data)
-        page += 1
-    return repos
-
-def fetch_stats(username):
-    repos = fetch_repos(username)
-
-    stats = {
-        "repos": len(repos),
-        "stars": sum(r["stargazers_count"] for r in repos),
-        "forks": sum(r["forks_count"] for r in repos),
-        "commits": len(repos) * 30,  # aproximação segura
-    }
-    return stats
+    data, _ = safe_get(f"https://api.github.com/users/{username}/repos?per_page=100&type=owner")
+    return data
 
 def fetch_languages(username):
     repos = fetch_repos(username)
-    totals = defaultdict(int)
+    counter = Counter()
 
     for repo in repos:
-        if repo.get("fork"):
+        if not repo.get("languages_url"):
             continue
-        langs = safe_get(repo["languages_url"])
-        for lang, val in langs.items():
-            totals[lang] += val
+        try:
+            langs, _ = safe_get(repo["languages_url"], sleep=0.2)
+            for lang, size in langs.items():
+                counter[lang] += size
+        except Exception:
+            continue
 
-    total = sum(totals.values()) or 1
-    data = [(l, v / total * 100) for l, v in totals.items()]
-    return sorted(data, key=lambda x: x[1], reverse=True)[:5]
+    return counter
 
-# ======================================================
-# SCORE
-# ======================================================
+def create_stats_svg(username, theme_name):
+    theme = THEMES.get(theme_name, THEMES["merko"])
 
-def calculate_score(stats):
-    raw = (
-        stats["repos"] * 2
-        + stats["stars"] * 5
-        + stats["forks"] * 3
-        + stats["commits"] * 0.1
-    )
-    return min(100, int(raw / 10))
-
-# ======================================================
-# SVG COMPONENTS
-# ======================================================
-
-def avatar(cx, cy):
     return f"""
-    <circle cx="{cx}" cy="{cy}" r="38" fill="{THEME['rank_circle_bg']}"/>
-    <circle cx="{cx}" cy="{cy}" r="34"
-        fill="{THEME['background']}"
-        stroke="{THEME['rank_circle_fill']}" stroke-width="2"/>
-    <text x="{cx}" y="{cy+12}" text-anchor="middle"
-        font-size="34" font-family="monospace"
-        fill="{THEME['icon']}">&lt;/&gt;</text>
-    """
+<svg width="600" height="200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" rx="22"
+        fill="{theme['background']}"
+        stroke="{theme['border']}"
+        stroke-width="2.5"/>
 
-def rank_circle(cx, cy, percent):
-    r = 42
-    c = 2 * math.pi * r
-    dash = c * percent / 100
-    return f"""
-    <circle cx="{cx}" cy="{cy}" r="{r}"
-        fill="none" stroke="{THEME['rank_circle_bg']}"
-        stroke-width="8"/>
-    <circle cx="{cx}" cy="{cy}" r="{r}"
-        fill="none" stroke="{THEME['rank_circle_fill']}"
-        stroke-width="8"
-        stroke-dasharray="{dash} {c}">
-        <animate attributeName="stroke-dasharray"
-            from="0 {c}" to="{dash} {c}"
-            dur="1.2s" fill="freeze"/>
-    </circle>
-    <text x="{cx}" y="{cy+6}" text-anchor="middle"
-        font-size="18" fill="{THEME['title']}">{percent}%</text>
-    """
+  <text x="30" y="45" font-size="22" fill="{theme['title']}"
+        font-family="Segoe UI, Ubuntu, Sans-Serif"
+        font-weight="bold">
+    Domisnnet · Developer Dashboard
+  </text>
 
-# ======================================================
-# SVG DASHBOARD
-# ======================================================
+  <text x="30" y="75" font-size="13" fill="{theme['text']}"
+        opacity="0.85"
+        font-family="Segoe UI, Ubuntu, Sans-Serif">
+    Da faísca da idéia à Constelação do código.
+  </text>
 
-def create_dashboard(username, stats, score, langs):
-    w, h = 820, 420
-    y = 250
+  <text x="30" y="95" font-size="13" fill="{theme['text']}"
+        opacity="0.65"
+        font-family="Segoe UI, Ubuntu, Sans-Serif">
+    Construindo um Universo de possibilidades!!
+  </text>
+
+</svg>
+""".strip()
+
+def create_langs_svg(langs, theme_name):
+    theme = THEMES.get(theme_name, THEMES["merko"])
+    total = sum(langs.values())
+    top = langs.most_common(6)
+
+    x = 25
     bars = ""
+    for lang, size in top:
+        w = int((size / total) * 500)
+        color = theme["lang_colors"].get(lang, "#ccc")
+        bars += f'<rect x="{x}" y="90" width="{w}" height="14" fill="{color}" rx="7"/>\n'
+        x += w
 
-    for lang, pct in langs:
-        color = LANG_COLORS.get(lang, LANG_COLORS["Other"])
-        bars += f"""
-        <text x="120" y="{y}" fill="{THEME['text']}" font-size="13">{lang}</text>
-        <rect x="220" y="{y-10}" width="400" height="10" rx="5"
-            fill="{THEME['rank_circle_bg']}"/>
-        <rect x="220" y="{y-10}" width="{4*pct}" height="10" rx="5"
-            fill="{color}"/>
-        """
-        y += 26
+    return f"""
+<svg width="600" height="180" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" rx="22"
+        fill="{theme['background']}"
+        stroke="{theme['border']}"
+        stroke-width="2.5"/>
 
-    updated = datetime.utcnow().strftime("%Y-%m-%d")
+  <text x="30" y="45" font-size="18" fill="{theme['title']}"
+        font-family="Segoe UI, Ubuntu, Sans-Serif"
+        font-weight="bold">
+    Top Languages
+  </text>
 
-    svg = f"""
-    <svg width="{w}" height="{h}" viewBox="0 0 {w} {h}"
-        xmlns="http://www.w3.org/2000/svg">
-
-    <rect width="100%" height="100%" rx="22"
-        fill="{THEME['background']}" stroke="{THEME['border']}"/>
-
-    {avatar(90, 90)}
-    {rank_circle(90, 200, score)}
-
-    <text x="160" y="55" fill="{THEME['title']}"
-        font-size="24" font-weight="bold">
-        Domisnnet · Developer Dashboard
-    </text>
-    <text x="160" y="80" fill="{THEME['text']}" font-size="14">
-        Da faísca da ideia à constelação do código.
-    </text>
-    <text x="160" y="100" fill="{THEME['text']}" font-size="13" opacity="0.85">
-        Construindo um Universo de possibilidades!!
-    </text>
-
-    <text x="160" y="140" fill="{THEME['icon']}" font-size="14">
-        Repos: {stats['repos']}  •  Stars: {stats['stars']}
-        • Forks: {stats['forks']}
-    </text>
-
-    {bars}
-
-    <text x="40" y="{h-18}" fill="{THEME['text']}"
-        font-size="11" opacity="0.6">
-        Updated: {updated}
-    </text>
-
-    </svg>
-    """
-
-    with open("github-stats.svg", "w", encoding="utf-8") as f:
-        f.write(svg)
-
-# ======================================================
-# MAIN
-# ======================================================
+  {bars}
+</svg>
+""".strip()
 
 def main():
     username = sys.argv[1]
-    stats = fetch_stats(username)
     langs = fetch_languages(username)
-    score = calculate_score(stats)
 
-    create_dashboard(username, stats, score, langs)
-    print("Dashboard Fase 3 gerado com sucesso.")
+    with open("github-stats.svg", "w", encoding="utf-8") as f:
+        f.write(create_stats_svg(username, THEME_NAME))
+
+    with open("top-langs.svg", "w", encoding="utf-8") as f:
+        f.write(create_langs_svg(langs, THEME_NAME))
 
 if __name__ == "__main__":
     main()
