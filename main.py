@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
 TOKEN = os.getenv("GITHUB_TOKEN")
 THEME_NAME = os.getenv("THEME_NAME", "merko")
@@ -49,12 +49,12 @@ THEMES = {
     },
     "dark": {
         "background": "#151515",
-        "title": "#fff",
+        "title": "#ffffff",
         "text": "#9f9f9f",
-        "icon": "#fff",
+        "icon": "#ffffff",
         "border": "#e4e2e2",
         "rank_circle_bg": "#333",
-        "rank_circle_fill": "#fff",
+        "rank_circle_fill": "#ffffff",
         "lang_colors": LANG_COLORS,
     },
     "dracula": {
@@ -119,326 +119,98 @@ THEMES = {
     },
 }
 
-ICONS = {
-    "star": "M12 .5l3.09 6.26L22 7.77l-5 4.87 1.18 6.88L12 16.31l-6.18 3.22L7 12.64l-5-4.87 6.91-1.01L12 .5z",
-    "commit": "M10.5 7.5a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0zm-2.5 3a.5.5 0 00-1 0v4.362l2.25 1.125a.5.5 0 00.5-.866L10 14.362V10.5zM15 4a1 1 0 10-2 0v1.51a3.52 3.52 0 00-1.5-.99V4a1 1 0 10-2 0v.51a3.52 3.52 0 00-1.5.99V4a1 1 0 10-2 0v.51C4.02 5.2 3 6.48 3 8v5.5a.5.5 0 001 0V8c0-1.04.5-2 1.5-2.5v2.24l-1.3.65a.5.5 0 00-.4.866l4 2a.5.5 0 00.4 0l4-2a.5.5 0 00-.4-.866l-1.3-.65V5.5C14.5 5 15 6.04 15 7v1a.5.5 0 001 0V7c0-1.52-1.02-2.8-2.5-3.49V4z",
-    "pr": "M11.28 2.5a.75.75 0 00-1.06 0l-2.5 2.5a.75.75 0 000 1.06l2.5 2.5a.75.75 0 101.06-1.06L9.81 6l1.47-1.44a.75.75 0 000-1.06zm-6.56 0a.75.75 0 00-1.06 0L1.16 5.06a.75.75 0 000 1.06L3.66 8.5a.75.75 0 001.06-1.06L3.19 6l1.53-1.44a.75.75 0 00-1.06zM8 3a.75.75 0 000 1.5h.25V11a.75.75 0 001.5 0V4.5H10A.75.75 0 0010 3H8zM6 12a.75.75 0 00-1.5 0v1.25H2a.75.75 0 000 1.5h2.5a.75.75 0 00.75-.75V12z",
-    "issue": "M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 118 8A8 8 0 010 8zm9-3a1 1 0 10-2 0v3a1 1 0 001 1h1a1 1 0 100-2H9V5z",
-    "contrib": "M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 010-1.5h2V1H4.5C3.12 1 2 2.12 2 3.5V13h1.5a.75.75 0 010 1.5H2a.75.75 0 01-.75-.75V3.5h.003A2.49 2.49 0 012 2.5zM3.5 1A1.5 1.5 0 002 2.5v1.41C2.58 3.57 3.47 3.5 4.5 3.5h5V1H3.5z",
-}
-
-def k_formatter(num: int) -> str:
-    return f'{num / 1000:.1f}k' if num >= 1000 else str(num)
-
-def fetch_github_stats(username: str) -> dict | None:
-    try:
-        user_url = f"https://api.github.com/users/{username}"
-        repos_url = f"https://api.github.com/users/{username}/repos?per_page=100&type=owner"
-        u = requests.get(user_url, headers=HEADERS, timeout=10)
-        u.raise_for_status()
-        user = u.json()
-        r = requests.get(repos_url, headers=HEADERS, timeout=10)
-        r.raise_for_status()
-        repos = r.json()
-        total_stars = sum(repo.get("stargazers_count", 0) for repo in repos)
-        total_commits = 0
-        total_prs = 0
-        total_issues = 0
-        for repo in repos:
-            name = repo.get("name")
-            owner = repo.get("owner", {}).get("login", username)
-            commits_url = f"https://api.github.com/repos/{owner}/{name}/commits?per_page=1"
-            prs_url = f"https://api.github.com/search/issues?q=repo:{owner}/{name}+type:pr"
-            issues_url = f"https://api.github.com/search/issues?q=repo:{owner}/{name}+type:issue"
-            try:
-                c = requests.get(commits_url, headers=HEADERS, timeout=10)
-                if "Link" in c.headers:
-                    link = c.headers["Link"]
-                    if 'rel="last"' in link:
-                        last = link.split(",")[0].split("&page=")[-1].split(">")[0]
-                        total_commits += int(last)
-                    elif c.ok:
-                        total_commits += len(c.json())
-                p = requests.get(prs_url, headers=HEADERS, timeout=10)
-                if p.ok:
-                    total_prs += p.json().get("total_count", 0)
-                iss = requests.get(issues_url, headers=HEADERS, timeout=10)
-                if iss.ok:
-                    total_issues += iss.json().get("total_count", 0)
-            except requests.RequestException:
-                continue
-        contrib_url = f"https://api.github.com/users/{username}/repos?per_page=100&type=all"
-        contrib_to = 0
-        try:
-            c2 = requests.get(contrib_url, headers=HEADERS, timeout=10)
-            if c2.ok:
-                all_repos = c2.json()
-                contrib_to = sum(
-                    1 for repo in all_repos
-                    if repo.get("owner", {}).get("login") != username
-                )
-        except requests.RequestException:
-            pass
-        return {
-            "name": user.get("name") or user.get("login"),
-            "total_stars": total_stars,
-            "total_commits": total_commits,
-            "total_prs": total_prs,
-            "total_issues": total_issues,
-            "contrib_to": contrib_to,
-        }
-    except requests.RequestException:
-        return None
-        
-def calculate_rank(stats: dict) -> dict:
-    score = (
-        stats.get("total_commits", 0) * 1.5
-        + stats.get("total_prs", 0) * 2.0
-        + stats.get("total_issues", 0) * 0.5
-        + stats.get("total_stars", 0) * 1.0
-        + stats.get("contrib_to", 0) * 2.5
-    )
-    THRESHOLDS = {
-        "S++": 6000,
-        "S+": 5000,
-        "S": 4000,
-        "A++": 3000,
-        "A+": 2000,
-        "A": 1000,
-        "B+": 500,
-        "B": 200,
-    }
-    RANK_ORDER = ["C", "B", "B+", "A", "A+", "A++", "S", "S+", "S++"]
-    level = "C"
-    for r, threshold in sorted(THRESHOLDS.items(), key=lambda item: item[1]):
-        if score >= threshold:
-            level = r
-    current_index = RANK_ORDER.index(level)
-    lower = THRESHOLDS.get(level, 0) if level != "C" else 0
-    upper = (
-        THRESHOLDS.get(RANK_ORDER[current_index + 1], lower * 2)
-        if current_index + 1 < len(RANK_ORDER)
-        else lower * 1.5
-    )
-    progress = ((score - lower) / (upper - lower) * 100) if upper > lower else 0
-    return {"level": level, "progress": max(0, min(100, progress))}
-    
-def create_stats_svg(stats: dict, theme_name: str) -> str:
-    theme = THEMES.get(theme_name, THEMES["tokyonight"])
-    if not stats:
-        return f'''
-<svg width="600" height="210" xmlns="http://www.w3.org/2000/svg">
-    <rect width="100%" height="100%" fill="{theme['background']}" rx="5" ry="5"/>
-    <text x="50%" y="50%" fill="#ff4a4a" text-anchor="middle"
-        font-family="Segoe UI, Ubuntu, Sans-Serif">Failed to fetch GitHub stats</text>
-</svg>
-'''.strip()
-    rank = calculate_rank(stats)
-    width, height = 600, 210
-    padding = 20
-    stat_items = {
-        "Total Stars": stats.get("total_stars", 0),
-        "Total Commits": stats.get("total_commits", 0),
-        "Total PRs": stats.get("total_prs", 0),
-        "Total Issues": stats.get("total_issues", 0),
-        "Contributed to": stats.get("contrib_to", 0),
-    }
-    icons = [
-        ICONS["star"],
-        ICONS["commit"],
-        ICONS["pr"],
-        ICONS["issue"],
-        ICONS["contrib"],
-    ]
-    stats_svg = ""
-    for i, (label, value) in enumerate(stat_items.items()):
-        icon_svg = f'''
-<svg x="0" y="{i * 25}" width="16" height="16" viewBox="0 0 24 24"
-        fill="{theme['icon']}" xmlns="http://www.w3.org/2000/svg">
-    <path d="{icons[i]}"/>
-</svg>
-'''
-        text_svg = f'''
-<text x="25" y="{i * 25 + 12}" fill="{theme['text']}"
-        font-size="14" font-family="Segoe UI, Ubuntu, Sans-Serif">
-    <tspan font-weight="bold">{label}:</tspan>
-    <tspan x="150" text-anchor="start">{k_formatter(value)}</tspan>
-</text>
-'''
-        stats_svg += f"<g>{icon_svg}{text_svg}</g>\n"
-    radius = 50
-    cx, cy = radius, radius
-    circumference = 2 * math.pi * radius
-    offset = circumference - (rank["progress"] / 100 * circumference)
-    rank_circle_svg = f'''
-<g>
-    <circle r="{radius}" cx="{cx}" cy="{cy}" fill="none"
-            stroke="{theme['rank_circle_bg']}" stroke-width="10"/>
-    <circle r="{radius}" cx="{cx}" cy="{cy}" fill="none"
-            stroke="{theme['rank_circle_fill']}" stroke-width="10"
-            stroke-dasharray="{circumference}" stroke-dashoffset="{offset}"
-            stroke-linecap="round" transform="rotate(-90 {cx} {cy})"/>
-    <text x="{cx}" y="{cy + 10}" text-anchor="middle"
-            fill="{theme['text']}" font-size="28" font-weight="bold"
-            font-family="Segoe UI, Ubuntu, Sans-Serif">{rank['level']}</text>
-</g>
-'''
-    svg = f'''
-<svg width="{width}" height="{height}" viewBox="0 0 {width} {height}"
-        fill="none" xmlns="http://www.w3.org/2000/svg">
-    <style>
-        .header {{
-            font: 600 18px 'Segoe UI', Ubuntu, Sans-Serif;
-            fill: {theme['title']};
-        }}
-    </style>
-    <rect x="0.5" y="0.5" rx="4.5" height="99%" width="{width - 1}"
-            fill="{theme['background']}" stroke="{theme['border']}"
-            stroke-width="3"
-    />
-    <g transform="translate({padding}, {padding})">
-        <text x="0" y="18" class="header">{stats['name']}\'s GitHub Stats</text>
-        <g transform="translate(0, 40)">{stats_svg}</g>
-        <g transform="translate(460, 30)">{rank_circle_svg}</g>
-    </g>
-</svg>
-'''
-    return svg.strip()
-
-def fetch_top_languages(username: str) -> Counter | None:
+def fetch_top_languages(username: str) -> Counter:
     repos_url = f"https://api.github.com/users/{username}/repos?per_page=100&type=owner"
-    try:
-        r = requests.get(repos_url, headers=HEADERS, timeout=10)
-        r.raise_for_status()
-        repos = r.json()
-        lang_stats: Counter = Counter()
-        for repo in repos:
-            lang_url = repo.get("languages_url")
-            if not lang_url:
-                continue
-            try:
-                # TIMEOUT AUMENTADO AQUI (de 10 para 30)
-                lr = requests.get(lang_url, headers=HEADERS, timeout=30)
-                if lr.status_code == 403:
-                    logging.warning(f"Rate limit hit for language API on repo {repo.get('name')}. Continuing.")
-                    continue
-                if not lr.ok:
-                    continue
-                for lang, size in lr.json().items():
-                    lang_stats[lang] += size
-            except requests.RequestException:
-                continue
-        if not lang_stats:
-            logging.warning("No language data found after fetching all repos.")
-        return lang_stats
-    except requests.RequestException:
-        logging.error(f"Error fetching repositories for {username}.")
-        return None
+    r = requests.get(repos_url, headers=HEADERS, timeout=10)
+    r.raise_for_status()
 
-def create_language_horizontal_bar_svg(langs: Counter, theme_name: str) -> str:
+    counter = Counter()
+    for repo in r.json():
+        url = repo.get("languages_url")
+        if not url:
+            continue
+        lr = requests.get(url, headers=HEADERS, timeout=10)
+        if lr.ok:
+            for lang, size in lr.json().items():
+                counter[lang] += size
+    return counter
+
+def create_top_langs_svg(langs: Counter, theme_name: str) -> str:
     theme = THEMES.get(theme_name, THEMES["merko"])
+    clip_id = "rounded-corners-langs"
+
     if not langs:
-        return f'''
+        return f"""
 <svg width="600" height="230" xmlns="http://www.w3.org/2000/svg">
-    <rect width="100%" height="100%" fill="{theme['background']}" rx="5" ry="5"/>
-    <text x="50%" y="50%" fill="#ff4a4a" text-anchor="middle"
+  <rect width="100%" height="100%" fill="{theme['background']}" rx="5"/>
+  <text x="50%" y="50%" fill="#ff4a4a" text-anchor="middle"
         font-family="Segoe UI, Ubuntu, Sans-Serif">Failed to fetch language data</text>
 </svg>
-'''.strip()
-    
-    total_size = sum(langs.values())
-    top_langs = langs.most_common(6)
-    
-    BAR_HEIGHT = 16
-    MAX_BAR_WIDTH = 550
-    BAR_RADIUS = 8
-    
-    bar_segments = []
-    legend_items = ""
-    current_x = 0
-    
-    for lang, size in top_langs:
-        percent = (size / total_size) * 100
-        bar_width = (percent / 100) * MAX_BAR_WIDTH
+""".strip()
+
+    total = sum(langs.values())
+    top = langs.most_common(6)
+
+    BAR_W = 550
+    BAR_H = 16
+    BAR_R = 8
+    x = 0
+    bars = []
+
+    for lang, size in top:
+        w = (size / total) * BAR_W
         color = theme["lang_colors"].get(lang, "#ededed")
-        
-        segment_radius = ""
-        if current_x == 0:
-            segment_radius = f'rx="{BAR_RADIUS}" ry="{BAR_RADIUS}"'
-        
-        bar_segments.append(f'''
-<rect x="{current_x}" y="0" width="{bar_width}" height="{BAR_HEIGHT}" fill="{color}" {segment_radius}/>
-''')
-        current_x += bar_width
-    
-    if bar_segments:
-        last_segment = bar_segments[-1]
-        temp_segment = last_segment.strip()[:-1] 
-        temp_segment = temp_segment.replace(f'width="{bar_width}"', f'width="{bar_width}" rx="{BAR_RADIUS}" ry="{BAR_RADIUS}"')
-        bar_segments[-1] = temp_segment + '/>'
+        bars.append(f'<rect x="{x}" y="0" width="{w}" height="{BAR_H}" fill="{color}"/>')
+        x += w
 
-
-    num_langs = len(top_langs)
-    col_size = math.ceil(num_langs / 2)
-    
-    for i, (lang, size) in enumerate(top_langs):
-        percent = (size / total_size) * 100
+    legend = ""
+    for i, (lang, size) in enumerate(top):
+        pct = size / total * 100
+        lx = 20 if i < 3 else 300
+        ly = 110 + (i % 3) * 25
         color = theme["lang_colors"].get(lang, "#ededed")
-
-        if i < col_size:
-            x_offset = 20
-            y_offset = 100 + i * 25
-        else:
-            x_offset = 300
-            y_offset = 100 + (i - col_size) * 25
-            
-        legend_items += f'''
-<g transform="translate({x_offset}, {y_offset})">
-    <rect width="10" height="10" fill="{color}" rx="2" ry="2"/>
-    <text x="15" y="10" font-family="Segoe UI, Ubuntu, Sans-Serif"
-        font-size="12" fill="{theme['text']}"> {lang} ({percent:.1f}%)</text>
+        legend += f"""
+<g transform="translate({lx},{ly})">
+  <rect width="10" height="10" rx="2" fill="{color}"/>
+  <text x="15" y="10" font-size="12" fill="{theme['text']}"
+        font-family="Segoe UI, Ubuntu, Sans-Serif">{lang} ({pct:.1f}%)</text>
 </g>
-'''
+"""
 
-    return f'''
+    return f"""
 <svg width="600" height="230" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-        <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
-            <feDropShadow dx="1" dy="1" stdDeviation="2" flood-color="#000000" flood-opacity="0.3"/>
-        </filter>
-    </defs>
+  <defs>
+    <clipPath id="{clip_id}">
+      <rect width="{BAR_W}" height="{BAR_H}" rx="{BAR_R}"/>
+    </clipPath>
+  </defs>
 
-    <rect width="598" height="228" x="1" y="1" rx="5" ry="5"
-            fill="{theme['background']}" stroke="{theme['border']}"
-            stroke-width="2"
-    />
-    <text x="20" y="30" font-family="Segoe UI, Ubuntu, Sans-Serif"
-        font-size="18" font-weight="bold" fill="{theme['title']}">Top Languages</text>
+  <rect x="1" y="1" width="598" height="228" rx="5"
+        fill="{theme['background']}" stroke="{theme['border']}" stroke-width="2"/>
 
-    <g transform="translate(25, 65)" style="filter:url(#shadow);">
-        <rect x="0" y="0" width="{MAX_BAR_WIDTH}" height="{BAR_HEIGHT}" fill="{theme['rank_circle_bg']}" rx="{BAR_RADIUS}" ry="{BAR_RADIUS}"/>
-        {''.join(bar_segments)}
+  <text x="20" y="30" font-size="18" font-weight="bold"
+        fill="{theme['title']}" font-family="Segoe UI, Ubuntu, Sans-Serif">
+    Top Languages
+  </text>
+
+  <g transform="translate(25,65)">
+    <rect width="{BAR_W}" height="{BAR_H}" fill="{theme['rank_circle_bg']}" rx="{BAR_R}"/>
+    <g clip-path="url(#{clip_id})">
+      {''.join(bars)}
     </g>
-    
-    <g>
-        {legend_items}
-    </g>
+  </g>
+
+  {legend}
 </svg>
-'''.strip()
+""".strip()
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1:
-        username = sys.argv[1]
-    else:
+    if len(sys.argv) < 2:
         sys.exit(1)
-    github_stats = fetch_github_stats(username)
-    top_langs = fetch_top_languages(username)
-    
-    stats_svg_content = create_stats_svg(github_stats, THEME_NAME)
-    
-    langs_svg_content = create_language_horizontal_bar_svg(top_langs or Counter(), THEME_NAME)
 
-    with open("github-stats.svg", "w") as f:
-        f.write(stats_svg_content)
-    with open("top-langs.svg", "w") as f:
-        f.write(langs_svg_content)
+    username = sys.argv[1]
+    langs = fetch_top_languages(username)
+    svg = create_top_langs_svg(langs, THEME_NAME)
+
+    with open("top-langs.svg", "w", encoding="utf-8") as f:
+        f.write(svg)
