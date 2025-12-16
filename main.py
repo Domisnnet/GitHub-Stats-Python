@@ -1,216 +1,221 @@
 import os
-import sys
-import math
+import json
+import time
 import logging
-from collections import Counter
 import requests
-from dotenv import load_dotenv
+from collections import Counter
+from datetime import datetime
 
-load_dotenv()
+# -----------------------------
+# CONFIGURAÇÃO GERAL
+# -----------------------------
+logging.basicConfig(level=logging.INFO)
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
-
-TOKEN = os.getenv("GITHUB_TOKEN")
-THEME_NAME = os.getenv("THEME_NAME", "merko")
-
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 HEADERS = {
     "Accept": "application/vnd.github+json",
-    **({"Authorization": f"Bearer {TOKEN}"} if TOKEN else {}),
+    **({"Authorization": f"Bearer {GITHUB_TOKEN}"} if GITHUB_TOKEN else {}),
 }
 
-LANG_COLORS = {
-    "C": "#555555",
-    "C++": "#f34b7d",
-    "CSS": "#563d7c",
-    "Cython": "#fedf5b",
-    "Go": "#00ADD8",
-    "HTML": "#e34c26",
-    "Java": "#b07219",
-    "JavaScript": "#f1e05a",
-    "Jupyter Notebook": "#DA5B0B",
-    "Other": "#ededed",
-    "PHP": "#4F5D95",
-    "Python": "#3572A5",
-    "Ruby": "#701516",
-    "Shell": "#89e051",
-    "TypeScript": "#2b7489",
-}
+CACHE_FILE = ".cache_top_langs.json"
+CACHE_TTL = 60 * 60 * 24  # 24h
 
+# -----------------------------
+# TEMAS
+# -----------------------------
 THEMES = {
-    "cobalt": {
-        "background": "#0047AB",
-        "title": "#FFC600",
-        "text": "#FFFFFF",
-        "icon": "#FFC600",
-        "border": "#333",
-        "rank_circle_bg": "#333",
-        "rank_circle_fill": "#FFC600",
-        "lang_colors": LANG_COLORS,
-    },
-    "dark": {
-        "background": "#151515",
-        "title": "#ffffff",
-        "text": "#9f9f9f",
-        "icon": "#ffffff",
-        "border": "#e4e2e2",
-        "rank_circle_bg": "#333",
-        "rank_circle_fill": "#ffffff",
-        "lang_colors": LANG_COLORS,
+    "merko": {
+        "background": "#0a0f0d",
+        "text": "#e6f1e8",
+        "accent": "#00ffa6",
+        "track": "#1f2d2a",
+        "muted": "#7fa89a",
     },
     "dracula": {
         "background": "#282a36",
-        "title": "#f8f8f2",
         "text": "#f8f8f2",
-        "icon": "#f8f8f2",
-        "border": "#44475a",
-        "rank_circle_bg": "#44475a",
-        "rank_circle_fill": "#ff79c6",
-        "lang_colors": LANG_COLORS,
-    },
-    "gruvbox": {
-        "background": "#282828",
-        "title": "#fabd2f",
-        "text": "#ebdbb2",
-        "icon": "#fabd2f",
-        "border": "#504945",
-        "rank_circle_bg": "#504945",
-        "rank_circle_fill": "#fabd2f",
-        "lang_colors": LANG_COLORS,
-    },
-    "merko": {
-        "background": "#0a0f0d",
-        "title": "#ef553b",
-        "text": "#a2a2a2",
-        "icon": "#ef553b",
-        "border": "#ef553b",
-        "rank_circle_bg": "#2d2d2d",
-        "rank_circle_fill": "#ef553b",
-        "lang_colors": LANG_COLORS,
-    },
-    "onedark": {
-        "background": "#282c34",
-        "title": "#61afef",
-        "text": "#abb2bf",
-        "icon": "#61afef",
-        "border": "#3e4451",
-        "rank_circle_bg": "#3e4451",
-        "rank_circle_fill": "#61afef",
-        "lang_colors": LANG_COLORS,
+        "accent": "#bd93f9",
+        "track": "#44475a",
+        "muted": "#9a9a9a",
     },
     "radical": {
         "background": "#141321",
-        "title": "#fe428e",
-        "text": "#a9fef7",
-        "icon": "#fe428e",
-        "border": "#fe428e",
-        "rank_circle_bg": "#54253a",
-        "rank_circle_fill": "#fe428e",
-        "lang_colors": LANG_COLORS,
-    },
-    "tokyonight": {
-        "background": "#1a1b27",
-        "title": "#70a5fd",
-        "text": "#a9b1d6",
-        "icon": "#70a5fd",
-        "border": "#414868",
-        "rank_circle_bg": "#414868",
-        "rank_circle_fill": "#70a5fd",
-        "lang_colors": LANG_COLORS,
+        "text": "#eaeaea",
+        "accent": "#fe428e",
+        "track": "#2a2a3a",
+        "muted": "#9f9f9f",
     },
 }
 
+# -----------------------------
+# CACHE
+# -----------------------------
+def load_cache() -> Counter | None:
+    if not os.path.exists(CACHE_FILE):
+        return None
+    try:
+        with open(CACHE_FILE, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        if time.time() - data.get("timestamp", 0) < CACHE_TTL:
+            return Counter(data.get("langs", {}))
+    except Exception:
+        pass
+    return None
+
+
+def save_cache(langs: Counter):
+    try:
+        with open(CACHE_FILE, "w", encoding="utf-8") as f:
+            json.dump(
+                {"timestamp": time.time(), "langs": dict(langs)},
+                f,
+            )
+    except Exception:
+        pass
+
+
+# -----------------------------
+# GITHUB API
+# -----------------------------
 def fetch_top_languages(username: str) -> Counter:
-    repos_url = f"https://api.github.com/users/{username}/repos?per_page=100&type=owner"
-    r = requests.get(repos_url, headers=HEADERS, timeout=10)
+    cached = load_cache()
+    if cached:
+        logging.info("Usando cache de linguagens")
+        return cached
+
+    logging.info("Buscando linguagens na API do GitHub")
+    url = f"https://api.github.com/users/{username}/repos?per_page=100&type=owner"
+    r = requests.get(url, headers=HEADERS, timeout=15)
     r.raise_for_status()
 
     counter = Counter()
+
     for repo in r.json():
-        url = repo.get("languages_url")
-        if not url:
+        lang_url = repo.get("languages_url")
+        if not lang_url:
             continue
-        lr = requests.get(url, headers=HEADERS, timeout=10)
+        lr = requests.get(lang_url, headers=HEADERS, timeout=10)
         if lr.ok:
             for lang, size in lr.json().items():
                 counter[lang] += size
+
+    if counter:
+        save_cache(counter)
+
     return counter
 
-def create_top_langs_svg(langs: Counter, theme_name: str) -> str:
-    theme = THEMES.get(theme_name, THEMES["merko"])
-    clip_id = "rounded-corners-langs"
 
+# -----------------------------
+# SVG WOW — LANGUAGE INSIGHT
+# -----------------------------
+def render_language_insight_svg(langs: Counter, theme: dict) -> str:
     if not langs:
-        return f"""
-<svg width="600" height="230" xmlns="http://www.w3.org/2000/svg">
-  <rect width="100%" height="100%" fill="{theme['background']}" rx="5"/>
-  <text x="50%" y="50%" fill="#ff4a4a" text-anchor="middle"
-        font-family="Segoe UI, Ubuntu, Sans-Serif">Failed to fetch language data</text>
+        return f'''
+<svg width="720" height="200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" rx="16" fill="{theme['background']}"/>
+  <text x="360" y="110" text-anchor="middle"
+        font-family="Segoe UI, sans-serif"
+        font-size="16" fill="{theme['text']}">
+    Language data unavailable
+  </text>
 </svg>
-""".strip()
+'''
 
     total = sum(langs.values())
-    top = langs.most_common(6)
+    top = langs.most_common(5)
 
-    BAR_W = 550
-    BAR_H = 16
-    BAR_R = 8
-    x = 0
-    bars = []
+    dominant_lang, dominant_size = top[0]
+    dominant_pct = dominant_size / total * 100
 
-    for lang, size in top:
-        w = (size / total) * BAR_W
-        color = theme["lang_colors"].get(lang, "#ededed")
-        bars.append(f'<rect x="{x}" y="0" width="{w}" height="{BAR_H}" fill="{color}"/>')
-        x += w
+    max_bar_width = 360
+    updated = datetime.utcnow().strftime("%Y-%m-%d")
 
-    legend = ""
-    for i, (lang, size) in enumerate(top):
+    def bar_width(value):
+        return max(6, int((value / dominant_size) * max_bar_width))
+
+    rows = []
+    y = 180
+
+    for i, (lang, size) in enumerate(top, start=1):
         pct = size / total * 100
-        lx = 20 if i < 3 else 300
-        ly = 110 + (i % 3) * 25
-        color = theme["lang_colors"].get(lang, "#ededed")
-        legend += f"""
-<g transform="translate({lx},{ly})">
-  <rect width="10" height="10" rx="2" fill="{color}"/>
-  <text x="15" y="10" font-size="12" fill="{theme['text']}"
-        font-family="Segoe UI, Ubuntu, Sans-Serif">{lang} ({pct:.1f}%)</text>
-</g>
-"""
+        width = bar_width(size)
+        color = theme["accent"] if i == 1 else theme["muted"]
 
-    return f"""
-<svg width="600" height="230" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <clipPath id="{clip_id}">
-      <rect width="{BAR_W}" height="{BAR_H}" rx="{BAR_R}"/>
-    </clipPath>
-  </defs>
+        rows.append(f'''
+  <text x="40" y="{y}" font-size="13" fill="{theme['text']}">{i}</text>
+  <text x="70" y="{y}" font-size="13" fill="{theme['text']}">{lang}</text>
+  <rect x="220" y="{y - 10}" width="{width}" height="10" rx="5"
+        fill="{color}"/>
+  <text x="600" y="{y}" font-size="13" fill="{theme['text']}">
+    {pct:.1f}%
+  </text>
+''')
+        y += 34
 
-  <rect x="1" y="1" width="598" height="228" rx="5"
-        fill="{theme['background']}" stroke="{theme['border']}" stroke-width="2"/>
+    return f'''
+<svg width="720" height="360" viewBox="0 0 720 360"
+     xmlns="http://www.w3.org/2000/svg">
 
-  <text x="20" y="30" font-size="18" font-weight="bold"
-        fill="{theme['title']}" font-family="Segoe UI, Ubuntu, Sans-Serif">
-    Top Languages
+  <rect width="100%" height="100%" rx="16"
+        fill="{theme['background']}"/>
+
+  <text x="32" y="40"
+        font-family="Segoe UI, sans-serif"
+        font-size="20" font-weight="700"
+        fill="{theme['text']}">
+    Top Languages · GitHub Activity
   </text>
 
-  <g transform="translate(25,65)">
-    <rect width="{BAR_W}" height="{BAR_H}" fill="{theme['rank_circle_bg']}" rx="{BAR_R}"/>
-    <g clip-path="url(#{clip_id})">
-      {''.join(bars)}
-    </g>
-  </g>
+  <text x="32" y="64"
+        font-family="Segoe UI, sans-serif"
+        font-size="14"
+        fill="{theme['accent']}">
+    Dominant Stack: {dominant_lang} ({dominant_pct:.1f}%)
+  </text>
 
-  {legend}
+  <!-- Global bar -->
+  <rect x="32" y="86" width="656" height="14" rx="7"
+        fill="{theme['track']}"/>
+  <rect x="32" y="86"
+        width="{int((dominant_pct / 100) * 656)}"
+        height="14" rx="7"
+        fill="{theme['accent']}"/>
+
+  {''.join(rows)}
+
+  <text x="32" y="332"
+        font-family="Segoe UI, sans-serif"
+        font-size="12"
+        fill="{theme['muted']}">
+    Languages: {len(langs)} · Updated: {updated}
+  </text>
+
 </svg>
-""".strip()
+'''
 
-if __name__ == "__main__":
+
+# -----------------------------
+# MAIN
+# -----------------------------
+def main():
+    import sys
+
     if len(sys.argv) < 2:
-        sys.exit(1)
+        print("Uso: python main.py <github_username> [theme]")
+        return
 
     username = sys.argv[1]
+    theme_name = sys.argv[2] if len(sys.argv) > 2 else "merko"
+    theme = THEMES.get(theme_name, THEMES["merko"])
+
     langs = fetch_top_languages(username)
-    svg = create_top_langs_svg(langs, THEME_NAME)
+    svg = render_language_insight_svg(langs, theme)
 
     with open("top-langs.svg", "w", encoding="utf-8") as f:
         f.write(svg)
+
+    logging.info("SVG gerado com sucesso: top-langs.svg")
+
+
+if __name__ == "__main__":
+    main()
