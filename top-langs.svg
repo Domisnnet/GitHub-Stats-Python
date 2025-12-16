@@ -1,47 +1,137 @@
-<svg width="600" height="300" xmlns="http://www.w3.org/2000/svg">
-  <rect width="598" height="298" x="1" y="1" rx="14" ry="14"
-        fill="#0a0f0d" stroke="#ef553b" stroke-width="2"/>
 
-  <text x="40" y="40" fill="#ef553b" font-size="20" font-weight="600">
-    Top Languages · GitHub Activity
-  </text>
+    <svg width="720" height="380" viewBox="0 0 720 380"
+         xmlns="http://www.w3.org/2000/svg">
+      <rect width="100%" height="100%" rx="20"
+            fill="#0a0f0d" stroke="#ef553b"/>
 
-  <text x="40" y="70" fill="#00f5a0" font-size="14">
-    Dominant Stack: Python (82.4%)
-  </text>
+      
+    <circle cx="80" cy="80" r="46" fill="#2d2d2d"/>
+    <circle cx="80" cy="80" r="38" fill="#0a0f0d"
+            stroke="#ef553b" stroke-width="2"/>
+    <text x="80" y="92" text-anchor="middle"
+          font-size="36" fill="#ef553b"
+          font-family="monospace" font-weight="bold">
+      &lt;/&gt;
+    </text>
+    
 
-  <rect x="40" y="95" rx="10" ry="10" width="520" height="14" fill="#1f2a2a"/>
-  <rect x="40" y="95" rx="10" ry="10" width="428.7006377050715"
-        height="14" fill="#00f5a0"/>
+      <text x="140" y="55" fill="#ef553b"
+            font-size="22" font-weight="bold">
+        Domisnnet · Developer Dashboard
+      </text>
+      <text x="140" y="78" fill="#a2a2a2" font-size="13">
+        Da faísca da ideia à constelação do código.
+      </text>
+      <text x="140" y="96" fill="#a2a2a2" font-size="12" opacity="0.85">
+        Construindo um universo de possibilidades.
+      </text>
 
-  
-        <text x="40" y="140" fill="#a2a2a2" font-size="13">1</text>
-        <text x="65" y="140" fill="#a2a2a2" font-size="13">Python</text>
-        <rect x="200" y="130" rx="6" ry="6" width="296.7927491804341" height="10" fill="#3572A5"/>
-        <text x="570" y="140" fill="#a2a2a2" font-size="12" text-anchor="end">82.4%</text>
+      <text x="90" y="135" fill="#ef553b"
+            font-size="16" font-weight="bold">
+        Top Languages · GitHub Activity
+      </text>
+
+      
+        <text x="90" y="165" fill="#a2a2a2" font-size="14">
+          1. Python
+        </text>
         
-        <text x="40" y="168" fill="#a2a2a2" font-size="13">2</text>
-        <text x="65" y="168" fill="#a2a2a2" font-size="13">Jupyter Notebook</text>
-        <rect x="200" y="158" rx="6" ry="6" width="50.97961509444113" height="10" fill="#DA5B0B"/>
-        <text x="570" y="168" fill="#a2a2a2" font-size="12" text-anchor="end">14.2%</text>
+    <rect x="220" y="155" width="400" height="10" rx="5"
+          fill="#2d2d2d"/>
+    <rect x="220" y="155" width="329.77748096068973" height="10" rx="5"
+          fill="#00f5a0">
+      <animate attributeName="width" from="0" to="329.77748096068973"
+               dur="1s" fill="freeze"/>
+    </rect>
+    
+        <text x="640" y="165" fill="#a2a2a2" font-size="12">
+          82.4%
+        </text>
         
-        <text x="40" y="196" fill="#a2a2a2" font-size="13">3</text>
-        <text x="65" y="196" fill="#a2a2a2" font-size="13">Cython</text>
-        <rect x="200" y="186" rx="6" ry="6" width="7.54001841501276" height="10" fill="#fedf5b"/>
-        <text x="570" y="196" fill="#a2a2a2" font-size="12" text-anchor="end">2.1%</text>
+        <text x="90" y="195" fill="#a2a2a2" font-size="14">
+          2. Jupyter Notebook
+        </text>
         
-        <text x="40" y="224" fill="#a2a2a2" font-size="13">4</text>
-        <text x="65" y="224" fill="#a2a2a2" font-size="13">C</text>
-        <rect x="200" y="214" rx="6" ry="6" width="2.3217283700023605" height="10" fill="#555555"/>
-        <text x="570" y="224" fill="#a2a2a2" font-size="12" text-anchor="end">0.6%</text>
+    <rect x="220" y="185" width="400" height="10" rx="5"
+          fill="#2d2d2d"/>
+    <rect x="220" y="185" width="56.645349634096355" height="10" rx="5"
+          fill="#da5b0b">
+      <animate attributeName="width" from="0" to="56.645349634096355"
+               dur="1s" fill="freeze"/>
+    </rect>
+    
+        <text x="640" y="195" fill="#a2a2a2" font-size="12">
+          14.2%
+        </text>
         
-        <text x="40" y="252" fill="#a2a2a2" font-size="13">5</text>
-        <text x="65" y="252" fill="#a2a2a2" font-size="13">C++</text>
-        <rect x="200" y="242" rx="6" ry="6" width="0.7135144917346428" height="10" fill="#f34b7d"/>
-        <text x="570" y="252" fill="#a2a2a2" font-size="12" text-anchor="end">0.2%</text>
+        <text x="90" y="225" fill="#a2a2a2" font-size="14">
+          3. Cython
+        </text>
+        
+    <rect x="220" y="215" width="400" height="10" rx="5"
+          fill="#2d2d2d"/>
+    <rect x="220" y="215" width="8.377995372752332" height="10" rx="5"
+          fill="#888888">
+      <animate attributeName="width" from="0" to="8.377995372752332"
+               dur="1s" fill="freeze"/>
+    </rect>
+    
+        <text x="640" y="225" fill="#a2a2a2" font-size="12">
+          2.1%
+        </text>
+        
+        <text x="90" y="255" fill="#a2a2a2" font-size="14">
+          4. C
+        </text>
+        
+    <rect x="220" y="245" width="400" height="10" rx="5"
+          fill="#2d2d2d"/>
+    <rect x="220" y="245" width="2.5797588905006235" height="10" rx="5"
+          fill="#555555">
+      <animate attributeName="width" from="0" to="2.5797588905006235"
+               dur="1s" fill="freeze"/>
+    </rect>
+    
+        <text x="640" y="255" fill="#a2a2a2" font-size="12">
+          0.6%
+        </text>
+        
+        <text x="90" y="285" fill="#a2a2a2" font-size="14">
+          5. C++
+        </text>
+        
+    <rect x="220" y="275" width="400" height="10" rx="5"
+          fill="#2d2d2d"/>
+    <rect x="220" y="275" width="0.7928125345479616" height="10" rx="5"
+          fill="#f34b7d">
+      <animate attributeName="width" from="0" to="0.7928125345479616"
+               dur="1s" fill="freeze"/>
+    </rect>
+    
+        <text x="640" y="285" fill="#a2a2a2" font-size="12">
+          0.2%
+        </text>
+        
+        <text x="90" y="315" fill="#a2a2a2" font-size="14">
+          6. HTML
+        </text>
+        
+    <rect x="220" y="305" width="400" height="10" rx="5"
+          fill="#2d2d2d"/>
+    <rect x="220" y="305" width="0.47126572131541267" height="10" rx="5"
+          fill="#e34c26">
+      <animate attributeName="width" from="0" to="0.47126572131541267"
+               dur="1s" fill="freeze"/>
+    </rect>
+    
+        <text x="640" y="315" fill="#a2a2a2" font-size="12">
+          0.1%
+        </text>
         
 
-  <text x="40" y="275" fill="#a2a2a2" font-size="11">
-    Languages: 19 · Updated: 2025-12-16
-  </text>
-</svg>
+      <text x="90" y="358" fill="#a2a2a2"
+            font-size="11" opacity="0.6">
+        Updated: 2025-12-16
+      </text>
+    </svg>
+    

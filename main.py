@@ -1,47 +1,47 @@
 import os
 import sys
-import math
-import logging
+import time
 import requests
-from collections import Counter
-from dotenv import load_dotenv
 from datetime import datetime
+from collections import defaultdict
 
-# -------------------------------------------------
-# SETUP
-# -------------------------------------------------
-load_dotenv()
+# =========================
+# CONFIGURAÇÕES
+# =========================
 
-logging.basicConfig(level=logging.INFO, format="%(levelname)s - %(message)s")
-
-GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
+GITHUB_API = "https://api.github.com"
+TOKEN = os.getenv("GITHUB_TOKEN")
 THEME_NAME = os.getenv("THEME_NAME", "merko")
 
 HEADERS = {
     "Accept": "application/vnd.github+json",
-    **({"Authorization": f"Bearer {GITHUB_TOKEN}"} if GITHUB_TOKEN else {}),
+    "Authorization": f"Bearer {TOKEN}" if TOKEN else None,
 }
 
-# -------------------------------------------------
-# LANGUAGE COLORS
-# -------------------------------------------------
+SESSION = requests.Session()
+SESSION.headers.update({k: v for k, v in HEADERS.items() if v})
+
+# =========================
+# CORES DAS LINGUAGENS
+# =========================
+
 LANG_COLORS = {
-    "Python": "#3572A5",
+    "Python": "#00f5a0",
     "JavaScript": "#f1e05a",
     "TypeScript": "#3178c6",
     "HTML": "#e34c26",
     "CSS": "#563d7c",
     "C": "#555555",
     "C++": "#f34b7d",
-    "Go": "#00ADD8",
+    "Jupyter Notebook": "#da5b0b",
     "Shell": "#89e051",
-    "Jupyter Notebook": "#DA5B0B",
-    "Cython": "#fedf5b",
+    "Other": "#888888",
 }
 
-# -------------------------------------------------
-# THEMES (EXATAMENTE OS QUE VOCÊ PEDIU)
-# -------------------------------------------------
+# =========================
+# TEMAS (COMPLETOS)
+# =========================
+
 THEMES = {
     "cobalt": {
         "background": "#0047AB",
@@ -51,7 +51,6 @@ THEMES = {
         "border": "#333",
         "rank_circle_bg": "#333",
         "rank_circle_fill": "#FFC600",
-        "lang_colors": LANG_COLORS,
     },
     "dark": {
         "background": "#151515",
@@ -61,7 +60,6 @@ THEMES = {
         "border": "#e4e2e2",
         "rank_circle_bg": "#333",
         "rank_circle_fill": "#ffffff",
-        "lang_colors": LANG_COLORS,
     },
     "dracula": {
         "background": "#282a36",
@@ -71,7 +69,6 @@ THEMES = {
         "border": "#44475a",
         "rank_circle_bg": "#44475a",
         "rank_circle_fill": "#ff79c6",
-        "lang_colors": LANG_COLORS,
     },
     "gruvbox": {
         "background": "#282828",
@@ -81,7 +78,6 @@ THEMES = {
         "border": "#504945",
         "rank_circle_bg": "#504945",
         "rank_circle_fill": "#fabd2f",
-        "lang_colors": LANG_COLORS,
     },
     "merko": {
         "background": "#0a0f0d",
@@ -91,7 +87,6 @@ THEMES = {
         "border": "#ef553b",
         "rank_circle_bg": "#2d2d2d",
         "rank_circle_fill": "#ef553b",
-        "lang_colors": LANG_COLORS,
     },
     "onedark": {
         "background": "#282c34",
@@ -101,7 +96,6 @@ THEMES = {
         "border": "#3e4451",
         "rank_circle_bg": "#3e4451",
         "rank_circle_fill": "#61afef",
-        "lang_colors": LANG_COLORS,
     },
     "radical": {
         "background": "#141321",
@@ -111,7 +105,6 @@ THEMES = {
         "border": "#fe428e",
         "rank_circle_bg": "#54253a",
         "rank_circle_fill": "#fe428e",
-        "lang_colors": LANG_COLORS,
     },
     "tokyonight": {
         "background": "#1a1b27",
@@ -121,135 +114,163 @@ THEMES = {
         "border": "#414868",
         "rank_circle_bg": "#414868",
         "rank_circle_fill": "#70a5fd",
-        "lang_colors": LANG_COLORS,
     },
 }
 
-# -------------------------------------------------
-# API HELPERS
-# -------------------------------------------------
-def fetch_repos(username: str) -> list:
-    url = f"https://api.github.com/users/{username}/repos?per_page=100&type=owner"
-    r = requests.get(url, headers=HEADERS, timeout=15)
+THEME = THEMES.get(THEME_NAME, THEMES["merko"])
 
-    if r.status_code == 429:
-        logging.warning("Rate limit atingido ao buscar repositórios.")
-        return []
+# =========================
+# API SAFE CALL
+# =========================
 
-    r.raise_for_status()
-    return r.json()
+def safe_get(url, params=None):
+    for _ in range(3):
+        r = SESSION.get(url, params=params)
+        if r.status_code == 429:
+            time.sleep(2)
+            continue
+        r.raise_for_status()
+        return r.json()
+    raise RuntimeError("GitHub API rate limit excedido.")
 
+# =========================
+# FETCH DATA
+# =========================
 
-def fetch_languages(repos: list) -> Counter:
-    counter = Counter()
+def fetch_repos(username):
+    repos = []
+    page = 1
+    while True:
+        data = safe_get(
+            f"{GITHUB_API}/users/{username}/repos",
+            params={"per_page": 100, "page": page, "type": "owner"},
+        )
+        if not data:
+            break
+        repos.extend(data)
+        page += 1
+    return repos
+
+def fetch_languages(username):
+    repos = fetch_repos(username)
+    totals = defaultdict(int)
 
     for repo in repos:
-        url = repo.get("languages_url")
-        if not url:
+        if repo.get("fork"):
             continue
+        langs = safe_get(repo["languages_url"])
+        for lang, value in langs.items():
+            totals[lang] += value
 
-        r = requests.get(url, headers=HEADERS, timeout=15)
-        if r.status_code == 429:
-            continue
-        if not r.ok:
-            continue
+    total = sum(totals.values()) or 1
+    langs_percent = [
+        (lang, (value / total) * 100)
+        for lang, value in totals.items()
+    ]
 
-        for lang, size in r.json().items():
-            counter[lang] += size
+    return sorted(langs_percent, key=lambda x: x[1], reverse=True)[:6]
 
-    return counter
+# =========================
+# SVG COMPONENTES
+# =========================
 
+def avatar_svg(cx, cy, r):
+    return f"""
+    <circle cx="{cx}" cy="{cy}" r="{r+8}" fill="{THEME['rank_circle_bg']}"/>
+    <circle cx="{cx}" cy="{cy}" r="{r}" fill="{THEME['background']}"
+            stroke="{THEME['rank_circle_fill']}" stroke-width="2"/>
+    <text x="{cx}" y="{cy+12}" text-anchor="middle"
+          font-size="36" fill="{THEME['icon']}"
+          font-family="monospace" font-weight="bold">
+      &lt;/&gt;
+    </text>
+    """
 
-def fetch_basic_stats(repos: list) -> dict:
-    stars = sum(r.get("stargazers_count", 0) for r in repos)
+def progress_bar(x, y, width, percent, color):
+    fill = width * (percent / 100)
+    return f"""
+    <rect x="{x}" y="{y}" width="{width}" height="10" rx="5"
+          fill="{THEME['rank_circle_bg']}"/>
+    <rect x="{x}" y="{y}" width="{fill}" height="10" rx="5"
+          fill="{color}">
+      <animate attributeName="width" from="0" to="{fill}"
+               dur="1s" fill="freeze"/>
+    </rect>
+    """
 
-    return {
-        "stars": stars,
-        "repos": len(repos),
-    }
+# =========================
+# SVG FINAL
+# =========================
 
+def create_top_languages_svg(username, langs):
+    width, height = 720, 380
+    y = 165
 
-# -------------------------------------------------
-# SVG — TOP LANGUAGES WOW
-# -------------------------------------------------
-def create_top_languages_svg(langs: Counter, theme_name: str) -> str:
-    theme = THEMES.get(theme_name, THEMES["merko"])
-
-    if not langs:
-        return "<svg></svg>"
-
-    total = sum(langs.values())
-    top = langs.most_common(5)
-    dominant, dominant_size = top[0]
-    dominant_pct = dominant_size / total * 100
-
-    bars = ""
-    y = 140
-    max_width = 360
-
-    for i, (lang, size) in enumerate(top):
-        pct = size / total * 100
-        width = (pct / 100) * max_width
-        color = theme["lang_colors"].get(lang, "#888")
-
-        bars += f"""
-        <text x="40" y="{y}" fill="{theme['text']}" font-size="13">{i+1}</text>
-        <text x="65" y="{y}" fill="{theme['text']}" font-size="13">{lang}</text>
-        <rect x="200" y="{y-10}" rx="6" ry="6" width="{width}" height="10" fill="{color}"/>
-        <text x="570" y="{y}" fill="{theme['text']}" font-size="12" text-anchor="end">{pct:.1f}%</text>
+    rows = ""
+    for i, (lang, percent) in enumerate(langs, 1):
+        color = LANG_COLORS.get(lang, LANG_COLORS["Other"])
+        rows += f"""
+        <text x="90" y="{y}" fill="{THEME['text']}" font-size="14">
+          {i}. {lang}
+        </text>
+        {progress_bar(220, y-10, 400, percent, color)}
+        <text x="640" y="{y}" fill="{THEME['text']}" font-size="12">
+          {percent:.1f}%
+        </text>
         """
-        y += 28
+        y += 30
 
     updated = datetime.utcnow().strftime("%Y-%m-%d")
 
-    return f"""
-<svg width="600" height="300" xmlns="http://www.w3.org/2000/svg">
-  <rect width="598" height="298" x="1" y="1" rx="14" ry="14"
-        fill="{theme['background']}" stroke="{theme['border']}" stroke-width="2"/>
+    svg = f"""
+    <svg width="{width}" height="{height}" viewBox="0 0 {width} {height}"
+         xmlns="http://www.w3.org/2000/svg">
+      <rect width="100%" height="100%" rx="20"
+            fill="{THEME['background']}" stroke="{THEME['border']}"/>
 
-  <text x="40" y="40" fill="{theme['title']}" font-size="20" font-weight="600">
-    Top Languages · GitHub Activity
-  </text>
+      {avatar_svg(80, 80, 38)}
 
-  <text x="40" y="70" fill="#00f5a0" font-size="14">
-    Dominant Stack: {dominant} ({dominant_pct:.1f}%)
-  </text>
+      <text x="140" y="55" fill="{THEME['title']}"
+            font-size="22" font-weight="bold">
+        Domisnnet · Developer Dashboard
+      </text>
+      <text x="140" y="78" fill="{THEME['text']}" font-size="13">
+        Da faísca da ideia à constelação do código.
+      </text>
+      <text x="140" y="96" fill="{THEME['text']}" font-size="12" opacity="0.85">
+        Construindo um universo de possibilidades.
+      </text>
 
-  <rect x="40" y="95" rx="10" ry="10" width="520" height="14" fill="#1f2a2a"/>
-  <rect x="40" y="95" rx="10" ry="10" width="{520 * dominant_pct / 100}"
-        height="14" fill="#00f5a0"/>
+      <text x="90" y="135" fill="{THEME['icon']}"
+            font-size="16" font-weight="bold">
+        Top Languages · GitHub Activity
+      </text>
 
-  {bars}
+      {rows}
 
-  <text x="40" y="275" fill="{theme['text']}" font-size="11">
-    Languages: {len(langs)} · Updated: {updated}
-  </text>
-</svg>
-""".strip()
+      <text x="90" y="{height-22}" fill="{THEME['text']}"
+            font-size="11" opacity="0.6">
+        Updated: {updated}
+      </text>
+    </svg>
+    """
 
+    with open("top-langs.svg", "w", encoding="utf-8") as f:
+        f.write(svg)
 
-# -------------------------------------------------
+# =========================
 # MAIN
-# -------------------------------------------------
+# =========================
+
 def main():
     if len(sys.argv) < 2:
+        print("Uso: python main.py <username>")
         sys.exit(1)
 
     username = sys.argv[1]
-    theme = THEME_NAME
-
-    repos = fetch_repos(username)
-
-    stats = fetch_basic_stats(repos)
-    langs = fetch_languages(repos)
-
-    langs_svg = create_top_languages_svg(langs, theme)
-
-    with open("top-langs.svg", "w", encoding="utf-8") as f:
-        f.write(langs_svg)
-
-    logging.info("SVG gerado com sucesso.")
-
+    langs = fetch_languages(username)
+    create_top_languages_svg(username, langs)
+    print("SVG gerado com sucesso.")
 
 if __name__ == "__main__":
     main()
