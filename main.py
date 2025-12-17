@@ -1,6 +1,5 @@
 import os
 import sys
-import math
 import time
 import requests
 from collections import Counter
@@ -17,7 +16,7 @@ HEADERS = {
     **({"Authorization": f"Bearer {TOKEN}"} if TOKEN else {})
 }
 
-# ================= LANG COLORS =================
+# ================= LANG COLORS (ALFABÉTICO) =================
 
 LANG_COLORS = {
     "C": "#555555",
@@ -40,7 +39,7 @@ LANG_COLORS = {
 # ================= THEMES =================
 
 THEMES = {
-    "cobalt": {
+     "cobalt": {
         "bg": "#0047AB", "title": "#FFC600", "text": "#FFFFFF",
         "border": "#333", "accent": "#FFC600"
     },
@@ -74,7 +73,7 @@ THEMES = {
     },
 }
 
-THEME = THEMES.get(THEME_NAME, THEMES["merko"])
+THEME = THEMES["merko"]
 
 # ================= HELPERS =================
 
@@ -85,9 +84,6 @@ def safe_get(url):
         return safe_get(url)
     r.raise_for_status()
     return r.json()
-
-def k(n):
-    return f"{n//1000}k+" if n >= 1000 else str(n)
 
 # ================= FETCH =================
 
@@ -108,106 +104,101 @@ def fetch_languages(repos):
             continue
     return counter
 
-# ================= SVG BLOCKS =================
+# ================= SVG COMPONENTS =================
 
-def render_top_languages(counter, x=260, y=260):
+def render_lang_bars(counter, start_x, start_y, max_width):
     total = sum(counter.values())
     top = counter.most_common(5)
 
-    BAR_MAX = 360
-    BAR_HEIGHT = 10
-    GAP = 26
+    y = start_y
+    gap = 26
+    bar_h = 10
 
     svg = ""
-    y_pos = y
 
     for lang, val in top:
         pct = (val / total) * 100
-        width = BAR_MAX * (pct / 100)
+        width = max_width * (pct / 100)
         color = LANG_COLORS.get(lang, LANG_COLORS["Other"])
 
         svg += f'''
-<g>
-  <text x="{x}" y="{y_pos}" fill="{THEME['text']}" font-size="12">
-    {lang}
-  </text>
+<text x="{start_x}" y="{y}" fill="{THEME['text']}" font-size="12">{lang}</text>
 
-  <rect x="{x+90}" y="{y_pos-9}"
-    width="{BAR_MAX}" height="{BAR_HEIGHT}"
-    rx="5" fill="#1e1e1e"/>
+<rect x="{start_x+110}" y="{y-9}" width="{max_width}" height="{bar_h}" rx="5" fill="#1c1c1c"/>
+<rect x="{start_x+110}" y="{y-9}" width="{width}" height="{bar_h}" rx="5" fill="{color}"/>
 
-  <rect x="{x+90}" y="{y_pos-9}"
-    width="{width}" height="{BAR_HEIGHT}"
-    rx="5" fill="{color}"/>
-
-  <text x="{x+90+BAR_MAX+10}" y="{y_pos}"
-    fill="{THEME['text']}" font-size="12">
-    {pct:.1f}%
-  </text>
-</g>
+<text x="{start_x+110+max_width+10}" y="{y}" fill="{THEME['text']}" font-size="12">
+{pct:.1f}%
+</text>
 '''
-        y_pos += GAP
+        y += gap
 
     return svg
 
-# ================= MAIN SVG =================
+# ================= SVG =================
 
 def build_svg(user, repos, langs):
     stars = sum(r["stargazers_count"] for r in repos)
+    forks = sum(r["forks_count"] for r in repos)
 
     return f'''
-<svg width="900" height="360" xmlns="http://www.w3.org/2000/svg">
+<svg width="900" height="380" xmlns="http://www.w3.org/2000/svg">
 
 <rect width="100%" height="100%" rx="28"
  fill="{THEME['bg']}"
  stroke="{THEME['border']}"
  stroke-width="4"/>
 
-<!-- Ícone -->
-<circle cx="90" cy="90" r="32"
+<!-- Ícone Dev -->
+<circle cx="90" cy="95" r="40"
  fill="none" stroke="{THEME['accent']}" stroke-width="3"/>
-<text x="90" y="98" text-anchor="middle"
- fill="{THEME['accent']}" font-size="18">&lt;/&gt;</text>
+<text x="90" y="105" text-anchor="middle"
+ fill="{THEME['accent']}" font-size="22">&lt;/&gt;</text>
 
 <!-- Título -->
-<text x="140" y="70" fill="{THEME['title']}"
+<text x="150" y="70" fill="{THEME['title']}"
  font-size="22" font-weight="bold">
  Domisnnet · Developer Dashboard
 </text>
 
-<text x="140" y="96" fill="{THEME['text']}" font-size="13">
+<text x="150" y="96" fill="{THEME['text']}" font-size="13">
  Da faísca da ideia à Constelação do código.
 </text>
 
-<text x="140" y="118" fill="{THEME['text']}" font-size="13">
+<text x="150" y="118" fill="{THEME['text']}" font-size="13">
  Construindo um Universo de possibilidades!!
 </text>
 
 <!-- Stats -->
-<text x="140" y="150" fill="{THEME['text']}" font-size="13">
- 📦 Repositórios: {len(repos)}   ⭐ Stars: {stars}
+<text x="150" y="150" fill="{THEME['text']}" font-size="13">
+ 📦 {len(repos)} Repositórios   ⭐ {stars} Stars   🍴 {forks} Forks   🧠 {len(langs)} Linguagens
 </text>
 
-<!-- Qualificação -->
-<circle cx="820" cy="90" r="26"
- fill="none" stroke="{THEME['accent']}" stroke-width="4"/>
-<text x="820" y="98" text-anchor="middle"
- fill="{THEME['accent']}" font-size="18" font-weight="bold">
- A
-</text>
+<!-- Rank A -->
+<circle cx="820" cy="95" r="38"
+ fill="none" stroke="#2a2a2a" stroke-width="6"/>
+
+<circle cx="820" cy="95" r="38"
+ fill="none" stroke="{THEME['accent']}" stroke-width="6"
+ stroke-dasharray="220"
+ stroke-dashoffset="35"
+ transform="rotate(-90 820 95)"/>
+
+<text x="820" y="105" text-anchor="middle"
+ fill="{THEME['accent']}" font-size="22" font-weight="bold">A</text>
 
 <!-- Linguagens -->
-<text x="260" y="230"
+<text x="300" y="215"
  fill="{THEME['accent']}" font-size="16" font-weight="bold">
  Top Languages
 </text>
 
-{render_top_languages(langs)}
+{render_lang_bars(langs, 260, 245, 360)}
 
 </svg>
 '''
 
-# ================= ENTRY =================
+# ================= MAIN =================
 
 def main():
     if not USERNAME:
