@@ -16,7 +16,7 @@ HEADERS = {
     **({"Authorization": f"Bearer {TOKEN}"} if TOKEN else {})
 }
 
-# ================= LANG COLORS (ALFABÉTICO) =================
+# ================= LANG COLORS =================
 
 LANG_COLORS = {
     "C": "#555555",
@@ -39,6 +39,38 @@ LANG_COLORS = {
 # ================= THEMES =================
 
 THEMES = {
+    "cobalt": {
+        "bg": "#0047AB",
+        "title": "#FFC600",
+        "text": "#FFFFFF",
+        "border": "#333333",
+        "accent": "#FFC600",
+        "bar_bg": "#0b2e66",
+    },
+    "dark": {
+        "bg": "#151515",
+        "title": "#ffffff",
+        "text": "#9f9f9f",
+        "border": "#e4e2e2",
+        "accent": "#ffffff",
+        "bar_bg": "#1e1e1e",
+    },
+    "dracula": {
+        "bg": "#282a36",
+        "title": "#f8f8f2",
+        "text": "#f8f8f2",
+        "border": "#44475a",
+        "accent": "#ff79c6",
+        "bar_bg": "#343746",
+    },
+    "gruvbox": {
+        "bg": "#282828",
+        "title": "#fabd2f",
+        "text": "#ebdbb2",
+        "border": "#504945",
+        "accent": "#fabd2f",
+        "bar_bg": "#32302f",
+    },
     "merko": {
         "bg": "#0a0f0d",
         "title": "#ef553b",
@@ -46,10 +78,34 @@ THEMES = {
         "border": "#ef553b",
         "accent": "#ef553b",
         "bar_bg": "#121816",
-    }
+    },
+    "onedark": {
+        "bg": "#282c34",
+        "title": "#61afef",
+        "text": "#abb2bf",
+        "border": "#3e4451",
+        "accent": "#61afef",
+        "bar_bg": "#21252b",
+    },
+    "radical": {
+        "bg": "#141321",
+        "title": "#fe428e",
+        "text": "#a9fef7",
+        "border": "#fe428e",
+        "accent": "#fe428e",
+        "bar_bg": "#1f1b2e",
+    },
+    "tokyonight": {
+        "bg": "#1a1b27",
+        "title": "#70a5fd",
+        "text": "#a9b1d6",
+        "border": "#414868",
+        "accent": "#70a5fd",
+        "bar_bg": "#222436",
+    },
 }
 
-THEME = THEMES["merko"]
+THEME = THEMES[THEME_NAME]
 
 # ================= HELPERS =================
 
@@ -82,7 +138,7 @@ def fetch_languages(repos):
 
 # ================= SVG COMPONENTS =================
 
-def render_lang_bars(counter, start_x, start_y, max_width):
+def render_lang_bars(counter, center_x, start_y, max_width):
     total = sum(counter.values())
     top = counter.most_common(5)
 
@@ -90,20 +146,34 @@ def render_lang_bars(counter, start_x, start_y, max_width):
     gap = 26
     bar_h = 10
 
+    left = center_x - max_width // 2
+
     svg = ""
 
-    for lang, val in top:
+    for i, (lang, val) in enumerate(top):
         pct = (val / total) * 100
         width = max_width * (pct / 100)
         color = LANG_COLORS.get(lang, LANG_COLORS["Other"])
 
+        delay = 0.2 + i * 0.15
+
         svg += f'''
-<text x="{start_x}" y="{y}" fill="{THEME['text']}" font-size="12">{lang}</text>
+<text x="{left - 12}" y="{y}" fill="{THEME['text']}"
+ font-size="12" text-anchor="end">{lang}</text>
 
-<rect x="{start_x+110}" y="{y-9}" width="{max_width}" height="{bar_h}" rx="5" fill="#1c1c1c"/>
-<rect x="{start_x+110}" y="{y-9}" width="{width}" height="{bar_h}" rx="5" fill="{color}"/>
+<rect x="{left}" y="{y-9}" width="{max_width}" height="{bar_h}"
+ rx="5" fill="{THEME['bar_bg']}"/>
 
-<text x="{start_x+110+max_width+10}" y="{y}" fill="{THEME['text']}" font-size="12">
+<rect x="{left}" y="{y-9}" width="0" height="{bar_h}"
+ rx="5" fill="{color}">
+  <animate attributeName="width"
+   from="0" to="{width}"
+   dur="0.8s" begin="{delay}s"
+   fill="freeze"/>
+</rect>
+
+<text x="{left + max_width + 10}" y="{y}"
+ fill="{THEME['text']}" font-size="12">
 {pct:.1f}%
 </text>
 '''
@@ -118,14 +188,14 @@ def build_svg(user, repos, langs):
     forks = sum(r["forks_count"] for r in repos)
 
     return f'''
-<svg width="900" height="380" xmlns="http://www.w3.org/2000/svg">
+<svg width="900" height="380" xmlns="http://www.w3.org/2000/svg" opacity="0">
+<animate attributeName="opacity" from="0" to="1" dur="0.6s" fill="freeze"/>
 
 <rect width="100%" height="100%" rx="28"
  fill="{THEME['bg']}"
  stroke="{THEME['border']}"
  stroke-width="4"/>
 
-<!-- Definições da Aura -->
 <defs>
   <radialGradient id="logoAura" cx="50%" cy="50%" r="60%">
     <stop offset="0%" stop-color="{THEME['accent']}" stop-opacity="0.35"/>
@@ -133,78 +203,83 @@ def build_svg(user, repos, langs):
   </radialGradient>
 </defs>
 
-<!-- Aura externa -->
-<circle cx="90" cy="95" r="54"
- fill="url(#logoAura)" />
+<!-- LOGO AURA -->
+<circle cx="90" cy="95" r="48" fill="url(#logoAura)">
+  <animate attributeName="opacity"
+   from="0.35" to="0.65"
+   dur="2.4s" repeatCount="indefinite"/>
+</circle>
 
-<!-- Fundo interno -->
-<circle cx="90" cy="95" r="40"
- fill="{THEME['bar_bg']}"
- opacity="0.85"/>
+<!-- LOGO FUNDO -->
+<circle cx="90" cy="95" r="34"
+ fill="{THEME['bar_bg']}"/>
 
-<!-- Borda -->
-<circle cx="90" cy="95" r="40"
- fill="none"
- stroke="{THEME['accent']}"
- stroke-width="4"/>
+<circle cx="90" cy="95" r="34"
+ fill="none" stroke="{THEME['accent']}" stroke-width="4"/>
 
-<!-- Símbolo </> -->
-<text x="90" y="108"
+<!-- </> -->
+<text x="90" y="106"
  text-anchor="middle"
  fill="{THEME['accent']}"
- font-size="32"
+ font-size="30"
  font-weight="bold"
- letter-spacing="3">
+ letter-spacing="5">
 &lt;/&gt;
 </text>
 
 <!-- TÍTULO -->
-<text x="160" y="70"
+<text x="160" y="68"
  fill="{THEME['title']}"
  font-size="22"
  font-weight="bold">
- Domisnnet · Developer Dashboard
+Domisnnet · Developer Dashboard
 </text>
 
-<text x="160" y="96"
+<text x="160" y="92"
  fill="{THEME['text']}"
  font-size="13">
- Da faísca da ideia à Constelação do código.
+Da faísca da ideia à Constelação do código.
 </text>
 
-<text x="160" y="118"
+<text x="160" y="112"
  fill="{THEME['text']}"
  font-size="13">
- Construindo um Universo de possibilidades!!
+Construindo um Universo de possibilidades!!
 </text>
 
 <!-- STATS -->
-<text x="160" y="150"
+<text x="160" y="145"
  fill="{THEME['text']}"
  font-size="13">
- 📦 {len(repos)} Repositórios   | ⭐ {stars} Stars   | 🍴 {forks} Forks   | 🧠 {len(langs)} Linguagens
+📦 {len(repos)} Repositórios · ⭐ {stars} Stars · 🍴 {forks} Forks · 🧠 {len(langs)} Linguagens
 </text>
 
-<!-- RANK A -->
+<!-- RANK -->
 <circle cx="825" cy="95" r="46"
  fill="none" stroke="#2a2a2a" stroke-width="7"/>
+
 <circle cx="825" cy="95" r="46"
  fill="none"
  stroke="{THEME['accent']}"
  stroke-width="7"
- stroke-dasharray="270"
- stroke-dashoffset="30"
- transform="rotate(-90 825 95)"/>
+ stroke-dasharray="290"
+ stroke-dashoffset="290"
+ transform="rotate(-90 825 95)">
+  <animate attributeName="stroke-dashoffset"
+   from="290" to="30"
+   dur="1.4s" fill="freeze"/>
+</circle>
+
 <text x="825" y="112"
  text-anchor="middle"
  fill="{THEME['accent']}"
- font-size="30"
+ font-size="34"
  font-weight="bold">
 A
 </text>
 
 <!-- TOP LANGUAGES -->
-<text x="450" y="215"
+<text x="450" y="210"
  text-anchor="middle"
  fill="{THEME['accent']}"
  font-size="16"
@@ -212,7 +287,7 @@ A
 Top Languages
 </text>
 
-{render_lang_bars(langs, 270, 245, 360)}
+{render_lang_bars(langs, 450, 240, 360)}
 
 </svg>
 '''
