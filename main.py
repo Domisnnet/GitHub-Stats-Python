@@ -149,48 +149,72 @@ def build_svg(user, repos, langs):
  stroke="{THEME['border']}"
  stroke-width="4"/>
 
-<!-- Ícone Dev -->
-<circle cx="90" cy="95" r="40"
- fill="none" stroke="{THEME['accent']}" stroke-width="3"/>
-<text x="90" y="105" text-anchor="middle"
- fill="{THEME['accent']}" font-size="22">&lt;/&gt;</text>
+<!-- LOGO </> -->
+<circle cx="90" cy="95" r="46"
+ fill="none" stroke="{THEME['accent']}" stroke-width="4"/>
+<text x="90" y="108"
+ text-anchor="middle"
+ fill="{THEME['accent']}"
+ font-size="28"
+ font-weight="bold"
+ letter-spacing="6">
+&lt;/&gt;
+</text>
 
-<!-- Título -->
-<text x="150" y="70" fill="{THEME['title']}"
- font-size="22" font-weight="bold">
+<!-- TÍTULO -->
+<text x="160" y="70"
+ fill="{THEME['title']}"
+ font-size="22"
+ font-weight="bold">
  Domisnnet · Developer Dashboard
 </text>
 
-<text x="150" y="96" fill="{THEME['text']}" font-size="13">
+<text x="160" y="96"
+ fill="{THEME['text']}"
+ font-size="13">
  Da faísca da ideia à Constelação do código.
 </text>
 
-<text x="150" y="118" fill="{THEME['text']}" font-size="13">
+<text x="160" y="118"
+ fill="{THEME['text']}"
+ font-size="13">
  Construindo um Universo de possibilidades!!
 </text>
 
-<!-- Stats -->
-<text x="150" y="150" fill="{THEME['text']}" font-size="13">
+<!-- STATS -->
+<text x="160" y="150"
+ fill="{THEME['text']}"
+ font-size="13">
  📦 {len(repos)} Repositórios   ⭐ {stars} Stars   🍴 {forks} Forks   🧠 {len(langs)} Linguagens
 </text>
 
-<!-- Rank A -->
-<circle cx="820" cy="95" r="38"
- fill="none" stroke="#2a2a2a" stroke-width="6"/>
+<!-- RANK A (DOMINANTE) -->
+<circle cx="825" cy="95" r="46"
+ fill="none" stroke="#2a2a2a" stroke-width="7"/>
 
-<circle cx="820" cy="95" r="38"
- fill="none" stroke="{THEME['accent']}" stroke-width="6"
- stroke-dasharray="220"
- stroke-dashoffset="35"
- transform="rotate(-90 820 95)"/>
+<circle cx="825" cy="95" r="46"
+ fill="none"
+ stroke="{THEME['accent']}"
+ stroke-width="7"
+ stroke-dasharray="270"
+ stroke-dashoffset="30"
+ transform="rotate(-90 825 95)"/>
 
-<text x="820" y="105" text-anchor="middle"
- fill="{THEME['accent']}" font-size="22" font-weight="bold">A</text>
+<text x="825" y="112"
+ text-anchor="middle"
+ fill="{THEME['accent']}"
+ font-size="30"
+ font-weight="bold">
+A
+</text>
 
-<!-- Linguagens -->
-<text x="300" y="215"
- fill="{THEME['accent']}" font-size="16" font-weight="bold">
- Top Languages
+<!-- TOP LANGUAGES -->
+<text x="450" y="215"
+ text-anchor="middle"
+ fill="{THEME['accent']}"
+ font-size="16"
+ font-weight="bold">
+Top Languages
 </text>
 
 {render_lang_bars(langs, 260, 245, 360)}
