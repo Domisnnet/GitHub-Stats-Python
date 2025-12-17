@@ -39,38 +39,13 @@ LANG_COLORS = {
 # ================= THEMES =================
 
 THEMES = {
-     "cobalt": {
-        "bg": "#0047AB", "title": "#FFC600", "text": "#FFFFFF",
-        "border": "#333", "accent": "#FFC600"
-    },
-    "dark": {
-        "bg": "#151515", "title": "#ffffff", "text": "#9f9f9f",
-        "border": "#e4e2e2", "accent": "#ffffff"
-    },
-    "dracula": {
-        "bg": "#282a36", "title": "#f8f8f2", "text": "#f8f8f2",
-        "border": "#44475a", "accent": "#ff79c6"
-    },
-    "gruvbox": {
-        "bg": "#282828", "title": "#fabd2f", "text": "#ebdbb2",
-        "border": "#504945", "accent": "#fabd2f"
-    },
     "merko": {
-        "bg": "#0a0f0d", "title": "#ef553b", "text": "#a2a2a2",
-        "border": "#ef553b", "accent": "#ef553b"
-    },
-    "onedark": {
-        "bg": "#282c34", "title": "#61afef", "text": "#abb2bf",
-        "border": "#3e4451", "accent": "#61afef"
-    },
-    "radical": {
-        "bg": "#141321", "title": "#fe428e", "text": "#a9fef7",
-        "border": "#fe428e", "accent": "#fe428e"
-    },
-    "tokyonight": {
-        "bg": "#1a1b27", "title": "#70a5fd", "text": "#a9b1d6",
-        "border": "#414868", "accent": "#70a5fd"
-    },
+        "bg": "#0a0f0d",
+        "title": "#ef553b",
+        "text": "#a2a2a2",
+        "border": "#ef553b",
+        "accent": "#ef553b"
+    }
 }
 
 THEME = THEMES["merko"]
@@ -150,14 +125,14 @@ def build_svg(user, repos, langs):
  stroke-width="4"/>
 
 <!-- LOGO </> -->
-<circle cx="90" cy="95" r="46"
+<circle cx="90" cy="95" r="40"
  fill="none" stroke="{THEME['accent']}" stroke-width="4"/>
 <text x="90" y="108"
  text-anchor="middle"
  fill="{THEME['accent']}"
- font-size="28"
+ font-size="32"
  font-weight="bold"
- letter-spacing="6">
+ letter-spacing="3">
 &lt;/&gt;
 </text>
 

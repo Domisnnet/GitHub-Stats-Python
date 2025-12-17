@@ -7,14 +7,14 @@
  stroke-width="4"/>
 
 <!-- LOGO </> -->
-<circle cx="90" cy="95" r="46"
+<circle cx="90" cy="95" r="40"
  fill="none" stroke="#ef553b" stroke-width="4"/>
 <text x="90" y="108"
  text-anchor="middle"
  fill="#ef553b"
- font-size="28"
+ font-size="32"
  font-weight="bold"
- letter-spacing="6">
+ letter-spacing="3">
 &lt;/&gt;
 </text>
 
@@ -78,7 +78,7 @@ Top Languages
 <text x="260" y="245" fill="#a2a2a2" font-size="12">Python</text>
 
 <rect x="370" y="236" width="360" height="10" rx="5" fill="#1c1c1c"/>
-<rect x="370" y="236" width="296.79177462449934" height="10" rx="5" fill="#3572A5"/>
+<rect x="370" y="236" width="296.7918256146015" height="10" rx="5" fill="#3572A5"/>
 
 <text x="740" y="245" fill="#a2a2a2" font-size="12">
 82.4%
@@ -87,7 +87,7 @@ Top Languages
 <text x="260" y="271" fill="#a2a2a2" font-size="12">Jupyter Notebook</text>
 
 <rect x="370" y="262" width="360" height="10" rx="5" fill="#1c1c1c"/>
-<rect x="370" y="262" width="50.98013976682026" height="10" rx="5" fill="#DA5B0B"/>
+<rect x="370" y="262" width="50.98009864111993" height="10" rx="5" fill="#DA5B0B"/>
 
 <text x="740" y="271" fill="#a2a2a2" font-size="12">
 14.2%
@@ -96,7 +96,7 @@ Top Languages
 <text x="260" y="297" fill="#a2a2a2" font-size="12">Cython</text>
 
 <rect x="370" y="288" width="360" height="10" rx="5" fill="#1c1c1c"/>
-<rect x="370" y="288" width="7.540096015429968" height="10" rx="5" fill="#fedf5b"/>
+<rect x="370" y="288" width="7.54008993283132" height="10" rx="5" fill="#fedf5b"/>
 
 <text x="740" y="297" fill="#a2a2a2" font-size="12">
 2.1%
@@ -105,7 +105,7 @@ Top Languages
 <text x="260" y="323" fill="#a2a2a2" font-size="12">C</text>
 
 <rect x="370" y="314" width="360" height="10" rx="5" fill="#1c1c1c"/>
-<rect x="370" y="314" width="2.3217522647835445" height="10" rx="5" fill="#555555"/>
+<rect x="370" y="314" width="2.32175039182501" height="10" rx="5" fill="#555555"/>
 
 <text x="740" y="323" fill="#a2a2a2" font-size="12">
 0.6%
@@ -114,7 +114,7 @@ Top Languages
 <text x="260" y="349" fill="#a2a2a2" font-size="12">C++</text>
 
 <rect x="370" y="340" width="360" height="10" rx="5" fill="#1c1c1c"/>
-<rect x="370" y="340" width="0.7135218350883582" height="10" rx="5" fill="#f34b7d"/>
+<rect x="370" y="340" width="0.7135212594899919" height="10" rx="5" fill="#f34b7d"/>
 
 <text x="740" y="349" fill="#a2a2a2" font-size="12">
 0.2%
