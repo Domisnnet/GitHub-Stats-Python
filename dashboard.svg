@@ -102,18 +102,13 @@ Top Languages
 <text x="258" y="240" fill="#a2a2a2"
  font-size="12" text-anchor="end">Python</text>
 
-<<<<<<< HEAD
-<rect x="380" y="236" width="360" height="10" rx="5" fill="#1c1c1c"/>
-<rect x="380" y="236" width="296.79159159619184" height="10" rx="5" fill="#3572A5"/>
-=======
 <rect x="270" y="231" width="360" height="10"
  rx="5" fill="#121816"/>
->>>>>>> 1927c3c (acrescentado)
 
 <rect x="270" y="231" width="0" height="10"
  rx="5" fill="#3572A5">
   <animate attributeName="width"
-   from="0" to="296.79159159619184"
+   from="0" to="296.7925351735905"
    dur="0.8s" begin="0.2s"
    fill="freeze"/>
 </rect>
@@ -126,18 +121,13 @@ Top Languages
 <text x="258" y="266" fill="#a2a2a2"
  font-size="12" text-anchor="end">Jupyter Notebook</text>
 
-<<<<<<< HEAD
-<rect x="380" y="262" width="360" height="10" rx="5" fill="#1c1c1c"/>
-<rect x="380" y="262" width="50.980287386985836" height="10" rx="5" fill="#DA5B0B"/>
-=======
 <rect x="270" y="257" width="360" height="10"
  rx="5" fill="#121816"/>
->>>>>>> 1927c3c (acrescentado)
 
 <rect x="270" y="257" width="0" height="10"
  rx="5" fill="#DA5B0B">
   <animate attributeName="width"
-   from="0" to="50.980287386985836"
+   from="0" to="50.97952635141842"
    dur="0.8s" begin="0.35s"
    fill="freeze"/>
 </rect>
@@ -150,18 +140,13 @@ Top Languages
 <text x="258" y="292" fill="#a2a2a2"
  font-size="12" text-anchor="end">Cython</text>
 
-<<<<<<< HEAD
-<rect x="380" y="288" width="360" height="10" rx="5" fill="#1c1c1c"/>
-<rect x="380" y="288" width="7.540117848838573" height="10" rx="5" fill="#fedf5b"/>
-=======
 <rect x="270" y="283" width="360" height="10"
  rx="5" fill="#121816"/>
->>>>>>> 1927c3c (acrescentado)
 
 <rect x="270" y="283" width="0" height="10"
  rx="5" fill="#fedf5b">
   <animate attributeName="width"
-   from="0" to="7.540117848838573"
+   from="0" to="7.540005289687582"
    dur="0.8s" begin="0.5s"
    fill="freeze"/>
 </rect>
@@ -174,18 +159,13 @@ Top Languages
 <text x="258" y="318" fill="#a2a2a2"
  font-size="12" text-anchor="end">C</text>
 
-<<<<<<< HEAD
-<rect x="380" y="314" width="360" height="10" rx="5" fill="#1c1c1c"/>
-<rect x="380" y="314" width="2.321758987743806" height="10" rx="5" fill="#555555"/>
-=======
 <rect x="270" y="309" width="360" height="10"
  rx="5" fill="#121816"/>
->>>>>>> 1927c3c (acrescentado)
 
 <rect x="270" y="309" width="0" height="10"
  rx="5" fill="#555555">
   <animate attributeName="width"
-   from="0" to="2.321758987743806"
+   from="0" to="2.3217243284419613"
    dur="0.8s" begin="0.6499999999999999s"
    fill="freeze"/>
 </rect>
@@ -198,18 +178,13 @@ Top Languages
 <text x="258" y="344" fill="#a2a2a2"
  font-size="12" text-anchor="end">C++</text>
 
-<<<<<<< HEAD
-<rect x="380" y="340" width="360" height="10" rx="5" fill="#1c1c1c"/>
-<rect x="380" y="340" width="0.7135239011911961" height="10" rx="5" fill="#f34b7d"/>
-=======
 <rect x="270" y="335" width="360" height="10"
  rx="5" fill="#121816"/>
->>>>>>> 1927c3c (acrescentado)
 
 <rect x="270" y="335" width="0" height="10"
  rx="5" fill="#f34b7d">
   <animate attributeName="width"
-   from="0" to="0.7135239011911961"
+   from="0" to="0.713513249680684"
    dur="0.8s" begin="0.8s"
    fill="freeze"/>
 </rect>
