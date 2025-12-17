@@ -1,156 +1,226 @@
-import json
-from pathlib import Path
+import os
+import sys
+import math
+import time
+import requests
+from collections import Counter
+from dotenv import load_dotenv
 
-# =========================
-# THEMES (ORDEM ALFABÉTICA)
-# =========================
+load_dotenv()
+
+USERNAME = sys.argv[1] if len(sys.argv) > 1 else None
+TOKEN = os.getenv("GITHUB_TOKEN")
+THEME_NAME = os.getenv("THEME_NAME", "merko")
+
+HEADERS = {
+    "Accept": "application/vnd.github+json",
+    **({"Authorization": f"Bearer {TOKEN}"} if TOKEN else {})
+}
+
+# ================= LANG COLORS =================
+
+LANG_COLORS = {
+    "C": "#555555",
+    "C++": "#f34b7d",
+    "CSS": "#563d7c",
+    "Cython": "#fedf5b",
+    "Go": "#00ADD8",
+    "HTML": "#e34c26",
+    "Java": "#b07219",
+    "JavaScript": "#f1e05a",
+    "Jupyter Notebook": "#DA5B0B",
+    "PHP": "#4F5D95",
+    "Python": "#3572A5",
+    "Ruby": "#701516",
+    "Shell": "#89e051",
+    "TypeScript": "#2b7489",
+    "Other": "#ededed",
+}
+
+# ================= THEMES =================
+
 THEMES = {
-    "amber": {
-        "bg": "#0b0f0d",
-        "border": "#ffb300",
-        "primary": "#ffca28",
-        "secondary": "#ffe082",
-        "text": "#eaeaea",
-        "muted": "#9e9e9e",
+    "cobalt": {
+        "bg": "#0047AB", "title": "#FFC600", "text": "#FFFFFF",
+        "border": "#333", "accent": "#FFC600"
     },
-    "crimson": {
-        "bg": "#0b0a0a",
-        "border": "#c62828",
-        "primary": "#e53935",
-        "secondary": "#ef9a9a",
-        "text": "#f5f5f5",
-        "muted": "#9e9e9e",
+    "dark": {
+        "bg": "#151515", "title": "#ffffff", "text": "#9f9f9f",
+        "border": "#e4e2e2", "accent": "#ffffff"
     },
-    "cyan": {
-        "bg": "#050f12",
-        "border": "#00acc1",
-        "primary": "#26c6da",
-        "secondary": "#80deea",
-        "text": "#e0f7fa",
-        "muted": "#90a4ae",
+    "dracula": {
+        "bg": "#282a36", "title": "#f8f8f2", "text": "#f8f8f2",
+        "border": "#44475a", "accent": "#ff79c6"
     },
-    "emerald": {
-        "bg": "#050d0a",
-        "border": "#2e7d32",
-        "primary": "#43a047",
-        "secondary": "#a5d6a7",
-        "text": "#e8f5e9",
-        "muted": "#9e9e9e",
+    "gruvbox": {
+        "bg": "#282828", "title": "#fabd2f", "text": "#ebdbb2",
+        "border": "#504945", "accent": "#fabd2f"
     },
-    "orange": {
-        "bg": "#0f0a05",
-        "border": "#ef6c00",
-        "primary": "#fb8c00",
-        "secondary": "#ffcc80",
-        "text": "#fff3e0",
-        "muted": "#bdbdbd",
+    "merko": {
+        "bg": "#0a0f0d", "title": "#ef553b", "text": "#a2a2a2",
+        "border": "#ef553b", "accent": "#ef553b"
     },
-    "purple": {
-        "bg": "#0a0610",
-        "border": "#7e57c2",
-        "primary": "#9575cd",
-        "secondary": "#d1c4e9",
-        "text": "#ede7f6",
-        "muted": "#b0bec5",
+    "onedark": {
+        "bg": "#282c34", "title": "#61afef", "text": "#abb2bf",
+        "border": "#3e4451", "accent": "#61afef"
     },
-    "red": {
-        "bg": "#0f0505",
-        "border": "#d32f2f",
-        "primary": "#f44336",
-        "secondary": "#ffcdd2",
-        "text": "#ffebee",
-        "muted": "#bdbdbd",
+    "radical": {
+        "bg": "#141321", "title": "#fe428e", "text": "#a9fef7",
+        "border": "#fe428e", "accent": "#fe428e"
     },
-    "slate": {
-        "bg": "#0b0d10",
-        "border": "#455a64",
-        "primary": "#607d8b",
-        "secondary": "#b0bec5",
-        "text": "#eceff1",
-        "muted": "#90a4ae",
+    "tokyonight": {
+        "bg": "#1a1b27", "title": "#70a5fd", "text": "#a9b1d6",
+        "border": "#414868", "accent": "#70a5fd"
     },
 }
 
-# =========================
-# LOAD DATA
-# =========================
-BASE_DIR = Path(__file__).parent
-LANG_FILE = BASE_DIR / "templates" / "cache_top_langs.json"
+THEME = THEMES.get(THEME_NAME, THEMES["merko"])
 
-if LANG_FILE.exists():
-    with open(LANG_FILE, encoding="utf-8") as f:
-        LANGS = json.load(f)
-else:
-    # Fallback seguro (primeira execução / dev / preview)
-    LANGS = {
-        "Python": 42.0,
-        "JavaScript": 28.5,
-        "TypeScript": 14.3,
-        "HTML": 9.2,
-        "CSS": 6.0
-    }
+# ================= HELPERS =================
 
+def safe_get(url):
+    r = requests.get(url, headers=HEADERS)
+    if r.status_code == 429:
+        time.sleep(2)
+        return safe_get(url)
+    r.raise_for_status()
+    return r.json()
 
-# =========================
-# SVG GENERATOR
-# =========================
-def generate_svg(theme_name="orange"):
-    t = THEMES[theme_name]
+def k(n):
+    return f"{n//1000}k+" if n >= 1000 else str(n)
 
-    lang_items = sorted(LANGS.items(), key=lambda x: x[1], reverse=True)[:5]
+# ================= FETCH =================
 
-    lang_svg = ""
-    y = 250
-    for lang, percent in lang_items:
-        width = int(420 * (percent / 100))
-        lang_svg += f"""
-        <text x="120" y="{y}" fill="{t['text']}" font-size="14">{lang}</text>
-        <rect x="220" y="{y - 12}" width="420" height="8" rx="4" fill="#1c1c1c"/>
-        <rect x="220" y="{y - 12}" width="{width}" height="8" rx="4" fill="{t['primary']}"/>
-        <text x="650" y="{y}" fill="{t['muted']}" font-size="12">{percent:.1f}%</text>
-        """
-        y += 28
+def fetch_user():
+    return safe_get(f"https://api.github.com/users/{USERNAME}")
 
-    return f"""
-<svg width="1000" height="360" viewBox="0 0 1000 360" xmlns="http://www.w3.org/2000/svg">
-  <rect x="10" y="10" rx="18" ry="18" width="980" height="340"
-        fill="{t['bg']}" stroke="{t['border']}" stroke-width="2"/>
+def fetch_repos():
+    return safe_get(f"https://api.github.com/users/{USERNAME}/repos?per_page=100&type=owner")
 
-  <!-- ICON -->
-  <circle cx="80" cy="80" r="34" fill="none" stroke="{t['primary']}" stroke-width="3"/>
-  <text x="80" y="88" text-anchor="middle" font-size="22"
-        fill="{t['primary']}" font-family="monospace">&lt;/&gt;</text>
+def fetch_languages(repos):
+    counter = Counter()
+    for r in repos:
+        try:
+            data = safe_get(r["languages_url"])
+            for lang, val in data.items():
+                counter[lang] += val
+        except:
+            continue
+    return counter
 
-  <!-- TITLE -->
-  <text x="140" y="70" fill="{t['primary']}" font-size="24" font-weight="bold">
-    Domisnnet · Developer Dashboard
-  </text>
-  <text x="140" y="96" fill="{t['muted']}" font-size="14">
-    Da faísca da ideia à Constelação do código. Construindo um Universo de possibilidades!!
-  </text>
+# ================= SVG BLOCKS =================
 
-  <!-- STATS -->
-  <text x="140" y="130" fill="{t['text']}" font-size="14">📦 Repositórios: 39</text>
-  <text x="300" y="130" fill="{t['text']}" font-size="14">⭐ Stars: 28</text>
+def render_top_languages(counter, x=260, y=260):
+    total = sum(counter.values())
+    top = counter.most_common(5)
 
-  <!-- GRADE -->
-  <circle cx="900" cy="80" r="36" fill="none" stroke="#1c1c1c" stroke-width="6"/>
-  <circle cx="900" cy="80" r="36" fill="none" stroke="{t['primary']}"
-          stroke-width="6" stroke-dasharray="170 60" transform="rotate(-90 900 80)"/>
-  <text x="900" y="88" text-anchor="middle" font-size="22"
-        fill="{t['text']}" font-weight="bold">A</text>
+    BAR_MAX = 360
+    BAR_HEIGHT = 10
+    GAP = 26
 
-  <!-- LANGUAGES -->
-  <text x="120" y="220" fill="{t['primary']}" font-size="18" font-weight="bold">
-    Top Languages
+    svg = ""
+    y_pos = y
+
+    for lang, val in top:
+        pct = (val / total) * 100
+        width = BAR_MAX * (pct / 100)
+        color = LANG_COLORS.get(lang, LANG_COLORS["Other"])
+
+        svg += f'''
+<g>
+  <text x="{x}" y="{y_pos}" fill="{THEME['text']}" font-size="12">
+    {lang}
   </text>
 
-  {lang_svg}
+  <rect x="{x+90}" y="{y_pos-9}"
+    width="{BAR_MAX}" height="{BAR_HEIGHT}"
+    rx="5" fill="#1e1e1e"/>
+
+  <rect x="{x+90}" y="{y_pos-9}"
+    width="{width}" height="{BAR_HEIGHT}"
+    rx="5" fill="{color}"/>
+
+  <text x="{x+90+BAR_MAX+10}" y="{y_pos}"
+    fill="{THEME['text']}" font-size="12">
+    {pct:.1f}%
+  </text>
+</g>
+'''
+        y_pos += GAP
+
+    return svg
+
+# ================= MAIN SVG =================
+
+def build_svg(user, repos, langs):
+    stars = sum(r["stargazers_count"] for r in repos)
+
+    return f'''
+<svg width="900" height="360" xmlns="http://www.w3.org/2000/svg">
+
+<rect width="100%" height="100%" rx="28"
+ fill="{THEME['bg']}"
+ stroke="{THEME['border']}"
+ stroke-width="4"/>
+
+<!-- Ícone -->
+<circle cx="90" cy="90" r="32"
+ fill="none" stroke="{THEME['accent']}" stroke-width="3"/>
+<text x="90" y="98" text-anchor="middle"
+ fill="{THEME['accent']}" font-size="18">&lt;/&gt;</text>
+
+<!-- Título -->
+<text x="140" y="70" fill="{THEME['title']}"
+ font-size="22" font-weight="bold">
+ Domisnnet · Developer Dashboard
+</text>
+
+<text x="140" y="96" fill="{THEME['text']}" font-size="13">
+ Da faísca da ideia à Constelação do código.
+</text>
+
+<text x="140" y="118" fill="{THEME['text']}" font-size="13">
+ Construindo um Universo de possibilidades!!
+</text>
+
+<!-- Stats -->
+<text x="140" y="150" fill="{THEME['text']}" font-size="13">
+ 📦 Repositórios: {len(repos)}   ⭐ Stars: {stars}
+</text>
+
+<!-- Qualificação -->
+<circle cx="820" cy="90" r="26"
+ fill="none" stroke="{THEME['accent']}" stroke-width="4"/>
+<text x="820" y="98" text-anchor="middle"
+ fill="{THEME['accent']}" font-size="18" font-weight="bold">
+ A
+</text>
+
+<!-- Linguagens -->
+<text x="260" y="230"
+ fill="{THEME['accent']}" font-size="16" font-weight="bold">
+ Top Languages
+</text>
+
+{render_top_languages(langs)}
+
 </svg>
-"""
+'''
 
-# =========================
-# OUTPUT
-# =========================
-svg = generate_svg("orange")
-(Path("dashboard.svg")).write_text(svg, encoding="utf-8")
+# ================= ENTRY =================
+
+def main():
+    if not USERNAME:
+        sys.exit(1)
+
+    user = fetch_user()
+    repos = fetch_repos()
+    langs = fetch_languages(repos)
+
+    svg = build_svg(user, repos, langs)
+
+    with open("dashboard.svg", "w", encoding="utf-8") as f:
+        f.write(svg)
+
+if __name__ == "__main__":
+    main()

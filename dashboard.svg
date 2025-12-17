@@ -1,61 +1,145 @@
 
-<svg width="1000" height="360" viewBox="0 0 1000 360" xmlns="http://www.w3.org/2000/svg">
-  <rect x="10" y="10" rx="18" ry="18" width="980" height="340"
-        fill="#0f0a05" stroke="#ef6c00" stroke-width="2"/>
+<svg width="900" height="360" xmlns="http://www.w3.org/2000/svg">
 
-  <!-- ICON -->
-  <circle cx="80" cy="80" r="34" fill="none" stroke="#fb8c00" stroke-width="3"/>
-  <text x="80" y="88" text-anchor="middle" font-size="22"
-        fill="#fb8c00" font-family="monospace">&lt;/&gt;</text>
+<rect width="100%" height="100%" rx="28"
+ fill="#0a0f0d"
+ stroke="#ef553b"
+ stroke-width="4"/>
 
-  <!-- TITLE -->
-  <text x="140" y="70" fill="#fb8c00" font-size="24" font-weight="bold">
-    Domisnnet · Developer Dashboard
+<!-- Ícone -->
+<circle cx="90" cy="90" r="32"
+ fill="none" stroke="#ef553b" stroke-width="3"/>
+<text x="90" y="98" text-anchor="middle"
+ fill="#ef553b" font-size="18">&lt;/&gt;</text>
+
+<!-- Título -->
+<text x="140" y="70" fill="#ef553b"
+ font-size="22" font-weight="bold">
+ Domisnnet · Developer Dashboard
+</text>
+
+<text x="140" y="96" fill="#a2a2a2" font-size="13">
+ Da faísca da ideia à Constelação do código.
+</text>
+
+<text x="140" y="118" fill="#a2a2a2" font-size="13">
+ Construindo um Universo de possibilidades!!
+</text>
+
+<!-- Stats -->
+<text x="140" y="150" fill="#a2a2a2" font-size="13">
+ 📦 Repositórios: 39   ⭐ Stars: 28
+</text>
+
+<!-- Qualificação -->
+<circle cx="820" cy="90" r="26"
+ fill="none" stroke="#ef553b" stroke-width="4"/>
+<text x="820" y="98" text-anchor="middle"
+ fill="#ef553b" font-size="18" font-weight="bold">
+ A
+</text>
+
+<!-- Linguagens -->
+<text x="260" y="230"
+ fill="#ef553b" font-size="16" font-weight="bold">
+ Top Languages
+</text>
+
+
+<g>
+  <text x="260" y="260" fill="#a2a2a2" font-size="12">
+    Python
   </text>
-  <text x="140" y="96" fill="#bdbdbd" font-size="14">
-    Da faísca da ideia à Constelação do código. Construindo um Universo de possibilidades!!
+
+  <rect x="350" y="251"
+    width="360" height="10"
+    rx="5" fill="#1e1e1e"/>
+
+  <rect x="350" y="251"
+    width="296.7911675675948" height="10"
+    rx="5" fill="#3572A5"/>
+
+  <text x="720" y="260"
+    fill="#a2a2a2" font-size="12">
+    82.4%
+  </text>
+</g>
+
+<g>
+  <text x="260" y="286" fill="#a2a2a2" font-size="12">
+    Jupyter Notebook
   </text>
 
-  <!-- STATS -->
-  <text x="140" y="130" fill="#fff3e0" font-size="14">📦 Repositórios: 39</text>
-  <text x="300" y="130" fill="#fff3e0" font-size="14">⭐ Stars: 28</text>
+  <rect x="350" y="277"
+    width="360" height="10"
+    rx="5" fill="#1e1e1e"/>
 
-  <!-- GRADE -->
-  <circle cx="900" cy="80" r="36" fill="none" stroke="#1c1c1c" stroke-width="6"/>
-  <circle cx="900" cy="80" r="36" fill="none" stroke="#fb8c00"
-          stroke-width="6" stroke-dasharray="170 60" transform="rotate(-90 900 80)"/>
-  <text x="900" y="88" text-anchor="middle" font-size="22"
-        fill="#fff3e0" font-weight="bold">A</text>
+  <rect x="350" y="277"
+    width="50.98062938420238" height="10"
+    rx="5" fill="#DA5B0B"/>
 
-  <!-- LANGUAGES -->
-  <text x="120" y="220" fill="#fb8c00" font-size="18" font-weight="bold">
-    Top Languages
+  <text x="720" y="286"
+    fill="#a2a2a2" font-size="12">
+    14.2%
+  </text>
+</g>
+
+<g>
+  <text x="260" y="312" fill="#a2a2a2" font-size="12">
+    Cython
   </text>
 
-  
-        <text x="120" y="250" fill="#fff3e0" font-size="14">Python</text>
-        <rect x="220" y="238" width="420" height="8" rx="4" fill="#1c1c1c"/>
-        <rect x="220" y="238" width="176" height="8" rx="4" fill="#fb8c00"/>
-        <text x="650" y="250" fill="#bdbdbd" font-size="12">42.0%</text>
-        
-        <text x="120" y="278" fill="#fff3e0" font-size="14">JavaScript</text>
-        <rect x="220" y="266" width="420" height="8" rx="4" fill="#1c1c1c"/>
-        <rect x="220" y="266" width="119" height="8" rx="4" fill="#fb8c00"/>
-        <text x="650" y="278" fill="#bdbdbd" font-size="12">28.5%</text>
-        
-        <text x="120" y="306" fill="#fff3e0" font-size="14">TypeScript</text>
-        <rect x="220" y="294" width="420" height="8" rx="4" fill="#1c1c1c"/>
-        <rect x="220" y="294" width="60" height="8" rx="4" fill="#fb8c00"/>
-        <text x="650" y="306" fill="#bdbdbd" font-size="12">14.3%</text>
-        
-        <text x="120" y="334" fill="#fff3e0" font-size="14">HTML</text>
-        <rect x="220" y="322" width="420" height="8" rx="4" fill="#1c1c1c"/>
-        <rect x="220" y="322" width="38" height="8" rx="4" fill="#fb8c00"/>
-        <text x="650" y="334" fill="#bdbdbd" font-size="12">9.2%</text>
-        
-        <text x="120" y="362" fill="#fff3e0" font-size="14">CSS</text>
-        <rect x="220" y="350" width="420" height="8" rx="4" fill="#1c1c1c"/>
-        <rect x="220" y="350" width="25" height="8" rx="4" fill="#fb8c00"/>
-        <text x="650" y="362" fill="#bdbdbd" font-size="12">6.0%</text>
-        
+  <rect x="350" y="303"
+    width="360" height="10"
+    rx="5" fill="#1e1e1e"/>
+
+  <rect x="350" y="303"
+    width="7.5401684311214305" height="10"
+    rx="5" fill="#fedf5b"/>
+
+  <text x="720" y="312"
+    fill="#a2a2a2" font-size="12">
+    2.1%
+  </text>
+</g>
+
+<g>
+  <text x="260" y="338" fill="#a2a2a2" font-size="12">
+    C
+  </text>
+
+  <rect x="350" y="329"
+    width="360" height="10"
+    rx="5" fill="#1e1e1e"/>
+
+  <rect x="350" y="329"
+    width="2.3217745630799214" height="10"
+    rx="5" fill="#555555"/>
+
+  <text x="720" y="338"
+    fill="#a2a2a2" font-size="12">
+    0.6%
+  </text>
+</g>
+
+<g>
+  <text x="260" y="364" fill="#a2a2a2" font-size="12">
+    C++
+  </text>
+
+  <rect x="350" y="355"
+    width="360" height="10"
+    rx="5" fill="#1e1e1e"/>
+
+  <rect x="350" y="355"
+    width="0.7135286878097236" height="10"
+    rx="5" fill="#f34b7d"/>
+
+  <text x="720" y="364"
+    fill="#a2a2a2" font-size="12">
+    0.2%
+  </text>
+</g>
+
+
 </svg>
