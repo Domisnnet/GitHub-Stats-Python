@@ -44,7 +44,8 @@ THEMES = {
         "title": "#ef553b",
         "text": "#a2a2a2",
         "border": "#ef553b",
-        "accent": "#ef553b"
+        "accent": "#ef553b",
+        "bar_bg": "#121816",
     }
 }
 
@@ -124,10 +125,31 @@ def build_svg(user, repos, langs):
  stroke="{THEME['border']}"
  stroke-width="4"/>
 
-<!-- LOGO </> -->
+<!-- Definições da Aura -->
+<defs>
+  <radialGradient id="logoAura" cx="50%" cy="50%" r="60%">
+    <stop offset="0%" stop-color="{THEME['accent']}" stop-opacity="0.35"/>
+    <stop offset="100%" stop-color="{THEME['accent']}" stop-opacity="0"/>
+  </radialGradient>
+</defs>
+
+<!-- Aura externa -->
+<circle cx="90" cy="95" r="54"
+ fill="url(#logoAura)" />
+
+<!-- Fundo interno -->
 <circle cx="90" cy="95" r="40"
- fill="none" stroke="{THEME['accent']}" stroke-width="4"/>
-<text x="90" y="108"
+ fill="{THEME['bar_bg']}"
+ opacity="0.85"/>
+
+<!-- Borda -->
+<circle cx="90" cy="95" r="40"
+ fill="none"
+ stroke="{THEME['accent']}"
+ stroke-width="4"/>
+
+<!-- Símbolo </> -->
+<text x="90" y="112"
  text-anchor="middle"
  fill="{THEME['accent']}"
  font-size="32"
