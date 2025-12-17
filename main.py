@@ -182,7 +182,7 @@ def build_svg(user, repos, langs):
 <text x="160" y="150"
  fill="{THEME['text']}"
  font-size="13">
- 📦 {len(repos)} Repositórios   ⭐ {stars} Stars   🍴 {forks} Forks   🧠 {len(langs)} Linguagens
+ 📦 {len(repos)} Repositórios   | ⭐ {stars} Stars   | 🍴 {forks} Forks   | 🧠 {len(langs)} Linguagens
 </text>
 
 <!-- RANK A -->
