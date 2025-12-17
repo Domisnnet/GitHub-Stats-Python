@@ -66,10 +66,9 @@
  📦 39 Repositórios   ⭐ 28 Stars   🍴 0 Forks   🧠 19 Linguagens
 </text>
 
-<!-- RANK A (DOMINANTE) -->
+<!-- RANK A -->
 <circle cx="825" cy="95" r="46"
  fill="none" stroke="#2a2a2a" stroke-width="7"/>
-
 <circle cx="825" cy="95" r="46"
  fill="none"
  stroke="#ef553b"
@@ -77,7 +76,6 @@
  stroke-dasharray="270"
  stroke-dashoffset="30"
  transform="rotate(-90 825 95)"/>
-
 <text x="825" y="112"
  text-anchor="middle"
  fill="#ef553b"
@@ -99,7 +97,7 @@ Top Languages
 <text x="270" y="245" fill="#a2a2a2" font-size="12">Python</text>
 
 <rect x="380" y="236" width="360" height="10" rx="5" fill="#1c1c1c"/>
-<rect x="380" y="236" width="296.79159589012323" height="10" rx="5" fill="#3572A5"/>
+<rect x="380" y="236" width="296.79158837574295" height="10" rx="5" fill="#3572A5"/>
 
 <text x="750" y="245" fill="#a2a2a2" font-size="12">
 82.4%
@@ -108,7 +106,7 @@ Top Languages
 <text x="270" y="271" fill="#a2a2a2" font-size="12">Jupyter Notebook</text>
 
 <rect x="380" y="262" width="360" height="10" rx="5" fill="#1c1c1c"/>
-<rect x="380" y="262" width="50.98028392374636" height="10" rx="5" fill="#DA5B0B"/>
+<rect x="380" y="262" width="50.98028998441577" height="10" rx="5" fill="#DA5B0B"/>
 
 <text x="750" y="271" fill="#a2a2a2" font-size="12">
 14.2%
@@ -117,7 +115,7 @@ Top Languages
 <text x="270" y="297" fill="#a2a2a2" font-size="12">Cython</text>
 
 <rect x="380" y="288" width="360" height="10" rx="5" fill="#1c1c1c"/>
-<rect x="380" y="288" width="7.540117336616395" height="10" rx="5" fill="#fedf5b"/>
+<rect x="380" y="288" width="7.540118233005255" height="10" rx="5" fill="#fedf5b"/>
 
 <text x="750" y="297" fill="#a2a2a2" font-size="12">
 2.1%
@@ -126,7 +124,7 @@ Top Languages
 <text x="270" y="323" fill="#a2a2a2" font-size="12">C</text>
 
 <rect x="380" y="314" width="360" height="10" rx="5" fill="#1c1c1c"/>
-<rect x="380" y="314" width="2.321758830019952" height="10" rx="5" fill="#555555"/>
+<rect x="380" y="314" width="2.3217591060367107" height="10" rx="5" fill="#555555"/>
 
 <text x="750" y="323" fill="#a2a2a2" font-size="12">
 0.6%
@@ -135,7 +133,7 @@ Top Languages
 <text x="270" y="349" fill="#a2a2a2" font-size="12">C++</text>
 
 <rect x="380" y="340" width="360" height="10" rx="5" fill="#1c1c1c"/>
-<rect x="380" y="340" width="0.7135238527194383" height="10" rx="5" fill="#f34b7d"/>
+<rect x="380" y="340" width="0.7135239375450189" height="10" rx="5" fill="#f34b7d"/>
 
 <text x="750" y="349" fill="#a2a2a2" font-size="12">
 0.2%
