@@ -149,7 +149,7 @@ def build_svg(user, repos, langs):
  stroke-width="4"/>
 
 <!-- Símbolo </> -->
-<text x="90" y="112"
+<text x="90" y="108"
  text-anchor="middle"
  fill="{THEME['accent']}"
  font-size="32"
@@ -185,10 +185,9 @@ def build_svg(user, repos, langs):
  📦 {len(repos)} Repositórios   ⭐ {stars} Stars   🍴 {forks} Forks   🧠 {len(langs)} Linguagens
 </text>
 
-<!-- RANK A (DOMINANTE) -->
+<!-- RANK A -->
 <circle cx="825" cy="95" r="46"
  fill="none" stroke="#2a2a2a" stroke-width="7"/>
-
 <circle cx="825" cy="95" r="46"
  fill="none"
  stroke="{THEME['accent']}"
@@ -196,7 +195,6 @@ def build_svg(user, repos, langs):
  stroke-dasharray="270"
  stroke-dashoffset="30"
  transform="rotate(-90 825 95)"/>
-
 <text x="825" y="112"
  text-anchor="middle"
  fill="{THEME['accent']}"
@@ -214,7 +212,7 @@ A
 Top Languages
 </text>
 
-{render_lang_bars(langs, 260, 245, 360)}
+{render_lang_bars(langs, 270, 245, 360)}
 
 </svg>
 '''
