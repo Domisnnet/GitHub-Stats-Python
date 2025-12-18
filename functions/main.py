@@ -10,9 +10,9 @@ initialize_app()
 
 @https_fn.on_request()
 def getItems(req: https_fn.Request):
-    path = req.path  # ex: /dashboard
+    path = req.path.rstrip("/")
 
-    if path != "/dashboard":
+    if not path.endswith("/dashboard"):
         return https_fn.Response(
             json.dumps({"error": "Endpoint inválido"}),
             status=404,
@@ -29,14 +29,10 @@ def getItems(req: https_fn.Request):
             content_type="application/json"
         )
 
-    # Token vindo do Firebase config
     config = functions.config()
     github_token = config.github.token
 
-    headers = {
-        "Accept": "application/vnd.github+json"
-    }
-
+    headers = {"Accept": "application/vnd.github+json"}
     if github_token:
         headers["Authorization"] = f"token {github_token}"
 
@@ -56,18 +52,16 @@ def getItems(req: https_fn.Request):
 
         user = r.json()
 
-        response = {
-            "username": username,
-            "name": user.get("name"),
-            "avatar_url": user.get("avatar_url"),
-            "public_repos": user.get("public_repos"),
-            "followers": user.get("followers"),
-            "following": user.get("following"),
-            "theme": theme
-        }
-
         return https_fn.Response(
-            json.dumps(response),
+            json.dumps({
+                "username": username,
+                "name": user.get("name"),
+                "avatar_url": user.get("avatar_url"),
+                "public_repos": user.get("public_repos"),
+                "followers": user.get("followers"),
+                "following": user.get("following"),
+                "theme": theme
+            }),
             content_type="application/json"
         )
 
