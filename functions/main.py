@@ -73,7 +73,7 @@ def syncGithubHttp(req):
 # =========================
 # CRON (AUTOMÁTICO)
 # =========================
-@scheduler_fn.on_schedule("every 24 hours")
+@scheduler_fn.on_schedule(schedule="every 24 hours")
 def syncGithubDaily(event):
     try:
         total = sync_github()
