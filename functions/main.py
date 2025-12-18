@@ -1,37 +1,82 @@
-from firebase_functions import https_fn
+from firebase_functions import https_fn, scheduler_fn
 from firebase_functions.options import set_global_options
 from firebase_admin import initialize_app, firestore
-import json
+import requests
+import os
 
+# Limite de instâncias
 set_global_options(max_instances=10)
+
+# Inicializa Firebase Admin
 initialize_app()
 
+# =========================
+# LÓGICA CENTRAL
+# =========================
+def sync_github():
+    db = firestore.client()
+
+    github_token = os.environ.get("GITHUB_TOKEN")
+    if not github_token:
+        raise Exception("GITHUB_TOKEN não configurado")
+
+    headers = {
+        "Authorization": f"Bearer {github_token}",
+        "Accept": "application/vnd.github+json"
+    }
+
+    # Exemplo simples: usuário fixo (ajustável depois)
+    username = "Domisnnet"
+
+    url = f"https://api.github.com/users/{username}/repos"
+    response = requests.get(url, headers=headers)
+
+    if response.status_code != 200:
+        raise Exception(f"Erro GitHub API: {response.text}")
+
+    repos = response.json()
+
+    batch = db.batch()
+    for repo in repos:
+        ref = db.collection("repos").document(str(repo["id"]))
+        batch.set(ref, {
+            "name": repo["name"],
+            "stars": repo["stargazers_count"],
+            "forks": repo["forks_count"],
+            "language": repo["language"],
+            "updated_at": repo["updated_at"]
+        })
+
+    batch.commit()
+
+    return len(repos)
+
+
+# =========================
+# HTTP (MANUAL)
+# =========================
 @https_fn.on_request()
-def getItems(req: https_fn.Request):
+def syncGithubHttp(req):
     try:
-        db = firestore.client()
-        docs = db.collection("items").stream()
-
-        data = []
-        for doc in docs:
-            item = doc.to_dict()
-            item["id"] = doc.id
-            data.append(item)
-
-        return https_fn.Response(
-            json.dumps({
-                "success": True,
-                "data": data
-            }),
-            content_type="application/json"
-        )
-
+        total = sync_github()
+        return {
+            "success": True,
+            "synced_repos": total
+        }
     except Exception as e:
-        return https_fn.Response(
-            json.dumps({
-                "success": False,
-                "error": str(e)
-            }),
-            status=500,
-            content_type="application/json"
-        )
+        return {
+            "success": False,
+            "error": str(e)
+        }, 500
+
+
+# =========================
+# CRON (AUTOMÁTICO)
+# =========================
+@scheduler_fn.on_schedule("every 24 hours")
+def syncGithubDaily(event):
+    try:
+        total = sync_github()
+        print(f"Repos sincronizados automaticamente: {total}")
+    except Exception as e:
+        print(f"Erro no cron: {str(e)}")
