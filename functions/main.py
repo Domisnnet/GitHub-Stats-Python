@@ -1,6 +1,8 @@
 from firebase_functions import https_fn, scheduler_fn
 from firebase_functions.options import set_global_options
 from firebase_admin import initialize_app, firestore
+from collections import Counter
+from datetime import datetime
 import requests
 import os
 
@@ -25,8 +27,7 @@ def sync_github():
         "Accept": "application/vnd.github+json"
     }
 
-    # Exemplo simples: usuário fixo (ajustável depois)
-    username = "Domisnnet"
+    username = os.environ.get("GITHUB_USERNAME", "Domisnnet")
 
     url = f"https://api.github.com/users/{username}/repos"
     response = requests.get(url, headers=headers)
@@ -44,6 +45,7 @@ def sync_github():
             "stars": repo["stargazers_count"],
             "forks": repo["forks_count"],
             "language": repo["language"],
+            "url": repo["html_url"],
             "updated_at": repo["updated_at"]
         })
 
@@ -83,3 +85,64 @@ def syncGithubDaily(event):
         print(f"Repos sincronizados automaticamente: {total}")
     except Exception as e:
         print(f"Erro no cron: {str(e)}")
+
+# =========================
+# DASHBOARD
+# =========================
+
+@https_fn.on_request()
+def dashboard(req):
+    try:
+        db = firestore.client()
+
+        docs = db.collection("repos").stream()
+
+        total_stars = 0
+        total_forks = 0
+        repo_count = 0
+        languages = []
+        repos = []
+
+        for doc in docs:
+            data = doc.to_dict()
+            repo_count += 1
+
+            stars = data.get("stars", 0)
+            forks = data.get("forks", 0)
+            language = data.get("language")
+
+            total_stars += stars
+            total_forks += forks
+
+            if language:
+                languages.append(language)
+
+            repos.append({
+                "name": data.get("name"),
+                "stars": stars,
+                "url": data.get("url")
+            })
+
+        top_languages = Counter(languages).most_common(5)
+        top_repos = sorted(repos, key=lambda x: x["stars"], reverse=True)[:5]
+
+        return {
+            "success": True,
+            "summary": {
+                "repos": repo_count,
+                "stars": total_stars,
+                "forks": total_forks
+            },
+            "top_languages": [
+                {"language": lang, "count": count}
+                for lang, count in top_languages
+            ],
+            "top_repos": top_repos,
+            "generated_at": datetime.utcnow().isoformat() + "Z"
+        }
+
+    except Exception as e:
+        return {
+            "success": False,
+            "error": str(e)
+        }, 500        
