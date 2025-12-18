@@ -1,19 +1,16 @@
 from firebase_functions import https_fn
 from firebase_functions.options import set_global_options
-from firebase_admin import initialize_app
+from firebase_admin import initialize_app, functions
 import requests
 import json
-import os
 
 set_global_options(max_instances=10)
 
 initialize_app()
 
-GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
-
 @https_fn.on_request()
 def getItems(req: https_fn.Request):
-    path = req.path
+    path = req.path  # ex: /dashboard
 
     if path != "/dashboard":
         return https_fn.Response(
@@ -27,34 +24,42 @@ def getItems(req: https_fn.Request):
 
     if not username:
         return https_fn.Response(
-            json.dumps({"error": "username é obrigatório"}),
+            json.dumps({"error": "Parâmetro username é obrigatório"}),
             status=400,
             content_type="application/json"
         )
 
-    headers = {}
-    if GITHUB_TOKEN:
-        headers["Authorization"] = f"token {GITHUB_TOKEN}"
+    # Token vindo do Firebase config
+    config = functions.config()
+    github_token = config.github.token
+
+    headers = {
+        "Accept": "application/vnd.github+json"
+    }
+
+    if github_token:
+        headers["Authorization"] = f"token {github_token}"
 
     try:
-        user_resp = requests.get(
+        r = requests.get(
             f"https://api.github.com/users/{username}",
             headers=headers,
             timeout=10
         )
 
-        if user_resp.status_code != 200:
+        if r.status_code != 200:
             return https_fn.Response(
-                json.dumps({"error": "Usuário não encontrado"}),
+                json.dumps({"error": "Usuário GitHub não encontrado"}),
                 status=404,
                 content_type="application/json"
             )
 
-        user = user_resp.json()
+        user = r.json()
 
-        data = {
+        response = {
             "username": username,
             "name": user.get("name"),
+            "avatar_url": user.get("avatar_url"),
             "public_repos": user.get("public_repos"),
             "followers": user.get("followers"),
             "following": user.get("following"),
@@ -62,7 +67,7 @@ def getItems(req: https_fn.Request):
         }
 
         return https_fn.Response(
-            json.dumps(data),
+            json.dumps(response),
             content_type="application/json"
         )
 
