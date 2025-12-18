@@ -55,7 +55,7 @@ def sync_github():
 # =========================
 # HTTP (MANUAL)
 # =========================
-@https_fn.on_request()
+@https_fn.on_request(secrets=["GITHUB_TOKEN"])
 def syncGithubHttp(req):
     try:
         total = sync_github()
@@ -73,7 +73,10 @@ def syncGithubHttp(req):
 # =========================
 # CRON (AUTOMÁTICO)
 # =========================
-@scheduler_fn.on_schedule(schedule="every 24 hours")
+@scheduler_fn.on_schedule(
+    schedule="every 24 hours",
+    secrets=["GITHUB_TOKEN"]
+)
 def syncGithubDaily(event):
     try:
         total = sync_github()
