@@ -145,4 +145,78 @@ def dashboard(req):
         return {
             "success": False,
             "error": str(e)
-        }, 500        
+        }, 500
+        
+# =========================
+# STATS SVG
+# =========================
+
+@https_fn.on_request()
+def statsSvg(req):
+    try:
+        db = firestore.client()
+        docs = db.collection("repos").stream()
+
+        total_stars = 0
+        total_forks = 0
+        repo_count = 0
+        languages = []
+
+        for doc in docs:
+            data = doc.to_dict()
+            repo_count += 1
+            total_stars += data.get("stars", 0)
+            total_forks += data.get("forks", 0)
+
+            if data.get("language"):
+                languages.append(data["language"])
+
+        top_languages = Counter(languages).most_common(3)
+
+        svg = f"""
+<svg width="420" height="160" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    text {{
+      font-family: 'Segoe UI', Arial, sans-serif;
+      fill: #e6edf3;
+    }}
+    .title {{
+      font-size: 16px;
+      font-weight: bold;
+    }}
+    .stat {{
+      font-size: 14px;
+    }}
+    .lang {{
+      font-size: 12px;
+      fill: #9da5b4;
+    }}
+  </style>
+
+  <rect width="100%" height="100%" rx="12" fill="#0d1117"/>
+
+  <text x="20" y="28" class="title">GitHub Stats</text>
+
+  <text x="20" y="60" class="stat">📦 Repositórios: {repo_count}</text>
+  <text x="20" y="82" class="stat">⭐ Stars: {total_stars}</text>
+  <text x="20" y="104" class="stat">🍴 Forks: {total_forks}</text>
+
+  <text x="20" y="134" class="lang">
+    Top linguagens: {", ".join(lang for lang, _ in top_languages)}
+  </text>
+</svg>
+"""
+
+        return https_fn.Response(
+            svg,
+            headers={
+                "Content-Type": "image/svg+xml",
+                "Cache-Control": "public, max-age=3600"
+            }
+        )
+
+    except Exception as e:
+        return {
+            "success": False,
+            "error": str(e)
+        }, 500
