@@ -5,20 +5,12 @@ import requests
 import json
 
 set_global_options(max_instances=10)
-
 initialize_app()
 
 @https_fn.on_request()
 def getItems(req: https_fn.Request):
-    path = req.path.rstrip("/")
 
-    if not path.endswith("/dashboard"):
-        return https_fn.Response(
-            json.dumps({"error": "Endpoint inválido"}),
-            status=404,
-            content_type="application/json"
-        )
-
+    # Query params
     username = req.args.get("username")
     theme = req.args.get("theme", "default")
 
@@ -29,10 +21,13 @@ def getItems(req: https_fn.Request):
             content_type="application/json"
         )
 
+    # Token do Firebase config
     config = functions.config()
     github_token = config.github.token
 
-    headers = {"Accept": "application/vnd.github+json"}
+    headers = {
+        "Accept": "application/vnd.github+json"
+    }
     if github_token:
         headers["Authorization"] = f"token {github_token}"
 
