@@ -1,198 +1,59 @@
 
 <svg width="900" height="380" xmlns="http://www.w3.org/2000/svg" opacity="0">
 <animate attributeName="opacity" from="0" to="1" dur="0.6s" fill="freeze"/>
-
-<rect width="100%" height="100%" rx="28"
- fill="#0a0f0d"
- stroke="#ef553b"
- stroke-width="4"/>
-
+<rect width="100%" height="100%" rx="28" fill="#0a0f0d" stroke="#ef553b" stroke-width="4"/>
 <defs>
   <radialGradient id="logoAura" cx="50%" cy="50%" r="60%">
     <stop offset="0%" stop-color="#ef553b" stop-opacity="0.35"/>
     <stop offset="100%" stop-color="#ef553b" stop-opacity="0"/>
   </radialGradient>
 </defs>
+<circle cx="90" cy="95" r="48" fill="url(#logoAura)"><animate attributeName="opacity" from="0.35" to="0.65" dur="2.4s" repeatCount="indefinite"/></circle>
+<circle cx="90" cy="95" r="34" fill="#121816"/>
+<circle cx="90" cy="95" r="34" fill="none" stroke="#ef553b" stroke-width="4"/>
+<text x="90" y="106" text-anchor="middle" fill="#ef553b" font-size="30" font-weight="bold" letter-spacing="5">&lt;/&gt;</text>
+<text x="160" y="68" fill="#ef553b" font-size="22" font-weight="bold">DomisDev · Developer Dashboard</text>
+<text x="160" y="92" fill="#a2a2a2" font-size="13">Da faísca da ideia à Constelação do código.</text>
+<text x="160" y="112" fill="#a2a2a2" font-size="13">Construindo um Universo de possibilidades!!</text>
+<text x="160" y="145" fill="#a2a2a2" font-size="13">📦 39 Repositórios · ⭐ 28 Stars · 🍴 0 Forks · 🧠 19 Linguagens</text>
+<circle cx="825" cy="95" r="46" fill="none" stroke="#2a2a2a" stroke-width="7"/>
+<circle cx="825" cy="95" r="46" fill="none" stroke="#ef553b" stroke-width="7" stroke-dasharray="290" stroke-dashoffset="290" transform="rotate(-90 825 95)"><animate attributeName="stroke-dashoffset" from="290" to="30" dur="1.4s" fill="freeze"/></circle>
+<text x="825" y="112" text-anchor="middle" fill="#ef553b" font-size="34" font-weight="bold">A</text>
+<text x="450" y="210" text-anchor="middle" fill="#ef553b" font-size="16" font-weight="bold">Top Languages</text>
 
-<!-- LOGO AURA -->
-<circle cx="90" cy="95" r="48" fill="url(#logoAura)">
-  <animate attributeName="opacity"
-   from="0.35" to="0.65"
-   dur="2.4s" repeatCount="indefinite"/>
-</circle>
-
-<!-- LOGO FUNDO -->
-<circle cx="90" cy="95" r="34"
- fill="#121816"/>
-
-<circle cx="90" cy="95" r="34"
- fill="none" stroke="#ef553b" stroke-width="4"/>
-
-<!-- </> -->
-<text x="90" y="106"
- text-anchor="middle"
- fill="#ef553b"
- font-size="30"
- font-weight="bold"
- letter-spacing="5">
-&lt;/&gt;
-</text>
-
-<!-- TÍTULO -->
-<text x="160" y="68"
- fill="#ef553b"
- font-size="22"
- font-weight="bold">
-Domisnnet · Developer Dashboard
-</text>
-
-<text x="160" y="92"
- fill="#a2a2a2"
- font-size="13">
-Da faísca da ideia à Constelação do código.
-</text>
-
-<text x="160" y="112"
- fill="#a2a2a2"
- font-size="13">
-Construindo um Universo de possibilidades!!
-</text>
-
-<!-- STATS -->
-<text x="160" y="145"
- fill="#a2a2a2"
- font-size="13">
-📦 39 Repositórios · ⭐ 28 Stars · 🍴 0 Forks · 🧠 19 Linguagens
-</text>
-
-<!-- RANK -->
-<circle cx="825" cy="95" r="46"
- fill="none" stroke="#2a2a2a" stroke-width="7"/>
-
-<circle cx="825" cy="95" r="46"
- fill="none"
- stroke="#ef553b"
- stroke-width="7"
- stroke-dasharray="290"
- stroke-dashoffset="290"
- transform="rotate(-90 825 95)">
-  <animate attributeName="stroke-dashoffset"
-   from="290" to="30"
-   dur="1.4s" fill="freeze"/>
-</circle>
-
-<text x="825" y="112"
- text-anchor="middle"
- fill="#ef553b"
- font-size="34"
- font-weight="bold">
-A
-</text>
-
-<!-- TOP LANGUAGES -->
-<text x="450" y="210"
- text-anchor="middle"
- fill="#ef553b"
- font-size="16"
- font-weight="bold">
-Top Languages
-</text>
-
-
-<text x="258" y="240" fill="#a2a2a2"
- font-size="12" text-anchor="end">Python</text>
-
-<rect x="270" y="231" width="360" height="10"
- rx="5" fill="#121816"/>
-
-<rect x="270" y="231" width="0" height="10"
- rx="5" fill="#3572A5">
-  <animate attributeName="width"
-   from="0" to="296.7925351735905"
-   dur="0.8s" begin="0.2s"
-   fill="freeze"/>
+<text x="258" y="240" fill="#a2a2a2" font-size="12" text-anchor="end">Python</text>
+<rect x="270" y="231" width="360" height="10" rx="5" fill="#121816"/>
+<rect x="270" y="231" width="0" height="10" rx="5" fill="#3572A5">
+  <animate attributeName="width" from="0" to="296.85106820420737" dur="0.8s" begin="0.2s" fill="freeze"/>
 </rect>
+<text x="640" y="240" fill="#a2a2a2" font-size="12">82.5%</text>
 
-<text x="640" y="240"
- fill="#a2a2a2" font-size="12">
-82.4%
-</text>
-
-<text x="258" y="266" fill="#a2a2a2"
- font-size="12" text-anchor="end">Jupyter Notebook</text>
-
-<rect x="270" y="257" width="360" height="10"
- rx="5" fill="#121816"/>
-
-<rect x="270" y="257" width="0" height="10"
- rx="5" fill="#DA5B0B">
-  <animate attributeName="width"
-   from="0" to="50.97952635141842"
-   dur="0.8s" begin="0.35s"
-   fill="freeze"/>
+<text x="258" y="266" fill="#a2a2a2" font-size="12" text-anchor="end">Jupyter Notebook</text>
+<rect x="270" y="257" width="360" height="10" rx="5" fill="#121816"/>
+<rect x="270" y="257" width="0" height="10" rx="5" fill="#DA5B0B">
+  <animate attributeName="width" from="0" to="50.98840564764985" dur="0.8s" begin="0.35s" fill="freeze"/>
 </rect>
+<text x="640" y="266" fill="#a2a2a2" font-size="12">14.2%</text>
 
-<text x="640" y="266"
- fill="#a2a2a2" font-size="12">
-14.2%
-</text>
-
-<text x="258" y="292" fill="#a2a2a2"
- font-size="12" text-anchor="end">Cython</text>
-
-<rect x="270" y="283" width="360" height="10"
- rx="5" fill="#121816"/>
-
-<rect x="270" y="283" width="0" height="10"
- rx="5" fill="#fedf5b">
-  <animate attributeName="width"
-   from="0" to="7.540005289687582"
-   dur="0.8s" begin="0.5s"
-   fill="freeze"/>
+<text x="258" y="292" fill="#a2a2a2" font-size="12" text-anchor="end">Cython</text>
+<rect x="270" y="283" width="360" height="10" rx="5" fill="#121816"/>
+<rect x="270" y="283" width="0" height="10" rx="5" fill="#fedf5b">
+  <animate attributeName="width" from="0" to="7.541318560824945" dur="0.8s" begin="0.5s" fill="freeze"/>
 </rect>
+<text x="640" y="292" fill="#a2a2a2" font-size="12">2.1%</text>
 
-<text x="640" y="292"
- fill="#a2a2a2" font-size="12">
-2.1%
-</text>
-
-<text x="258" y="318" fill="#a2a2a2"
- font-size="12" text-anchor="end">C</text>
-
-<rect x="270" y="309" width="360" height="10"
- rx="5" fill="#121816"/>
-
-<rect x="270" y="309" width="0" height="10"
- rx="5" fill="#555555">
-  <animate attributeName="width"
-   from="0" to="2.3217243284419613"
-   dur="0.8s" begin="0.6499999999999999s"
-   fill="freeze"/>
+<text x="258" y="318" fill="#a2a2a2" font-size="12" text-anchor="end">C</text>
+<rect x="270" y="309" width="360" height="10" rx="5" fill="#121816"/>
+<rect x="270" y="309" width="0" height="10" rx="5" fill="#555555">
+  <animate attributeName="width" from="0" to="2.322128711918141" dur="0.8s" begin="0.6499999999999999s" fill="freeze"/>
 </rect>
+<text x="640" y="318" fill="#a2a2a2" font-size="12">0.6%</text>
 
-<text x="640" y="318"
- fill="#a2a2a2" font-size="12">
-0.6%
-</text>
-
-<text x="258" y="344" fill="#a2a2a2"
- font-size="12" text-anchor="end">C++</text>
-
-<rect x="270" y="335" width="360" height="10"
- rx="5" fill="#121816"/>
-
-<rect x="270" y="335" width="0" height="10"
- rx="5" fill="#f34b7d">
-  <animate attributeName="width"
-   from="0" to="0.713513249680684"
-   dur="0.8s" begin="0.8s"
-   fill="freeze"/>
+<text x="258" y="344" fill="#a2a2a2" font-size="12" text-anchor="end">C++</text>
+<rect x="270" y="335" width="360" height="10" rx="5" fill="#121816"/>
+<rect x="270" y="335" width="0" height="10" rx="5" fill="#f34b7d">
+  <animate attributeName="width" from="0" to="0.7136375249724018" dur="0.8s" begin="0.8s" fill="freeze"/>
 </rect>
-
-<text x="640" y="344"
- fill="#a2a2a2" font-size="12">
-0.2%
-</text>
-
+<text x="640" y="344" fill="#a2a2a2" font-size="12">0.2%</text>
 
 </svg>
