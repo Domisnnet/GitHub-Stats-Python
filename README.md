@@ -179,7 +179,7 @@ cd GitHub-Stats
 <details>
 <summary>Posso utilizar o card no meu perfil do GitHub ❓</summary>
 
-- Com certeza! Após gerar seu card, você pode copiar o link da imagem e utilizá-lo no seu `README.md` pessoal.
+- Com certeza! Após gerar seu card, você pode copiar o link da imagem e utilizá-lo no seu ![README.md](https://img.shields.io/badge/README.md-0056b3?style=flat-square&logo=markdown&logoColor=white) pessoal.
 
 </details>
 
