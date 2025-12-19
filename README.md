@@ -144,14 +144,26 @@ Sinta-se à vontade para sugerir melhorias ou reportar *bugs*. Siga estes passos
 
 <h2 id="perguntas-frequentes">7. 🤔 Perguntas Frequentes</h2>
 
-**Pergunta 1:** As estatísticas são atualizadas?
-**Resposta:** Sim! A imagem é gerada dinamicamente a cada vez que é carregada, garantindo que os dados estejam sempre atualizados com seu perfil no GitHub.
+<details>
+<summary>As estatísticas são atualizadas ❓</summary>
 
-**Pergunta 2:** De onde vêm os dados?
-**Resposta:** Todos os dados são obtidos em tempo real através da API pública do GitHub.
+- Sim! A imagem é gerada dinamicamente a cada vez que é carregada, garantindo que os dados estejam sempre atualizados com seu perfil no GitHub.
 
-**Pergunta 4:** Como posso entrar em contato com o desenvolvedor?
-**Resposta:** Você pode entrar em contato através do meu perfil no GitHub abaixo.
+</details>
+
+<details>
+<summary>De onde vêm os dados ❓</summary>
+
+- Todos os dados são obtidos em tempo real através da API pública do GitHub.
+
+</details>
+
+<details>
+<summary>Como posso entrar em contato com o desenvolvedor ❓</summary>
+
+- Você pode entrar em contato através do meu perfil no GitHub abaixo.
+
+</details>
 
 ---
 
@@ -175,7 +187,9 @@ Este projeto é *open source* e está licenciado sob a [![Licença MIT](https://
 
 ---
 
-## 👨‍💻 Perfil do GitHub 👨‍💻
+<h2 id="perfil-do-github>11. 👨‍💻 Perfil do GitHub 👨‍💻</h2>
+
+Para conhecer meu Repositório com todos os meus Projetos, acesse:
 
 <a href="https://github.com/Domisnnet">
    <img src="https://raw.githubusercontent.com/Domisnnet/GitHub-Stats/main/public/assets/DomisDev.png" 
