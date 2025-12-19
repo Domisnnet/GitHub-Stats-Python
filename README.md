@@ -12,29 +12,31 @@ Crie e exiba um dashboard dinâmico com suas estatísticas do GitHub!
 
 ## 📚 Tabela de Conteúdo
 
-[![Gerador de Estatísticas do GitHub](https://img.shields.io/badge/1%20-%20Gerador%20de%20Estatísticas-4CAF50)](#1--gerador-de-estatísticas-do-github)
+## 📚 Tabela de Conteúdo
 
-[![Acesse a Aplicação!](https://img.shields.io/badge/2%20-%20Acesse%20a%20Aplica%C3%A7%C3%A3o-2196F3)](#2-️-acesse-a-aplicação)
+[![Gerador de Estatísticas](https://img.shields.io/badge/1%20-%20Estatísticas-4CAF50)](#gerador-stats)
 
-[![Sobre a Aplicação](https://img.shields.io/badge/3%20-%20Sobre%20a%20Aplica%C3%A7%C3%A3o-FF9800)](#3--sobre-a-aplicação)
+[![Acesse a Aplicação](https://img.shields.io/badge/2%20-%20Acesse%20a%20Aplicação-2196F3)](#acesse-app)
 
-[![Como Usar](https://img.shields.io/badge/4%20-%20Como%20Usar-9C27B0)](#4--como-usar)
+[![Sobre a Aplicação](https://img.shields.io/badge/3%20-%20Sobre%20a%20Aplicação-FF9800)](#sobre-app)
 
-[![Tecnologias Utilizadas](https://img.shields.io/badge/5%20-%20Tecnologias%20Utilizadas-795548)](#5-️-tecnologias-utilizadas)
+[![Como Usar](https://img.shields.io/badge/4%20-%20Como%20Usar-9C27B0)](#como-usar)
 
-[![Como Contribuir](https://img.shields.io/badge/6%20-%20Como%20Contribuir-009688)](#6--como-contribuir)
+[![Tecnologias](https://img.shields.io/badge/5%20-%20Tecnologias-795548)](#tecnologias)
+
+[![Como Contribuir](https://img.shields.io/badge/6%20-%20Como%20Contribuir-009688)](#contribuir)
 
 [![Instalação Local](https://img.shields.io/badge/7%20-%20Instalação%20Local-607D8B)](#instalacao-local)
 
-[![Perguntas Frequentes](https://img.shields.io/badge/8%20-%20Perguntas%20Frequentes-3F51B5)](#7--perguntas-frequentes)
+[![FAQ](https://img.shields.io/badge/8%20-%20Perguntas%20Frequentes-3F51B5)](#faq)
 
-[![Código Fonte](https://img.shields.io/badge/9%20-%20Código%20Fonte-FFC107)](#8--código-fonte)
+[![Código Fonte](https://img.shields.io/badge/9%20-%20Código%20Fonte-FFC107)](#codigo-fonte)
 
-[![Créditos](https://img.shields.io/badge/10%20-%20Créditos-455A64)](#9--créditos)
+[![Créditos](https://img.shields.io/badge/10%20-%20Créditos-607D8B)](#creditos)
 
-[![Licença](https://img.shields.io/badge/11%20-%20Licença-E91E63)](#10--licença)
+[![Licença](https://img.shields.io/badge/11%20-%20Licença-E91E63)](#licenca)
 
-[![Perfil do GitHub](https://img.shields.io/badge/12%20-%20Perfil%20GitHub-212121)](#perfil-do-github)
+[![Perfil](https://img.shields.io/badge/12%20-%20Perfil%20GitHub-212121)](#perfil-github)
 
 
 ---
