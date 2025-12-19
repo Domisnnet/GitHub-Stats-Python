@@ -142,7 +142,18 @@ Sinta-se à vontade para sugerir melhorias ou reportar *bugs*. Siga estes passos
 
 ---
 
-<h2 id="perguntas-frequentes">7. 🤔 Perguntas Frequentes</h2>
+<h2 id="instalacao">7. 🚀 Instalação Local</h2>
+
+Para preparar seu ambiente de desenvolvimento e "upar" esse projeto na sua máquina:
+
+### 1️⃣ Clonando o Repositório
+![Git](https://img.shields.io/badge/GIT-E14711?style=for-the-badge&logo=git&logoColor=white)
+```bash
+git clone [https://github.com/Domisnnet/GitHub-Stats.git](https://github.com/Domisnnet/GitHub-Stats.git)
+
+---
+
+<h2 id="perguntas-frequentes">8. 🤔 Perguntas Frequentes</h2>
 
 <details>
 <summary>As estatísticas são atualizadas ❓</summary>
@@ -167,7 +178,7 @@ Sinta-se à vontade para sugerir melhorias ou reportar *bugs*. Siga estes passos
 
 ---
 
-<h2 id="código-fonte">8. 💻 Código Fonte</h2>
+<h2 id="código-fonte">9. 💻 Código Fonte</h2>
 
 Gostou do Dashboard? Para ver o código-fonte e contribuir com o projeto, acesse:
 
@@ -175,19 +186,19 @@ Gostou do Dashboard? Para ver o código-fonte e contribuir com o projeto, acesse
 
 ---
 
-<h2 id="créditos">9. 📝 Créditos</h2>
+<h2 id="créditos">10. 📝 Créditos</h2>
 
 * **Desenvolvedor 👨‍💻: DomisDev**.
 
 ---
 
-<h2 id="licença">10. 📄 Licença</h2>
+<h2 id="licença">11. 📄 Licença</h2>
 
 Este projeto é *open source* e está licenciado sob a [![Licença MIT](https://img.shields.io/github/license/Domisnnet/GitHub-Stats)](https://github.com/Domisnnet/GitHub-Stats?tab=MIT-1-ov-file)
 
 ---
 
-<h2 id="perfil-do-github">11. 👨‍💻 Perfil do GitHub 👨‍💻</h2>
+<h2 id="perfil-do-github">12. 👨‍💻 Perfil do GitHub 👨‍💻</h2>
 
 Para conhecer meu Repositório com todos os meus Projetos, acesse:
 
