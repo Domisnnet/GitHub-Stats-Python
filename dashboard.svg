@@ -24,35 +24,35 @@
 <text x="258" y="240" fill="#a2a2a2" font-size="12" text-anchor="end">Python</text>
 <rect x="270" y="231" width="360" height="10" rx="5" fill="#121816"/>
 <rect x="270" y="231" width="0" height="10" rx="5" fill="#3572A5">
-  <animate attributeName="width" from="0" to="296.85106820420737" dur="0.8s" begin="0.2s" fill="freeze"/>
+  <animate attributeName="width" from="0" to="296.85474769366107" dur="0.8s" begin="0.2s" fill="freeze"/>
 </rect>
 <text x="640" y="240" fill="#a2a2a2" font-size="12">82.5%</text>
 
 <text x="258" y="266" fill="#a2a2a2" font-size="12" text-anchor="end">Jupyter Notebook</text>
 <rect x="270" y="257" width="360" height="10" rx="5" fill="#121816"/>
 <rect x="270" y="257" width="0" height="10" rx="5" fill="#DA5B0B">
-  <animate attributeName="width" from="0" to="50.98840564764985" dur="0.8s" begin="0.35s" fill="freeze"/>
+  <animate attributeName="width" from="0" to="50.98543471377167" dur="0.8s" begin="0.35s" fill="freeze"/>
 </rect>
 <text x="640" y="266" fill="#a2a2a2" font-size="12">14.2%</text>
 
 <text x="258" y="292" fill="#a2a2a2" font-size="12" text-anchor="end">Cython</text>
 <rect x="270" y="283" width="360" height="10" rx="5" fill="#121816"/>
 <rect x="270" y="283" width="0" height="10" rx="5" fill="#fedf5b">
-  <animate attributeName="width" from="0" to="7.541318560824945" dur="0.8s" begin="0.5s" fill="freeze"/>
+  <animate attributeName="width" from="0" to="7.540879151933572" dur="0.8s" begin="0.5s" fill="freeze"/>
 </rect>
 <text x="640" y="292" fill="#a2a2a2" font-size="12">2.1%</text>
 
 <text x="258" y="318" fill="#a2a2a2" font-size="12" text-anchor="end">C</text>
 <rect x="270" y="309" width="360" height="10" rx="5" fill="#121816"/>
 <rect x="270" y="309" width="0" height="10" rx="5" fill="#555555">
-  <animate attributeName="width" from="0" to="2.322128711918141" dur="0.8s" begin="0.6499999999999999s" fill="freeze"/>
+  <animate attributeName="width" from="0" to="2.321993408788496" dur="0.8s" begin="0.6499999999999999s" fill="freeze"/>
 </rect>
 <text x="640" y="318" fill="#a2a2a2" font-size="12">0.6%</text>
 
 <text x="258" y="344" fill="#a2a2a2" font-size="12" text-anchor="end">C++</text>
 <rect x="270" y="335" width="360" height="10" rx="5" fill="#121816"/>
 <rect x="270" y="335" width="0" height="10" rx="5" fill="#f34b7d">
-  <animate attributeName="width" from="0" to="0.7136375249724018" dur="0.8s" begin="0.8s" fill="freeze"/>
+  <animate attributeName="width" from="0" to="0.7135959435604564" dur="0.8s" begin="0.8s" fill="freeze"/>
 </rect>
 <text x="640" y="344" fill="#a2a2a2" font-size="12">0.2%</text>
 
