@@ -13,7 +13,7 @@ document.getElementById('github-form').addEventListener('submit', function(event
     skeleton.className = 'skeleton-loader';
     statsContainer.appendChild(skeleton);
 
-    const dashboardUrl = `/api/dashboard?username=${username}&theme=${theme}`;
+    const dashboardUrl = `https://us-central1-github-stats-68157678-42e04.cloudfunctions.net/statsSvg?username=${username}&theme=${theme}`;
     
     const dashboardImg = new Image();
     dashboardImg.src = dashboardUrl;
