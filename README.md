@@ -28,7 +28,7 @@ Crie e exiba um dashboard dinâmico com suas estatísticas do GitHub!
 
 [![Créditos](https://img.shields.io/badge/9%20-%20Créditos-607D8B)](#9--créditos)
 
-[![Licença](https://img.shields.io/badge/10%20-%20Licen%C3%A3a-E91E63)](#10--licença)
+[![Licença](https://img.shields.io/badge/10%20-%20Licença-E91E63)](#10--licença)
 
 ---
 
