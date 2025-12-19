@@ -10,6 +10,8 @@ Crie e exiba um dashboard dinâmico com suas estatísticas do GitHub!
 
 ## 📚 Tabela de Conteúdo
 
+## 📚 Tabela de Conteúdo
+
 [![Gerador de Estatísticas do GitHub](https://img.shields.io/badge/1%20-%20Gerador%20de%20Estatísticas-4CAF50)](#1--gerador-de-estatísticas-do-github)
 
 [![Acesse a Aplicação!](https://img.shields.io/badge/2%20-%20Acesse%20a%20Aplica%C3%A7%C3%A3o-2196F3)](#2-️-acesse-a-aplicação)
@@ -22,13 +24,18 @@ Crie e exiba um dashboard dinâmico com suas estatísticas do GitHub!
 
 [![Como Contribuir](https://img.shields.io/badge/6%20-%20Como%20Contribuir-009688)](#6--como-contribuir)
 
-[![Perguntas Frequentes](https://img.shields.io/badge/7%20-%20Perguntas%20Frequentes-3F51B5)](#7--perguntas-frequentes)
+[![Instalação Local](https://img.shields.io/badge/7%20-%20Instalação%20Local-607D8B)](#instalacao-local)
 
-[![Código Fonte](https://img.shields.io/badge/8%20-%20Código%20Fonte-FFC107)](#8--código-fonte)
+[![Perguntas Frequentes](https://img.shields.io/badge/8%20-%20Perguntas%20Frequentes-3F51B5)](#7--perguntas-frequentes)
 
-[![Créditos](https://img.shields.io/badge/9%20-%20Créditos-607D8B)](#9--créditos)
+[![Código Fonte](https://img.shields.io/badge/9%20-%20Código%20Fonte-FFC107)](#8--código-fonte)
 
-[![Licença](https://img.shields.io/badge/10%20-%20Licença-E91E63)](#10--licença)
+[![Créditos](https://img.shields.io/badge/10%20-%20Créditos-455A64)](#9--créditos)
+
+[![Licença](https://img.shields.io/badge/11%20-%20Licen%C3%A3a-E91E63)](#10--licença)
+
+[![Perfil do GitHub](https://img.shields.io/badge/12%20-%20Perfil%20GitHub-212121)](#perfil-do-github)
+
 
 ---
 
