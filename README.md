@@ -184,6 +184,13 @@ cd GitHub-Stats
 </details>
 
 <details>
+<summary>O projeto tem limites de uso ❓</summary>
+
+- Para garantir a disponibilidade para todos e respeitar os limites da API do GitHub, a aplicação possui um sistema de cache e limites de requisições por IP. Se você encontrar problemas, aguarde alguns instantes.
+
+</details>
+
+<details>
 <summary>O que fazer se o card não carregar ❓</summary>
 
 - Isso pode acontecer devido ao limite de requisições (Rate Limit) da API do GitHub. Aguarde alguns minutos e atualize a página.
