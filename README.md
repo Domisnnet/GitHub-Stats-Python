@@ -71,7 +71,7 @@ Este projeto foi desenvolvido com uma arquitetura moderna e desacoplada:
 
 ---
 
-<h2 id="como-contribuir>6. 🤝 Como Contribuir</h2>
+<h2 id="como-contribuir">6. 🤝 Como Contribuir</h2>
 
 Sinta-se à vontade para sugerir melhorias ou reportar *bugs*. Siga estes passos para contribuir:
 
@@ -167,7 +167,7 @@ Sinta-se à vontade para sugerir melhorias ou reportar *bugs*. Siga estes passos
 
 ---
 
-<h2 id="código-fonte>8. 💻 Código Fonte</h2>
+<h2 id="código-fonte">8. 💻 Código Fonte</h2>
 
 Gostou do Dashboard? Para ver o código-fonte e contribuir com o projeto, acesse:
 
@@ -175,7 +175,7 @@ Gostou do Dashboard? Para ver o código-fonte e contribuir com o projeto, acesse
 
 ---
 
-<h2 id="créditos>9. 📝 Créditos</h2>
+<h2 id="créditos">9. 📝 Créditos</h2>
 
 * **Desenvolvedor 👨‍💻: DomisDev**.
 
@@ -187,7 +187,7 @@ Este projeto é *open source* e está licenciado sob a [![Licença MIT](https://
 
 ---
 
-<h2 id="perfil-do-github>11. 👨‍💻 Perfil do GitHub 👨‍💻</h2>
+<h2 id="perfil-do-github">11. 👨‍💻 Perfil do GitHub 👨‍💻</h2>
 
 Para conhecer meu Repositório com todos os meus Projetos, acesse:
 
