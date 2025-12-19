@@ -163,23 +163,37 @@ cd GitHub-Stats
 <h2 id="perguntas-frequentes">8. 🤔 Perguntas Frequentes</h2>
 
 <details>
-<summary>As estatísticas são atualizadas ❓</summary>
+<summary>As estatísticas são atualizadas em tempo real ❓</summary>
 
-- Sim! A imagem é gerada dinamicamente a cada vez que é carregada, garantindo que os dados estejam sempre atualizados com seu perfil no GitHub.
+- Sim! A imagem é gerada dinamicamente a cada carregamento, consumindo os dados mais recentes da API do GitHub.
 
 </details>
 
 <details>
-<summary>De onde vêm os dados ❓</summary>
+<summary>O dashboard mostra dados de repositórios privados ❓</summary>
 
-- Todos os dados são obtidos em tempo real através da API pública do GitHub.
+- Não. Por questões de segurança e limitações da API pública, apenas dados de repositórios públicos são contabilizados.
+
+</details>
+
+<details>
+<summary>Posso utilizar o card no meu perfil do GitHub ❓</summary>
+
+- Com certeza! Após gerar seu card, você pode copiar o link da imagem e utilizá-lo no seu `README.md` pessoal.
+
+</details>
+
+<details>
+<summary>O que fazer se o card não carregar ❓</summary>
+
+- Isso pode acontecer devido ao limite de requisições (Rate Limit) da API do GitHub. Aguarde alguns minutos e atualize a página.
 
 </details>
 
 <details>
 <summary>Como posso entrar em contato com o desenvolvedor ❓</summary>
 
-- Você pode entrar em contato através do meu perfil no GitHub abaixo.
+- Você pode abrir uma **Issue** aqui no repositório ou entrar em contato através do meu perfil no GitHub abaixo.
 
 </details>
 
