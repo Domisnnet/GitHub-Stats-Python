@@ -1,4 +1,4 @@
-# 📊 Gerador de Estatísticas do GitHub
+<h2 id="gerador-de-estatísticas-do-github">1. 📊 Gerador de Estatísticas do GitHub</h2>
 
 ![Status do Deploy](https://img.shields.io/badge/Status-Online-brightgreen)
 ![Tecnologias](https://img.shields.io/badge/Tecnologias-HTML%20%7C%20CSS%20%7C%20JS%20%7C%20Python-blue)
@@ -10,15 +10,15 @@ Crie e exiba um dashboard dinâmico com suas estatísticas do GitHub!
 
 ## 📚 Tabela de Conteúdo
 
-[![Acesse a Aplicação!](https://img.shields.io/badge/1%20-%20Sobre%20o%20Projeto-4CAF50)](#1--acesse-a-aplicação)
+[![Gerador de Estatísticas do GitHub](https://img.shields.io/badge/1%20-%20Gerador%20o%20Estatísticas-4CAF50)](#1--gerador-de-estatísticas-do-github)
 
-[![Tecnologias Utilizadas](https://img.shields.io/badge/2%20-%20Tecnologias%20Utilizadas-2196F3)](#2-️-tecnologias-utilizadas)
+[![Acesse a Aplicação!](https://img.shields.io/badge/2%20-%20Acesse%20Aplicação-2196F3)](#2-️-acesse-a-aplicação)
 
-[![Como Jogar](https://img.shields.io/badge/3%20-%20Como%20Jogar-FF9800)](#3--como-jogar)
+[![Sobre a Aplicação](https://img.shields.io/badge/3%20-%20Sobre%20Aplicação-FF9800)](#3--sobre-a-aplicação)
 
-[![Regras do Jogo](https://img.shields.io/badge/4%20-%20Regras%20do%20Jogo-9C27B0)](#4--regras-do-jogo)
+[![Como Usar](https://img.shields.io/badge/4%20-%20Como%20Usar-9C27B0)](#4--como-usar)
 
-[![Código Fonte](https://img.shields.io/badge/5%20-%20C%C3%B3digo%20Fonte-795548)](#5-️-Para-ver-o-código-fonte)
+[![Tecnologias Utilizadas](https://img.shields.io/badge/5%20-%20Tecnologias%20Utilizadas-795548)](#5-️-tecnologias-utilizadas)
 
 [![Implantação](https://img.shields.io/badge/6%20-%20Implanta%C3%A7%C3%A3o-009688)](#6--implantação)
 
@@ -32,7 +32,7 @@ Crie e exiba um dashboard dinâmico com suas estatísticas do GitHub!
 
 ---
 
-<h2 id="acesse-a-aplicação">1. 🔗 Acesse a Aplicação</h2>
+<h2 id="acesse-a-aplicação">2. 🔗 Acesse a Aplicação</h2>
 
 Clique no Botão abaixo para acessar o Dashboard agora mesmo:
 
@@ -42,11 +42,11 @@ Clique no Botão abaixo para acessar o Dashboard agora mesmo:
 
 ---
 
-## Sobre a Aplicação 🚀
+<h2 id="sobre-a-aplicação">3. 🚀 Sobre a Aplicação</h2> 
 
 O **Gerador de Estatísticas do GitHub** é uma aplicação web que cria uma imagem SVG com as estatísticas de um desenvolvedor, como número de repositórios, estrelas e forks. A aplicação consome os dados diretamente da API do GitHub e os renderiza em um card customizável.
 
-## Como Usar 🎮
+<h2 id="como-usar">4. 🎮 Como Usar</h2>
 
 1.  **Acesse o Site:** Use o botão acima para abrir a aplicação.
 2.  **Informe o Usuário:** Digite o nome de usuário do GitHub que você deseja consultar.
@@ -55,7 +55,7 @@ O **Gerador de Estatísticas do GitHub** é uma aplicação web que cria uma ima
 
 ---
 
-## Tecnologias Utilizadas ⚙️
+<h2 id="tecnologias-utilizadas">5. ⚙️ Tecnologias Utilizadas</h2>
 
 Este projeto foi desenvolvido com uma arquitetura moderna e desacoplada:
 
