@@ -187,8 +187,8 @@ def statsSvg(req):
     db = firestore.client()
 
     username = req.args.get("username", "Domisnnet")
-    theme_name = req.args.get("theme", "onedark")
-    theme = THEMES.get(theme_name, THEMES["onedark"])
+    theme_name = req.args.get("theme", "merko")
+    theme = THEMES.get(theme_name, THEMES["merko"])
 
     docs = db.collection("repos").stream()
 
