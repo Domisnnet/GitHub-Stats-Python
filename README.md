@@ -20,15 +20,15 @@ Crie e exiba um dashboard dinâmico com suas estatísticas do GitHub!
 
 [![Tecnologias Utilizadas](https://img.shields.io/badge/5%20-%20Tecnologias%20Utilizadas-795548)](#5-️-tecnologias-utilizadas)
 
-[![Implantação](https://img.shields.io/badge/6%20-%20Implanta%C3%A7%C3%A3o-009688)](#6--implantação)
+[![Como Contribuir](https://img.shields.io/badge/6%20-%20Como%20Contribuir-009688)](#6--como-contribuir)
 
-[![Contribuindo](https://img.shields.io/badge/7%20-%20Contribuindo%20para%20o%20Projeto-3F51B5)](#7--contribuindo-para-o-projeto)
+[![Perguntas Frequentes](https://img.shields.io/badge/7%20-%20Perguntas%20Frequentes-3F51B5)](#7--perguntas-frequentes)
 
-[![Perguntas Frequentes](https://img.shields.io/badge/8%20-%20Perguntas%20Frequentes-FFC107)](#8--perguntas-frequentes)
+[![Código Fonte](https://img.shields.io/badge/8%20-%20Código%20Fonte-FFC107)](#8--código-fonte)
 
-[![Licença](https://img.shields.io/badge/9%20-%20Licen%C3%A7a-607D8B)](#9--licença)
+[![Créditos](https://img.shields.io/badge/9%20-%20Créditos-607D8B)](#9--créditos)
 
-[![Conclusão](https://img.shields.io/badge/10%20-%20Conclus%C3%A3o-E91E63)](#10--conclusão)
+[![Licença](https://img.shields.io/badge/10%20-%20Licen%C3%A3a-E91E63)](#10--licença)
 
 ---
 
@@ -71,7 +71,7 @@ Este projeto foi desenvolvido com uma arquitetura moderna e desacoplada:
 
 ---
 
-## 🤝 Como Contribuir
+<h2 id="como-contribuir>6. 🤝 Como Contribuir</h2>
 
 Sinta-se à vontade para sugerir melhorias ou reportar *bugs*. Siga estes passos para contribuir:
 
@@ -142,7 +142,7 @@ Sinta-se à vontade para sugerir melhorias ou reportar *bugs*. Siga estes passos
 
 ---
 
-## FAQ 🤔
+<h2 id="perguntas-frequentes">7. 🤔 Perguntas Frequentes</h2>
 
 **Pergunta 1:** As estatísticas são atualizadas?
 **Resposta:** Sim! A imagem é gerada dinamicamente a cada vez que é carregada, garantindo que os dados estejam sempre atualizados com seu perfil no GitHub.
@@ -155,7 +155,7 @@ Sinta-se à vontade para sugerir melhorias ou reportar *bugs*. Siga estes passos
 
 ---
 
-## Código Fonte 💻
+<h2 id="código-fonte>8. 💻 Código Fonte</h2>
 
 Gostou do Dashboard? Para ver o código-fonte e contribuir com o projeto, acesse:
 
@@ -163,13 +163,13 @@ Gostou do Dashboard? Para ver o código-fonte e contribuir com o projeto, acesse
 
 ---
 
-## Créditos 📝
+<h2 id="créditos>9. 📝 Créditos</h2>
 
 * **Desenvolvedor 👨‍💻: DomisDev**.
 
 ---
 
-## 📄 Licença
+<h2 id="licença">10. 📄 Licença</h2>
 
 Este projeto é *open source* e está licenciado sob a [![Licença MIT](https://img.shields.io/github/license/Domisnnet/GitHub-Stats)](https://github.com/Domisnnet/GitHub-Stats?tab=MIT-1-ov-file)
 
