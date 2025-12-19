@@ -1,3 +1,1 @@
-#!/bin/sh
-source .venv/bin/activate
-python -u main.py
+python -m http.server $PORT --directory public
