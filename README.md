@@ -1,4 +1,4 @@
-<h2 id="gerador-de-estatisticas-do-github">1. 📊 Gerador de Estatísticas do GitHub</h2>
+<h2 id="gerador-de-estatisticas">1. 📊 Gerador de Estatísticas</h2>
 
 ![Status do Deploy](https://img.shields.io/badge/Status-Online-brightgreen)
 ![Tecnologias](https://img.shields.io/badge/Tecnologias-HTML%20%7C%20CSS%20%7C%20JS%20%7C%20Python-blue)
@@ -10,15 +10,11 @@ Crie e exiba um dashboard dinâmico com suas estatísticas do GitHub!
 
 ## 📚 Tabela de Conteúdo
 
-## 📚 Tabela de Conteúdo
-
-## 📚 Tabela de Conteúdo
-
-[![Gerador de Estatísticas](https://img.shields.io/badge/1%20-%20Estatísticas-4CAF50)](#gerador-de-estatisticas-do-github)
+[![Gerador de Estatísticas](https://img.shields.io/badge/1%20-%20Estatísticas-4CAF50)](#gerador-de-estatisticas)
 
 [![Acesse a Aplicação](https://img.shields.io/badge/2%20-%20Acesse%20a%20Aplicação-2196F3)](#acesse-a-aplicacao)
 
-[![Sobre a Aplicação](https://img.shields.io/badge/3%20-%20Sobre%20a%20Aplicação-FF9800)](#sobre-a-aplicacao)
+[![Sobre a Aplicação](https://img.shields.io/badge/3%20-%20Sobre-FF9800)](#sobre)
 
 [![Como Usar](https://img.shields.io/badge/4%20-%20Como%20Usar-9C27B0)](#como-usar)
 
@@ -51,7 +47,7 @@ Clique no Botão abaixo para acessar o Dashboard agora mesmo:
 
 ---
 
-<h2 id="sobre-a-aplicação">3. 🚀 Sobre a Aplicação</h2> 
+<h2 id="sobre">3. 🚀 Sobre a Aplicação</h2> 
 
 O **Gerador de Estatísticas do GitHub** é uma aplicação web que cria uma imagem SVG com as estatísticas de um desenvolvedor, como número de repositórios, estrelas e forks. A aplicação consome os dados diretamente da API do GitHub e os renderiza em um card customizável.
 
