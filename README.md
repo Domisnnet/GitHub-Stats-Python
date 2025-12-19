@@ -29,6 +29,8 @@ O **Gerador de Estatísticas do GitHub** é uma aplicação web que cria uma ima
 3.  **Escolha um Tema:** Selecione um dos temas visuais disponíveis para customizar a aparência do seu card.
 4.  **Gerar:** Clique em "Gerar Estatísticas" para que a mágica aconteça! O seu card de estatísticas aparecerá na tela.
 
+---
+
 ## Tecnologias Utilizadas ⚙️
 
 Este projeto foi desenvolvido com uma arquitetura moderna e desacoplada:
@@ -42,6 +44,8 @@ Este projeto foi desenvolvido com uma arquitetura moderna e desacoplada:
     *   **Google Cloud Functions** ☁️: Plataforma serverless para executar o código que gera o SVG.
 *   **Hosting**:
     *   **Firebase Hosting** 🔥: Para hospedar o site estático (frontend).
+
+---
 
 ## 🤝 Como Contribuir
 
@@ -112,6 +116,8 @@ Sinta-se à vontade para sugerir melhorias ou reportar *bugs*. Siga estes passos
     </ul>
 </div>
 
+---
+
 ## FAQ 🤔
 
 **Pergunta 1:** As estatísticas são atualizadas?
@@ -120,21 +126,32 @@ Sinta-se à vontade para sugerir melhorias ou reportar *bugs*. Siga estes passos
 **Pergunta 2:** De onde vêm os dados?
 **Resposta:** Todos os dados são obtidos em tempo real através da API pública do GitHub.
 
+**Pergunta 4:** Como posso entrar em contato com o desenvolvedor?
+**Resposta:** Você pode entrar em contato através do meu perfil no GitHub abaixo.
+
+---
+
 ## Código Fonte 💻
 
-Gostou do jogo? Para ver o código-fonte e contribuir com o projeto, acesse:
+Gostou do Dashboard? Para ver o código-fonte e contribuir com o projeto, acesse:
 
 [![Acessar o Repositório](https://img.shields.io/badge/Repositório-Domisnnet%2GitHub--Stats-blue?style=flat&logo=github)](https://github.com/Domisnnet/GitHub-Stats)
+
+---
 
 ## Créditos 📝
 
 * **Desenvolvedor 👨‍💻: DomisDev**.
 
+---
+
 ## 📄 Licença
 
 Este projeto é *open source* e está licenciado sob a [![Licença MIT](https://img.shields.io/github/license/Domisnnet/GitHub-Stats)](https://github.com/Domisnnet/GitHub-Stats?tab=MIT-1-ov-file)
 
+---
 
+## 👨‍💻 Perfil do GitHub 👨‍💻
 
 <a href="https://github.com/Domisnnet">
    <img src="https://raw.githubusercontent.com/Domisnnet/GitHub-Stats/main/public/assets/DomisDev.png" 
