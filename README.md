@@ -142,14 +142,15 @@ Sinta-se à vontade para sugerir melhorias ou reportar *bugs*. Siga estes passos
 
 ---
 
-<h2 id="instalacao">7. 🚀 Instalação Local</h2>
+<h2 id="instalacao-local">7.🚀 Instalação e Configuração Local</h2>
 
-Para preparar seu ambiente de desenvolvimento e "upar" esse projeto na sua máquina:
+Para preparar seu ambiente de desenvolvimento e rodar este projeto na sua máquina, siga os passos abaixo:
 
-### 1️⃣ Clonando o Repositório
+### 1️⃣ Clonar o Repositório
 ![Git](https://img.shields.io/badge/GIT-E14711?style=for-the-badge&logo=git&logoColor=white)
 ```bash
 git clone [https://github.com/Domisnnet/GitHub-Stats.git](https://github.com/Domisnnet/GitHub-Stats.git)
+cd GitHub-Stats
 
 ---
 
