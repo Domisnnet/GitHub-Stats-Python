@@ -4,15 +4,17 @@
 ![Tecnologias](https://img.shields.io/badge/Tecnologias-HTML%20%7C%20CSS%20%7C%20JS%20%7C%20Python-blue)
 [![Licença MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-![Exemplo de Dashboard](https://us-central1-github-stats-68157678-42e04.cloudfunctions.net/statsSvg?username=google&theme=tokyonight)
+![Dashboard](https://raw.githubusercontent.com/Domisnnet/GitHub-Stats/main/public/assets/github-stats.png)
 
 Crie e exiba um dashboard dinâmico com suas estatísticas do GitHub!
 
 ## 🔗 Acesse a Aplicação!
 
-Clique no link abaixo para gerar seu dashboard agora mesmo:
+Clique no Botão abaixo para acessar o Dashboard agora mesmo:
 
-**[https://github-stats-68157678-42e04.web.app/](https://github-stats-68157678-42e04.web.app/)**
+<a href="https://github-stats-68157678-42e04.web.app/" target="_blank">
+    <img alt="Botão Acessar Dashboard" src="https://raw.githubusercontent.com/Domisnnet/GitHub-Stats/main/public/assets/bot%C3%A3o.webp" height="70" width="70" />
+</a>
 
 ---
 
@@ -22,11 +24,10 @@ O **Gerador de Estatísticas do GitHub** é uma aplicação web que cria uma ima
 
 ## Como Usar 🎮
 
-1.  **Acesse o Site:** Use o link acima para abrir a aplicação.
+1.  **Acesse o Site:** Use o botão acima para abrir a aplicação.
 2.  **Informe o Usuário:** Digite o nome de usuário do GitHub que você deseja consultar.
 3.  **Escolha um Tema:** Selecione um dos temas visuais disponíveis para customizar a aparência do seu card.
 4.  **Gerar:** Clique em "Gerar Estatísticas" para que a mágica aconteça! O seu card de estatísticas aparecerá na tela.
-5.  **Use em seu Perfil:** Você pode usar a URL da imagem gerada para exibi-la em qualquer lugar, inclusive no seu próprio `README.md` do GitHub!
 
 ## Tecnologias Utilizadas ⚙️
 
@@ -46,26 +47,96 @@ Este projeto foi desenvolvido com uma arquitetura moderna e desacoplada:
 
 Sinta-se à vontade para sugerir melhorias ou reportar *bugs*. Siga estes passos para contribuir:
 
-1.  **Faça um Fork** do projeto.
-2.  **Crie uma nova Branch** (`git checkout -b feature/sua-melhoria`).
-3.  **Faça o Commit** de suas alterações (`git commit -m 'Adiciona nova funcionalidade'`).
-4.  **Faça o Push** para a Branch (`git push origin feature/sua-melhoria`).
-5.  **Abra um Pull Request**.
+<div style="background-color: #f0f0f0; padding: 20px; border-radius: 10px;
+            border: 2px solid #222;">
+    <p style="margin-bottom: 10px; font-weight: bold; color: #0056b3; 
+            text-align: center;">
+        <span style="display:inline-block; margin-right: 5px;"> 👐 
+            Siga os passos para fortalecer este deck:
+        </span>     
+    </p>
+    <ul style="list-style-type: none; padding: 0; margin: 0;">
+        <li style="margin-bottom: 10px;">
+            <span style="font-weight: bold; color: #1c7430;">1. 🍴 
+                Adicione este projeto ao seu deck e faça um Fork:<br>
+            <a href="https://github.com/Domisnnet/GitHub-Stats/fork" target="_blank">
+                <img alt="Fazer um Fork" 
+                src="https://img.shields.io/badge/-Fork%20Me-blue?style=for-the-badge&logo=github">
+            </a>
+            </span>
+        </li>
+        <li style="margin-bottom: 10px;">
+            <span style="font-weight: bold; color: #1c7430;">2. 🌿 
+                Crie uma branch - Prepare suas atualizações com esse passo a passo:<br>
+            <a href="https://www.atlassian.com/br/git/tutorials/using-branches" target="_blank">
+                <img alt="Tutorial sobre Branches" 
+                src="https://img.shields.io/badge/Docs-Branches-4c1?style=for-the-badge&logo=git&logoColor=white">
+            </a>
+            </span>
+        </li>
+        <li style="margin-bottom: 10px;">
+            <span style="font-weight: bold; color: #1c7430;">3. ✍️ 
+                Prepare seus commits - Guarde suas mudanças no repositório:<br>
+            <a href="https://www.atlassian.com/br/git/tutorials/saving-changes/git-commit" 
+            target="_blank">
+                <img alt="Tutorial sobre Commits" 
+                src="https://img.shields.io/badge/Docs-Commits-4c1?style=for-the-badge&logo=git&logoColor=white">
+            </a>
+            </span>
+        </li>
+        <li style="margin-bottom: 10px;">
+            <span style="font-weight: bold; color: #1c7430;">4. 🚀 
+                Envie - Lance sua sugestão de Melhoria:<br>
+                <img alt="Envie o código" 
+                src="https://img.shields.io/badge/Ação-Push-FE5C00?style=for-the-badge&logo=git&logoColor=white">
+            </span>
+        </li>
+        <li>
+            <span style="font-weight: bold; color: #1c7430;">5. ⚔️ 
+                Desafie este deck original - Abrindo um Pull Request:<br>
+            <a href="https://github.2com/Domisnnet/GitHub-Stats/compare" target="_blank">
+                <img alt="Abrir Pull Request" 
+                src="https://img.shields.io/badge/-Abrir%20PR-green?style=for-the-badge&logo=git">
+            </a>
+            </span>
+        </li>
+        <li>
+            <span style="font-weight: bold; color: #1c7430;">6. 🐛
+                Achou algum problema? - Realte pela Issue:<br>
+            <a href="https://github.com/Domisnnet/GitHub-Stats/issues" target="_blank">
+                <img alt="Issues Abertas" 
+                src="https://img.shields.io/github/issues/Domisnnet/GitHub-Stats?style=for-the-badge&color=red">
+            </a>
+            </span>
+        </li>
+    </ul>
+</div>
 
 ## FAQ 🤔
 
-**Pergunta 1:** Como posso usar a imagem no meu perfil do GitHub?
-**Resposta:** Simples! Use o seguinte formato de URL em um arquivo Markdown:
-`![Estatísticas](https://us-central1-github-stats-68157678-42e04.cloudfunctions.net/statsSvg?username=SEU-USUARIO)`
-Substitua `SEU-USUARIO` pelo seu nome de usuário do GitHub.
-
-**Pergunta 2:** As estatísticas são atualizadas?
+**Pergunta 1:** As estatísticas são atualizadas?
 **Resposta:** Sim! A imagem é gerada dinamicamente a cada vez que é carregada, garantindo que os dados estejam sempre atualizados com seu perfil no GitHub.
 
-**Pergunta 3:** De onde vêm os dados?
+**Pergunta 2:** De onde vêm os dados?
 **Resposta:** Todos os dados são obtidos em tempo real através da API pública do GitHub.
+
+## Código Fonte 💻
+
+Gostou do jogo? Para ver o código-fonte e contribuir com o projeto, acesse:
+
+[![Acessar o Repositório](https://img.shields.io/badge/Repositório-Domisnnet%2GitHub--Stats-blue?style=flat&logo=github)](https://github.com/Domisnnet/GitHub-Stats)
+
+## Créditos 📝
+
+* **Desenvolvedor 👨‍💻: DomisDev**.
 
 ## 📄 Licença
 
-Este projeto é *open source* e está licenciado sob a **Licença MIT**.
+Este projeto é *open source* e está licenciado sob a [![Licença MIT](https://img.shields.io/github/license/Domisnnet/GitHub-Stats)](https://github.com/Domisnnet/GitHub-Stats?tab=MIT-1-ov-file)
 
+
+
+<a href="https://github.com/Domisnnet">
+   <img src="https://raw.githubusercontent.com/Domisnnet/GitHub-Stats/main/public/assets/DomisDev.png" 
+    width="150px" height="150px" alt="Acessar perfil GitHub">
+</a>
