@@ -8,7 +8,31 @@
 
 Crie e exiba um dashboard dinâmico com suas estatísticas do GitHub!
 
-## 🔗 Acesse a Aplicação!
+## 📚 Tabela de Conteúdo
+
+[![Acesse a Aplicação!](https://img.shields.io/badge/1%20-%20Sobre%20o%20Projeto-4CAF50)](#1--acesse-a-aplicação)
+
+[![Tecnologias Utilizadas](https://img.shields.io/badge/2%20-%20Tecnologias%20Utilizadas-2196F3)](#2-️-tecnologias-utilizadas)
+
+[![Como Jogar](https://img.shields.io/badge/3%20-%20Como%20Jogar-FF9800)](#3--como-jogar)
+
+[![Regras do Jogo](https://img.shields.io/badge/4%20-%20Regras%20do%20Jogo-9C27B0)](#4--regras-do-jogo)
+
+[![Código Fonte](https://img.shields.io/badge/5%20-%20C%C3%B3digo%20Fonte-795548)](#5-️-Para-ver-o-código-fonte)
+
+[![Implantação](https://img.shields.io/badge/6%20-%20Implanta%C3%A7%C3%A3o-009688)](#6--implantação)
+
+[![Contribuindo](https://img.shields.io/badge/7%20-%20Contribuindo%20para%20o%20Projeto-3F51B5)](#7--contribuindo-para-o-projeto)
+
+[![Perguntas Frequentes](https://img.shields.io/badge/8%20-%20Perguntas%20Frequentes-FFC107)](#8--perguntas-frequentes)
+
+[![Licença](https://img.shields.io/badge/9%20-%20Licen%C3%A7a-607D8B)](#9--licença)
+
+[![Conclusão](https://img.shields.io/badge/10%20-%20Conclus%C3%A3o-E91E63)](#10--conclusão)
+
+---
+
+<h2 id="acesse-a-aplicação">1. 🔗 Acesse a Aplicação</h2>
 
 Clique no Botão abaixo para acessar o Dashboard agora mesmo:
 
