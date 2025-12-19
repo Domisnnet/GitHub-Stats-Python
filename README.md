@@ -135,7 +135,7 @@ Sinta-se à vontade para sugerir melhorias ou reportar *bugs*. Siga estes passos
 
 Gostou do Dashboard? Para ver o código-fonte e contribuir com o projeto, acesse:
 
-[![Acessar o Repositório](https://img.shields.io/badge/Repositório-Domisnnet%2GitHub--Stats-blue?style=flat&logo=github)](https://github.com/Domisnnet/GitHub-Stats)
+[![Acessar Repositório](https://img.shields.io/badge/Repositório-Domisnnet%2FGitHub--Stats-blue?style=flat&logo=github)](https://github.com/Domisnnet/GitHub-Stats)
 
 ---
 
