@@ -151,6 +151,7 @@ Para preparar seu ambiente de desenvolvimento e rodar este projeto na sua máqui
 ```bash
 git clone [https://github.com/Domisnnet/GitHub-Stats.git](https://github.com/Domisnnet/GitHub-Stats.git)
 cd GitHub-Stats
+```
 
 ---
 
