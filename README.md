@@ -185,7 +185,7 @@ cd GitHub-Stats
 
 ---
 
-<h2 id="código-fonte">9. 💻 Código Fonte</h2>
+<h2 id="codigo-fonte">9. 💻 Código Fonte</h2>
 
 Gostou do Dashboard? Para ver o código-fonte e contribuir com o projeto, acesse:
 
