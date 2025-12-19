@@ -14,21 +14,21 @@ Crie e exiba um dashboard dinâmico com suas estatísticas do GitHub!
 
 ## 📚 Tabela de Conteúdo
 
-[![Gerador de Estatísticas](https://img.shields.io/badge/1%20-%20Estatísticas-4CAF50)](#gerador-stats)
+[![Gerador de Estatísticas](https://img.shields.io/badge/1%20-%20Estatísticas-4CAF50)](#gerador-de-estatísticas-github)
 
-[![Acesse a Aplicação](https://img.shields.io/badge/2%20-%20Acesse%20a%20Aplicação-2196F3)](#acesse-app)
+[![Acesse a Aplicação](https://img.shields.io/badge/2%20-%20Acesse%20a%20Aplicação-2196F3)](#acesse-a-aplicacao)
 
-[![Sobre a Aplicação](https://img.shields.io/badge/3%20-%20Sobre%20a%20Aplicação-FF9800)](#sobre-app)
+[![Sobre a Aplicação](https://img.shields.io/badge/3%20-%20Sobre%20a%20Aplicação-FF9800)](#sobre-a-aplicacao)
 
 [![Como Usar](https://img.shields.io/badge/4%20-%20Como%20Usar-9C27B0)](#como-usar)
 
-[![Tecnologias](https://img.shields.io/badge/5%20-%20Tecnologias-795548)](#tecnologias)
+[![Tecnologias](https://img.shields.io/badge/5%20-%20Tecnologias-795548)](#tecnologias-utilizadas)
 
-[![Como Contribuir](https://img.shields.io/badge/6%20-%20Como%20Contribuir-009688)](#contribuir)
+[![Como Contribuir](https://img.shields.io/badge/6%20-%20Como%20Contribuir-009688)](#como-contribuir)
 
 [![Instalação Local](https://img.shields.io/badge/7%20-%20Instalação%20Local-607D8B)](#instalacao-local)
 
-[![FAQ](https://img.shields.io/badge/8%20-%20Perguntas%20Frequentes-3F51B5)](#faq)
+[![FAQ](https://img.shields.io/badge/8%20-%20Perguntas%20Frequentes-3F51B5)](#perguntas-frequentes)
 
 [![Código Fonte](https://img.shields.io/badge/9%20-%20Código%20Fonte-FFC107)](#codigo-fonte)
 
@@ -36,12 +36,12 @@ Crie e exiba um dashboard dinâmico com suas estatísticas do GitHub!
 
 [![Licença](https://img.shields.io/badge/11%20-%20Licença-E91E63)](#licenca)
 
-[![Perfil](https://img.shields.io/badge/12%20-%20Perfil%20GitHub-212121)](#perfil-github)
+[![Perfil](https://img.shields.io/badge/12%20-%20Perfil%20GitHub-212121)](#perfil-do-github)
 
 
 ---
 
-<h2 id="acesse-a-aplicação">2. 🔗 Acesse a Aplicação</h2>
+<h2 id="acesse-a-aplicacao">2. 🔗 Acesse a Aplicação</h2>
 
 Clique no Botão abaixo para acessar o Dashboard agora mesmo:
 
@@ -197,13 +197,13 @@ Gostou do Dashboard? Para ver o código-fonte e contribuir com o projeto, acesse
 
 ---
 
-<h2 id="créditos">10. 📝 Créditos</h2>
+<h2 id="creditos">10. 📝 Créditos</h2>
 
 * **Desenvolvedor 👨‍💻: DomisDev**.
 
 ---
 
-<h2 id="licença">11. 📄 Licença</h2>
+<h2 id="licenca">11. 📄 Licença</h2>
 
 Este projeto é *open source* e está licenciado sob a [![Licença MIT](https://img.shields.io/github/license/Domisnnet/GitHub-Stats)](https://github.com/Domisnnet/GitHub-Stats?tab=MIT-1-ov-file)
 
