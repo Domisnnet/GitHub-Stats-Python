@@ -122,7 +122,7 @@ Sinta-se à vontade para sugerir melhorias ou reportar *bugs*. Siga estes passos
         <li>
             <span style="font-weight: bold; color: #1c7430;">5. ⚔️ 
                 Desafie este deck original - Abrindo um Pull Request:<br>
-            <a href="https://github.2com/Domisnnet/GitHub-Stats/compare" target="_blank">
+            <a href="https://github.com/Domisnnet/GitHub-Stats/compare" target="_blank">
                 <img alt="Abrir Pull Request" 
                 src="https://img.shields.io/badge/-Abrir%20PR-green?style=for-the-badge&logo=git">
             </a>
