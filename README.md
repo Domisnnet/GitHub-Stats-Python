@@ -128,14 +128,23 @@ Devido aos limites de requisição (Rate Limit) da API do GitHub, implementamos:
 
 </details>
 
-<details> <summary><strong>Como posso entrar em contato ou sugerir melhorias ❓</strong></summary>
-
+<details>
+<summary><strong>Como posso entrar em contato ou sugerir melhorias ❓</strong></summary>
+<br>
 
 Adoramos feedbacks! Você pode interagir com o projeto das seguintes formas:
 
-Para bugs ou sugestões:
+### 🐛 Reportar bugs ou sugerir funcionalidades:
+Se você encontrou algum erro ou tem uma ideia para um novo tema, utilize as **Issues**:
 
-Para contato direto:
+[![Report Issue](https://img.shields.io/badge/Abrir-Issue-red?style=for-the-badge&logo=github)](https://github.com/Domisnnet/GitHub-Stats/issues)
+
+<br>
+
+### 👨‍💻 Contato direto com o desenvolvedor:
+Para parcerias, dúvidas ou apenas para acompanhar meu trabalho, acesse meu perfil oficial:
+
+[![Perfil](https://img.shields.io/badge/https://github.com/Domisnnet-212121?style=for-the-badge&logo=github)](https://github.com/Domisnnet)
 
 </details>
 
