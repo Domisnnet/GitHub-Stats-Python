@@ -131,6 +131,7 @@ git clone [https://github.com/Domisnnet/GitHub-Stats.git](https://github.com/Dom
 
 # Acessar a pasta
 cd GitHub-Stats
+```
 
 ---
 
