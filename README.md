@@ -10,7 +10,7 @@ Crie e exiba um dashboard dinâmico com suas estatísticas do GitHub!
 
 ## 📚 Tabela de Conteúdo
 
-| | | |
+| Indice | Indice | Indice |
 | :---: | :---: | :---: |
 | [![1. Estatísticas](https://img.shields.io/badge/1%20-%20Estatísticas-4CAF50)](#gerador-de-estatisticas) | [![2. Aplicação](https://img.shields.io/badge/2%20-%20Acesse%20a%20Aplicação-2196F3)](#acesse-a-aplicacao) | [![3. Sobre](https://img.shields.io/badge/3%20-%20Sobre-FF9800)](#sobre) |
 | [![4. Como Usar](https://img.shields.io/badge/4%20-%20Como%20Usar-9C27B0)](#como-usar) | [![5. Tecnologias](https://img.shields.io/badge/5%20-%20Tecnologias-795548)](#tecnologias-utilizadas) | [![6. Contribuir](https://img.shields.io/badge/6%20-%20Como%20Contribuir-009688)](#como-contribuir) |
