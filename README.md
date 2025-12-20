@@ -35,6 +35,8 @@ Clique no botão abaixo para acessar o Dashboard agora mesmo:
 
 O **Gerador de Estatísticas do GitHub** é uma aplicação web que cria uma imagem SVG com as estatísticas de um desenvolvedor. A aplicação consome os dados diretamente da API do GitHub e os renderiza em um card customizável.
 
+---
+
 <h2 id="como-usar">4. 🎮 Como Usar</h2>
 
 1.  **Acesse o Site:** Use o botão acima para abrir a aplicação.
