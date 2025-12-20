@@ -90,26 +90,54 @@ cd GitHub-Stats
 
 <h2 id="perguntas-frequentes">8. 🤔 Perguntas Frequentes</h2>
 
-<details><summary>As estatísticas são atualizadas em tempo real ❓</summary>
-Sim! A imagem é gerada dinamicamente a cada carregamento, consumindo os dados mais recentes da API do GitHub.</details>
+<details> <summary><strong>As estatísticas são atualizadas em tempo real ❓</strong></summary>
 
-<details><summary>O dashboard mostra dados de repositórios privados ❓</summary>
-Não. Por questões de segurança e limitações da API pública, apenas dados de repositórios públicos são contabilizados.</details>
 
-<details><summary>Posso utilizar o card no meu perfil do GitHub ❓</summary>
-Com certeza! Após gerar seu card, você pode copiar o link da imagem e utilizá-lo no seu:
+🔄 Resposta: Sim! A imagem é gerada dinamicamente via Cloud Functions. Cada vez que o card é solicitado, nosso backend busca os dados mais recentes diretamente da API do GitHub.
 
-![README.md](https://img.shields.io/badge/README.md-0056b3?style=flat-square&logo=markdown&logoColor=white)
 </details>
 
-<details><summary>O projeto tem limites de uso ❓</summary>
-Para garantir a disponibilidade para todos e respeitar os limites da API do GitHub, a aplicação possui um sistema de cache e limites de requisições por IP. Se você encontrar problemas, aguarde alguns instantes.</details>
+<details> <summary><strong>O dashboard mostra dados de repositórios privados ❓</strong></summary>
 
-<details><summary>O que fazer se o card não carregar ❓</summary>
-Isso pode acontecer devido ao limite de requisições (Rate Limit) da API do GitHub. Aguarde alguns minutos e atualize a página.</details>
 
-<details><summary>Como posso entrar em contato com o desenvolvedor ❓</summary>
-Você pode abrir uma Issue aqui no repositório ou entrar em contato através do meu perfil no GitHub abaixo.</details>
+🚫 Não. Por questões de segurança e privacidade (e para evitar a necessidade de Tokens de Acesso do usuário), o gerador contabiliza apenas dados de repositórios públicos.
+
+</details>
+
+<details> <summary><strong>Posso utilizar o card no meu perfil do GitHub ❓</strong></summary>
+
+
+✅ Com certeza! Esta é a principal função do projeto. Após gerar seu card personalizado:
+
+Copie a URL da imagem gerada.
+
+Cole no seu: ![README.md](https://img.shields.io/badge/README.md-0056b3?style=flat-square&logo=markdown&logoColor=white)
+
+Exemplo de uso no Markdown:
+
+</details>
+
+<details> <summary><strong>O projeto tem limites de uso ou erro de carregamento ❓</strong></summary>
+
+
+Devido aos limites de requisição (Rate Limit) da API do GitHub, implementamos:
+
+🛠️ Sistema de Cache: Para evitar consultas repetitivas desnecessárias.
+
+⏳ Aguarde: Caso o card não carregue, pode ser um pico de tráfego. Aguarde alguns instantes e tente novamente.
+
+</details>
+
+<details> <summary><strong>Como posso entrar em contato ou sugerir melhorias ❓</strong></summary>
+
+
+Adoramos feedbacks! Você pode interagir com o projeto das seguintes formas:
+
+Para bugs ou sugestões:
+
+Para contato direto:
+
+</details>
 
 ---
 
