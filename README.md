@@ -90,64 +90,43 @@ cd GitHub-Stats
 
 <h2 id="perguntas-frequentes">8. 🤔 Perguntas Frequentes</h2>
 
-<details> <summary><strong>As estatísticas são atualizadas em tempo real ❓</strong></summary>
-
-
-🔄 Resposta: Sim! A imagem é gerada dinamicamente via Cloud Functions. Cada vez que o card é solicitado, nosso backend busca os dados mais recentes diretamente da API do GitHub.
-
+<details>
+<summary><strong>As estatísticas são atualizadas em tempo real ❓</strong></summary>
+<p>🔄 <strong>Resposta:</strong> Sim! A imagem é gerada dinamicamente via Cloud Functions. Cada vez que o card é solicitado, nosso backend busca os dados mais recentes diretamente da API do GitHub.</p>
 </details>
 
-<details> <summary><strong>O dashboard mostra dados de repositórios privados ❓</strong></summary>
-
-
-🚫 Não. Por questões de segurança e privacidade (e para evitar a necessidade de Tokens de Acesso do usuário), o gerador contabiliza apenas dados de repositórios públicos.
-
+<details>
+<summary><strong>O dashboard mostra dados de repositórios privados ❓</strong></summary>
+<p>🚫 <strong>Não.</strong> Por questões de segurança e limitações da API pública (e para evitar a necessidade de Tokens de Acesso do usuário), apenas dados de repositórios públicos são contabilizados.</p>
 </details>
 
-<details> <summary><strong>Posso utilizar o card no meu perfil do GitHub ❓</strong></summary>
-
-
-✅ Com certeza! Esta é a principal função do projeto. Após gerar seu card personalizado:
-
-Copie a URL da imagem gerada.
-
-Cole no seu: ![README.md](https://img.shields.io/badge/README.md-0056b3?style=flat-square&logo=markdown&logoColor=white)
-
-Exemplo de uso no Markdown:
-
+<details>
+<summary><strong>Posso utilizar o card no meu perfil do GitHub ❓</strong></summary>
+<p>✅ <strong>Com certeza!</strong> Esta é a principal função do projeto. Após gerar seu card personalizado, você pode copiar o link da imagem e utilizá-lo no seu:</p>
+<p align="left">
+  <img src="https://img.shields.io/badge/README.md-0056b3?style=flat-square&logo=markdown&logoColor=white" alt="Badge Markdown">
+</p>
+<strong>Exemplo de uso:</strong> <code>![My Stats](SUA_URL_GERADA)</code>
 </details>
 
-<details> <summary><strong>O projeto tem limites de uso ou erro de carregamento ❓</strong></summary>
-
-
-Devido aos limites de requisição (Rate Limit) da API do GitHub, implementamos:
-
-🛠️ Sistema de Cache: Para evitar consultas repetitivas desnecessárias.
-
-⏳ Aguarde: Caso o card não carregue, pode ser um pico de tráfego. Aguarde alguns instantes e tente novamente.
-
+<details>
+<summary><strong>O projeto tem limites de uso ou erro de carregamento ❓</strong></summary>
+<p>Para garantir a disponibilidade e respeitar os limites da API do GitHub (Rate Limit), implementamos:</p>
+<ul>
+  <li>🛠️ <strong>Sistema de Cache:</strong> Para evitar consultas repetitivas desnecessárias.</li>
+  <li>⏳ <strong>Aguarde:</strong> Caso o card não carregue, pode ser um pico de tráfego. Aguarde alguns instantes e tente novamente.</li>
+</ul>
 </details>
 
 <details>
 <summary><strong>Como posso entrar em contato ou sugerir melhorias ❓</strong></summary>
-<br>
-
-Adoramos feedbacks! Você pode interagir com o projeto das seguintes formas:
-
-### 🐛 Reportar bugs ou sugerir funcionalidades:
-Se você encontrou algum erro ou tem uma ideia para um novo tema, utilize as **Issues**:
-
+<p>Adoramos feedbacks! Você pode interagir das seguintes formas:</p>
+<strong>🐛 Reportar bugs ou sugestões:</strong><br>
 [![Report Issue](https://img.shields.io/badge/Abrir-Issue-red?style=for-the-badge&logo=github)](https://github.com/Domisnnet/GitHub-Stats/issues)
-
-<br>
-
-### 👨‍💻 Contato direto com o desenvolvedor:
-Para parcerias, dúvidas ou apenas para acompanhar meu trabalho, acesse meu perfil oficial:
-
+<br><br>
+<strong>👨‍💻 Contato direto:</strong><br>
 [![Perfil](https://img.shields.io/badge/https://github.com/Domisnnet-212121?style=for-the-badge&logo=github)](https://github.com/Domisnnet)
-
 </details>
-
 ---
 
 <h2 id="codigo-fonte">9. 💻 Código Fonte</h2>
