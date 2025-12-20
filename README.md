@@ -8,6 +8,8 @@
 
 Crie e exiba um dashboard dinâmico com suas estatísticas do GitHub
 
+---
+
 ## 📚 Tabela de Conteúdo
 
 | 📍 O Projeto | 🛠️ Desenvolvimento | 💬 Suporte & Info |
