@@ -21,81 +21,48 @@ form {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
+  flex-wrap: wrap; 
+  gap: 15px;      
   margin-bottom: 2rem;
+  width: 100%;
 }
 
 input[type="text"], select {
-  padding: 0.5rem;
+  padding: 0.6rem;
   font-size: 1rem;
   border: 1px solid #414868;
   border-radius: 6px;
   background-color: #1a1b27;
   color: #ccc;
-  flex: 1 1 200px;
-  max-width: 100%;
+  min-width: 250px; 
+  flex: 1;          
 }
 
 button {
-  padding: 0.5rem 1rem;
+  padding: 0.6rem 1.2rem;
   font-size: 1rem;
   color: #fff;
   background-color: #28a745;
-  border: 1px solid rgba(27, 31, 35, .15);
+  border: none;
   border-radius: 6px;
   cursor: pointer;
   white-space: nowrap;
+  flex: 1;         
+  min-width: 150px;
 }
 
-button:hover {
-  background-color: #218838;
-}
-
-#stats-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  min-height: 380px;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-  border: 1px solid #414868;
-  border-radius: 6px;
-}
-
-.error-message {
-  color: #ef5350;
-  font-weight: bold;
-}
-
-.skeleton-loader {
-  width: 100%;
-  max-width: 900px;
-  height: 380px;
-  background-color: #21252b;
-  border-radius: 6px;
-  animation: pulse 1.5s infinite ease-in-out;
-}
-
-@keyframes pulse {
-  0% { background-color: #21252b; }
-  50% { background-color: #282c34; }
-  100% { background-color: #21252b; }
-}
-
-@media (max-width: 480px) {
+@media (max-width: 600px) {
   body {
-    padding: 0.5rem;
+    padding: 1rem;
   }
+  
   form {
-    flex-direction: column;
-    align-items: stretch;
+    flex-direction: column; 
+    align-items: stretch;   
   }
+
   input[type="text"], select, button {
     width: 100%;
+    margin: 0;
   }
 }
