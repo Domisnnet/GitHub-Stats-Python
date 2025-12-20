@@ -54,72 +54,23 @@ O **Gerador de Estatísticas do GitHub** é uma aplicação web que cria uma ima
 
 <h2 id="como-contribuir">6. 🤝 Como Contribuir</h2>
 
-Sinta-se à vontade para sugerir melhorias ou reportar *bugs*. Siga estes passos para contribuir:
+Adicione este projeto ao seu "deck" de desenvolvedor! Siga a jornada abaixo para fortalecer este projeto:
 
-<div style="background-color: #f0f0f0; padding: 20px; border-radius: 10px;
-            border: 2px solid #222;">
-    <p style="margin-bottom: 10px; font-weight: bold; color: #0056b3; 
-            text-align: center;">
-        <span style="display:inline-block; margin-right: 5px;"> 👐 
-            Siga os passos para fortalecer este deck:
-        </span>     
-    </p>
-    <ul style="list-style-type: none; padding: 0; margin: 0;">
-        <li style="margin-bottom: 10px;">
-            <span style="font-weight: bold; color: #1c7430;">1. 🍴 
-                Adicione este projeto ao seu deck e faça um Fork:<br>
-            <a href="https://github.com/Domisnnet/GitHub-Stats/fork" target="_blank">
-                <img alt="Fazer um Fork" 
-                src="https://img.shields.io/badge/-Fork%20Me-blue?style=for-the-badge&logo=github">
-            </a>
-            </span>
-        </li>
-        <li style="margin-bottom: 10px;">
-            <span style="font-weight: bold; color: #1c7430;">2. 🌿 
-                Crie uma branch - Prepare suas atualizações com esse passo a passo:<br>
-            <a href="https://www.atlassian.com/br/git/tutorials/using-branches" target="_blank">
-                <img alt="Tutorial sobre Branches" 
-                src="https://img.shields.io/badge/Docs-Branches-4c1?style=for-the-badge&logo=git&logoColor=white">
-            </a>
-            </span>
-        </li>
-        <li style="margin-bottom: 10px;">
-            <span style="font-weight: bold; color: #1c7430;">3. ✍️ 
-                Prepare seus commits - Guarde suas mudanças no repositório:<br>
-            <a href="https://www.atlassian.com/br/git/tutorials/saving-changes/git-commit" 
-            target="_blank">
-                <img alt="Tutorial sobre Commits" 
-                src="https://img.shields.io/badge/Docs-Commits-4c1?style=for-the-badge&logo=git&logoColor=white">
-            </a>
-            </span>
-        </li>
-        <li style="margin-bottom: 10px;">
-            <span style="font-weight: bold; color: #1c7430;">4. 🚀 
-                Envie - Lance sua sugestão de Melhoria:<br>
-                <img alt="Envie o código" 
-                src="https://img.shields.io/badge/Ação-Push-FE5C00?style=for-the-badge&logo=git&logoColor=white">
-            </span>
-        </li>
-        <li>
-            <span style="font-weight: bold; color: #1c7430;">5. ⚔️ 
-                Desafie este deck original - Abrindo um Pull Request:<br>
-            <a href="https://github.com/Domisnnet/GitHub-Stats/compare" target="_blank">
-                <img alt="Abrir Pull Request" 
-                src="https://img.shields.io/badge/-Abrir%20PR-green?style=for-the-badge&logo=git">
-            </a>
-            </span>
-        </li>
-        <li>
-            <span style="font-weight: bold; color: #1c7430;">6. 🐛
-                Achou algum problema? - Realte pela Issue:<br>
-            <a href="https://github.com/Domisnnet/GitHub-Stats/issues" target="_blank">
-                <img alt="Issues Abertas" 
-                src="https://img.shields.io/github/issues/Domisnnet/GitHub-Stats?style=for-the-badge&color=red">
-            </a>
-            </span>
-        </li>
-    </ul>
-</div>
+| Fase | Ação | Link / Comando |
+| :---: | :--- | :--- |
+| **01** | **Prepare o Terreno** | [![Fork](https://img.shields.io/badge/-Fazer%20Fork-blue?style=flat-square&logo=github)](https://github.com/Domisnnet/GitHub-Stats/fork) |
+| **02** | **Crie uma Branch** | `git checkout -b feature/NovaMelhoria` |
+| **03** | **Guarde as Mudanças** | `git commit -m 'feat: Adiciona nova funcionalidade'` |
+| **04** | **Envie o Código** | `git push origin feature/NovaMelhoria` |
+| **05** | **Desafio Final** | [![Abrir PR](https://img.shields.io/badge/-Abrir%20PR-green?style=flat-square&logo=git)](https://github.com/Domisnnet/GitHub-Stats/compare) |
+
+---
+
+### 🐛 Encontrou um problema?
+Se algo não estiver funcionando como esperado, não hesite em abrir um chamado:
+
+[![Issues Abertas](https://img.shields.io/github/issues/Domisnnet/GitHub-Stats?style=flat-square&color=red&logo=github)](https://github.com/Domisnnet/GitHub-Stats/issues)
+[![Report Bug](https://img.shields.io/badge/Reportar-Erro-critical?style=flat-square&logo=github)](https://github.com/Domisnnet/GitHub-Stats/issues/new)
 
 ---
 
