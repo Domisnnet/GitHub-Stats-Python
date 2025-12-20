@@ -66,8 +66,6 @@ Adicione este projeto ao seu "deck" de desenvolvedor! Siga a jornada abaixo para
 | **04** | **Envie o Código** | `git push origin feature/NovaMelhoria` |
 | **05** | **Desafio Final** | [![Abrir PR](https://img.shields.io/badge/-Abrir%20PR-green?style=flat-square&logo=git)](https://github.com/Domisnnet/GitHub-Stats/compare) |
 
----
-
 ### 🐛 Encontrou um problema?
 Se algo não estiver funcionando como esperado, não hesite em abrir um chamado:
 
