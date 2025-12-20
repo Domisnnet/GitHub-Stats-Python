@@ -102,8 +102,9 @@ cd GitHub-Stats
 
 <details>
 <summary><strong>Posso utilizar o card no meu perfil do GitHub ❓</strong></summary>
-<p>✅ <strong>Com certeza!</strong> Esta é a principal função do projeto. Após gerar seu card personalizado, você pode copiar o link da imagem e utilizá-lo no seu:<br>
-![README.md](https://img.shields.io/badge/README.md-0056b3?style=flat-square&logo=markdown&logoColor=white)
+<p>✅ <strong>Com certeza!</strong> Esta é a principal função do projeto. Após gerar seu card personalizado, você pode copiar o link da imagem e utilizá-lo no seu:</p>
+<img src="https://img.shields.io/badge/README.md-0056b3?style=flat-square&logo=markdown&logoColor=white" alt="Markdown Badge">
+<p><strong>Exemplo de uso:</strong> <code>![My Stats](SUA_URL_GERADA)</code></p>
 </details>
 
 <details>
@@ -118,11 +119,14 @@ cd GitHub-Stats
 <details>
 <summary><strong>Como posso entrar em contato ou sugerir melhorias ❓</strong></summary>
 <p>Adoramos feedbacks! Você pode interagir das seguintes formas:</p>
-<strong>🐛 Reportar bugs ou sugestões:</strong><br>
-[![Report Issue](https://img.shields.io/badge/Abrir-Issue-red?style=for-the-badge&logo=github)](https://github.com/Domisnnet/GitHub-Stats/issues)
-<br><br>
-<strong>👨‍💻 Contato direto:</strong><br>
-[![Perfil](https://img.shields.io/badge/https://github.com/Domisnnet-212121?style=for-the-badge&logo=github)](https://github.com/Domisnnet)
+<p><strong>🐛 Reportar bugs ou sugestões:</strong></p>
+<a href="https://github.com/Domisnnet/GitHub-Stats/issues">
+  <img src="https://img.shields.io/badge/Abrir-Issue-red?style=for-the-badge&logo=github" alt="Report Issue">
+</a>
+<p><strong>👨‍💻 Contato direto:</strong></p>
+<a href="https://github.com/Domisnnet">
+  <img src="https://img.shields.io/badge/Meu_Perfil-212121?style=for-the-badge&logo=github" alt="Perfil">
+</a>
 </details>
 
 ---
