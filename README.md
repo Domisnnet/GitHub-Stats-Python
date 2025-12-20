@@ -124,6 +124,7 @@ cd GitHub-Stats
 <strong>👨‍💻 Contato direto:</strong><br>
 [![Perfil](https://img.shields.io/badge/https://github.com/Domisnnet-212121?style=for-the-badge&logo=github)](https://github.com/Domisnnet)
 </details>
+
 ---
 
 <h2 id="codigo-fonte">9. 💻 Código Fonte</h2>
