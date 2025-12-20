@@ -159,7 +159,7 @@ Para garantir a disponibilidade para todos e respeitar os limites da API do GitH
 Isso pode acontecer devido ao limite de requisições (Rate Limit) da API do GitHub. Aguarde alguns minutos e atualize a página.</details>
 
 <details><summary>Como posso entrar em contato com o desenvolvedor ❓</summary>
-Você pode abrir uma Issue aqui no repositório ou entrar em contato através do meu perfil no GitHub abaixo.</details>
+Você pode abrir uma <br>[![Issues](https://img.shields.io/badge/Issues-Informar-critical?style=flat-square&logo=github)](https://github.com/Domisnnet/GitHub-Stats/issues) aqui no repositório ou entrar em contato através do meu perfil no GitHub abaixo.</details>
 
 ---
 
