@@ -6,9 +6,7 @@
 
 ![Dashboard](public/assets/github-stats.png)
 
-Crie e exiba um dashboard dinâmico com suas estatísticas do GitHub!
-
-## 📚 Tabela de Conteúdo
+Crie e exiba um dashboard dinâmico com suas estatísticas do GitHub
 
 ## 📚 Tabela de Conteúdo
 
