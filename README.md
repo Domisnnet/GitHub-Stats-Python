@@ -148,7 +148,7 @@ cd GitHub-Stats
 
 Com certeza! Após gerar seu card, você pode copiar o link da imagem e utilizá-lo no seu:
 <br>
-![README.md](https://img.shields.io/badge/README.md-0056b3?style=flat-square&logo=markdown&logoColor=white) pessoal.
+![README.md](https://img.shields.io/badge/README.md-0056b3?style=flat-square&logo=markdown&logoColor=white)
 
 </details>
 
