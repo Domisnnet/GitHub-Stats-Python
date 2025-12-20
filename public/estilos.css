@@ -51,6 +51,13 @@ button {
   min-width: 150px;
 }
 
+#stats-container svg {
+  width: 100%;
+  height: auto;
+  max-width: 900px; 
+  display: block;
+}
+
 @media (max-width: 600px) {
   body {
     padding: 1rem;

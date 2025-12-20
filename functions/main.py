@@ -146,7 +146,10 @@ def build_combined_svg(user, repos, langs, theme):
     user_name = user.get("name") or user.get("login", "GitHub User")
 
     return f'''
-<svg width="900" height="380" xmlns="http://www.w3.org/2000/svg" opacity="0">
+<svg viewBox="0 0 900 380" xmlns="http://www.w3.org/2000/svg" opacity="0">
+<style>
+    .stat-text {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }}
+</style>
 <animate attributeName="opacity" from="0" to="1" dur="0.6s" fill="freeze"/>
 <rect width="100%" height="100%" rx="28" fill="{theme['bg']}" stroke="{theme['border']}" stroke-width="4"/>
 <defs>
