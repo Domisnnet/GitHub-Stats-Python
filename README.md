@@ -102,11 +102,8 @@ cd GitHub-Stats
 
 <details>
 <summary><strong>Posso utilizar o card no meu perfil do GitHub ❓</strong></summary>
-<p>✅ <strong>Com certeza!</strong> Esta é a principal função do projeto. Após gerar seu card personalizado, você pode copiar o link da imagem e utilizá-lo no seu:</p>
-<p align="left">
-  <img src="https://img.shields.io/badge/README.md-0056b3?style=flat-square&logo=markdown&logoColor=white" alt="Badge Markdown">
-</p>
-<strong>Exemplo de uso:</strong> <code>![My Stats](SUA_URL_GERADA)</code>
+<p>✅ <strong>Com certeza!</strong> Esta é a principal função do projeto. Após gerar seu card personalizado, você pode copiar o link da imagem e utilizá-lo no seu:<br>
+![README.md](https://img.shields.io/badge/README.md-0056b3?style=flat-square&logo=markdown&logoColor=white)
 </details>
 
 <details>
