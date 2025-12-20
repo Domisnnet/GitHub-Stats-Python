@@ -3,6 +3,7 @@ from firebase_functions.options import set_global_options
 from firebase_admin import initialize_app, firestore
 from collections import Counter
 from datetime import datetime
+import hashlib
 import requests
 import os
 
@@ -36,7 +37,7 @@ LANG_COLORS = {
 }
 
 # =========================
-# TEMAS 
+# TEMAS
 # =========================
 
 THEMES = {
@@ -105,6 +106,13 @@ THEMES = {
         "bar_bg": "#222436",
     },
 }
+
+# =========================
+# ETag HELPER
+# =========================
+
+def make_etag(svg: str) -> str:
+    return hashlib.md5(svg.encode("utf-8")).hexdigest()
 
 # =========================
 # SVG COMPONENTES
@@ -182,7 +190,7 @@ def build_combined_svg(user, repos, langs, theme):
 '''
 
 # =========================
-# SVG HTTP FUNCTION
+# SVG HTTP FUNCTION (ETag)
 # =========================
 
 @https_fn.on_request()
@@ -208,12 +216,17 @@ def statsSvg(req):
 
     svg = build_combined_svg(user, repos, langs, theme)
 
+    etag = make_etag(svg)
+    client_etag = req.headers.get("If-None-Match")
+
+    if client_etag == etag:
+        return https_fn.Response(status=304)
+
     return https_fn.Response(
-    svg,
-    headers={
-        "Content-Type": "image/svg+xml",
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-        "Pragma": "no-cache",
-        "Expires": "0"
-    }
-)
+        svg,
+        headers={
+            "Content-Type": "image/svg+xml; charset=utf-8",
+            "Cache-Control": "no-cache",
+            "ETag": etag
+        }
+    )
