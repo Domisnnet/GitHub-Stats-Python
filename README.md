@@ -96,9 +96,7 @@ Sim! A imagem é gerada dinamicamente a cada carregamento, consumindo os dados m
 <details><summary>O dashboard mostra dados de repositórios privados ❓</summary>
 Não. Por questões de segurança e limitações da API pública, apenas dados de repositórios públicos são contabilizados.</details>
 
-<details>
-<summary>Posso utilizar o card no meu perfil do GitHub ❓</summary>
-
+<details><summary>Posso utilizar o card no meu perfil do GitHub ❓</summary>
 Com certeza! Após gerar seu card, você pode copiar o link da imagem e utilizá-lo no seu:
 
 ![README.md](https://img.shields.io/badge/README.md-0056b3?style=flat-square&logo=markdown&logoColor=white)
