@@ -144,7 +144,8 @@ cd GitHub-Stats
 - Não. Por questões de segurança e limitações da API pública, apenas dados de repositórios públicos são contabilizados.</details>
 
 <details><summary>Posso utilizar o card no meu perfil do GitHub ❓</summary>
-- Com certeza! Após gerar seu card, você pode copiar o link da imagem e utilizá-lo no seu ![README.md](https://img.shields.io/badge/README.md-0056b3?style=flat-square&logo=markdown&logoColor=white) pessoal.</details>
+- Com certeza! Após gerar seu card, você pode copiar o link da imagem e utilizá-lo no seu ![README.md](https://img.shields.io/badge/README.md-0056b3?style=flat-square&logo=markdown&logoColor=white) pessoal.
+</details>
 
 <details><summary>O projeto tem limites de uso ❓</summary>
 - Para garantir a disponibilidade para todos e respeitar os limites da API do GitHub, a aplicação possui um sistema de cache e limites de requisições por IP. Se você encontrar problemas, aguarde alguns instantes.</details>
