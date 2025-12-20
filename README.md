@@ -10,12 +10,14 @@ Crie e exiba um dashboard dinâmico com suas estatísticas do GitHub!
 
 ## 📚 Tabela de Conteúdo
 
-| 📌 Navegação | 🚀 Comece Aqui | 🤝 Contribua |
+## 📚 Tabela de Conteúdo
+
+| 📍 O Projeto | 🛠️ Desenvolvimento | 💬 Suporte & Info |
 | :---: | :---: | :---: |
-| [![1. Estatísticas](https://img.shields.io/badge/1%20-%20Estatísticas-4CAF50)](#gerador-de-estatisticas) | [![2. Aplicação](https://img.shields.io/badge/2%20-%20Acesse%20a%20Aplicação-2196F3)](#acesse-a-aplicacao) | [![3. Sobre](https://img.shields.io/badge/3%20-%20Sobre-FF9800)](#sobre) |
-| [![4. Como Usar](https://img.shields.io/badge/4%20-%20Como%20Usar-9C27B0)](#como-usar) | [![5. Tecnologias](https://img.shields.io/badge/5%20-%20Tecnologias-795548)](#tecnologias-utilizadas) | [![6. Contribuir](https://img.shields.io/badge/6%20-%20Como%20Contribuir-009688)](#como-contribuir) |
-| [![7. Instalação](https://img.shields.io/badge/7%20-%20Instalação-607D8B)](#instalacao-local) | [![8. FAQ](https://img.shields.io/badge/8%20-%20FAQ-3F51B5)](#perguntas-frequentes) | [![9. Código](https://img.shields.io/badge/9%20-%20Código%20Fonte-FFC107)](#codigo-fonte) |
-| [![10. Créditos](https://img.shields.io/badge/10%20-%20Créditos-607D8B)](#creditos) | [![11. Licença](https://img.shields.io/badge/11%20-%20Licença-E91E63)](#licenca) | [![12. Perfil](https://img.shields.io/badge/12%20-%20Perfil-212121)](#perfil-do-github) |
+| [![1. Estatísticas](https://img.shields.io/badge/1%20-%20Estatísticas-4CAF50)](#gerador-de-estatisticas) | [![5. Tecnologias](https://img.shields.io/badge/5%20-%20Tecnologias-795548)](#tecnologias-utilizadas) | [![9. Código](https://img.shields.io/badge/9%20-%20Código%20Fonte-FFC107)](#codigo-fonte) |
+| [![2. Aplicação](https://img.shields.io/badge/2%20-%20Acesse%20a%20Aplicação-2196F3)](#acesse-a-aplicacao) | [![6. Contribuir](https://img.shields.io/badge/6%20-%20Como%20Contribuir-009688)](#como-contribuir) | [![10. Créditos](https://img.shields.io/badge/10%20-%20Créditos-607D8B)](#creditos) |
+| [![3. Sobre](https://img.shields.io/badge/3%20-%20Sobre-FF9800)](#sobre) | [![7. Instalação](https://img.shields.io/badge/7%20-%20Instalação-607D8B)](#instalacao-local) | [![11. Licença](https://img.shields.io/badge/11%20-%20Licença-E91E63)](#licenca) |
+| [![4. Como Usar](https://img.shields.io/badge/4%20-%20Como%20Usar-9C27B0)](#como-usar) | [![8. FAQ](https://img.shields.io/badge/8%20-%20FAQ-3F51B5)](#perguntas-frequentes) | [![12. Perfil](https://img.shields.io/badge/12%20-%20Perfil-212121)](#perfil-do-github) |
 
 ---
 
