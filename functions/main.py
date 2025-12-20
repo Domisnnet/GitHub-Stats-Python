@@ -36,7 +36,7 @@ LANG_COLORS = {
 }
 
 # =========================
-# TEMAS (VISUAL ORIGINAL)
+# TEMAS 
 # =========================
 
 THEMES = {
@@ -209,9 +209,11 @@ def statsSvg(req):
     svg = build_combined_svg(user, repos, langs, theme)
 
     return https_fn.Response(
-        svg,
-        headers={
-            "Content-Type": "image/svg+xml",
-            "Cache-Control": "public, max-age=1800"
-        }
-    )
+    svg,
+    headers={
+        "Content-Type": "image/svg+xml",
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        "Pragma": "no-cache",
+        "Expires": "0"
+    }
+)
