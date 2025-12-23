@@ -14,6 +14,12 @@ import os
 set_global_options(max_instances=10)
 initialize_app()
 
+db = firestore.client()
+
+GITHUB_API = "https://api.github.com"
+GITHUB_USERNAME = "Domisnnet"
+GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
+
 # =========================
 # CORES POR LINGUAGEM
 # =========================
@@ -33,6 +39,7 @@ LANG_COLORS = {
     "Ruby": "#701516",
     "Shell": "#89e051",
     "TypeScript": "#2b7489",
+    "Vue": "#41b883",
     "Other": "#ededed",
 }
 
@@ -108,8 +115,14 @@ THEMES = {
 }
 
 # =========================
-# ETag HELPER
+# HELPERS
 # =========================
+
+def github_headers():
+    return {
+        "Authorization": f"token {GITHUB_TOKEN}",
+        "Accept": "application/vnd.github+json"
+    }
 
 def make_etag(svg: str) -> str:
     return hashlib.md5(svg.encode("utf-8")).hexdigest()
@@ -156,70 +169,74 @@ def build_combined_svg(user, repos, langs, theme):
     return f'''
 <svg viewBox="0 0 900 380" xmlns="http://www.w3.org/2000/svg" opacity="0">
 <style>
-    .stat-text {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }}
+.stat-text {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }}
 </style>
 <animate attributeName="opacity" from="0" to="1" dur="0.6s" fill="freeze"/>
 <rect width="100%" height="100%" rx="28" fill="{theme['bg']}" stroke="{theme['border']}" stroke-width="4"/>
-<defs>
-  <radialGradient id="logoAura" cx="50%" cy="50%" r="60%">
-    <stop offset="0%" stop-color="{theme['accent']}" stop-opacity="0.35"/>
-    <stop offset="100%" stop-color="{theme['accent']}" stop-opacity="0"/>
-  </radialGradient>
-</defs>
-<circle cx="90" cy="95" r="48" fill="url(#logoAura)">
-  <animate attributeName="opacity" from="0.35" to="0.65" dur="2.4s" repeatCount="indefinite"/>
-</circle>
-<circle cx="90" cy="95" r="34" fill="{theme['bar_bg']}"/>
-<circle cx="90" cy="95" r="34" fill="none" stroke="{theme['accent']}" stroke-width="4"/>
-<text x="90" y="106" text-anchor="middle" fill="{theme['accent']}" font-size="30" font-weight="bold" letter-spacing="5">&lt;/&gt;</text>
 <text x="160" y="68" fill="{theme['title']}" font-size="22" font-weight="bold">{user_name} · Developer Dashboard</text>
-<text x="160" y="92" fill="{theme['text']}" font-size="13">Da faísca da ideia à Constelação do código.</text>
-<text x="160" y="112" fill="{theme['text']}" font-size="13">Construindo um Universo de possibilidades!!</text>
 <text x="160" y="145" fill="{theme['text']}" font-size="13">
 📦 {len(repos)} Repositórios · ⭐ {stars} Stars · 🍴 {forks} Forks · 🧠 {len(langs)} Linguagens
 </text>
-<circle cx="825" cy="95" r="46" fill="none" stroke="#2a2a2a" stroke-width="7"/>
-<circle cx="825" cy="95" r="46" fill="none" stroke="{theme['accent']}" stroke-width="7"
- stroke-dasharray="290" stroke-dashoffset="290" transform="rotate(-90 825 95)">
- <animate attributeName="stroke-dashoffset" from="290" to="30" dur="1.4s" fill="freeze"/>
-</circle>
-<text x="825" y="112" text-anchor="middle" fill="{theme['accent']}" font-size="34" font-weight="bold">A</text>
 <text x="450" y="210" text-anchor="middle" fill="{theme['accent']}" font-size="16" font-weight="bold">Top Languages</text>
 {render_lang_bars(langs, 450, 240, 360, theme)}
 </svg>
 '''
 
 # =========================
-# SVG HTTP FUNCTION (ETag)
+# SYNC GITHUB → FIRESTORE
+# =========================
+
+@scheduler_fn.on_schedule(schedule="every 24 hours")
+def sync_github_data(event):
+    repos_url = f"{GITHUB_API}/users/{GITHUB_USERNAME}/repos?per_page=100"
+    resp = requests.get(repos_url, headers=github_headers())
+    resp.raise_for_status()
+
+    repos_data = resp.json()
+
+    batch = db.batch()
+    repos_ref = db.collection("repos")
+
+    for doc in repos_ref.stream():
+        batch.delete(doc.reference)
+
+    for repo in repos_data:
+        batch.set(repos_ref.document(str(repo["id"])), {
+            "name": repo["name"],
+            "stars": repo["stargazers_count"],
+            "forks": repo["forks_count"],
+            "language": repo["language"],
+            "updated_at": repo["updated_at"]
+        })
+
+    batch.commit()
+    print(f"Sync OK: {len(repos_data)} repositórios")
+
+# =========================
+# SVG HTTP FUNCTION
 # =========================
 
 @https_fn.on_request()
 def statsSvg(req):
-    db = firestore.client()
-
-    username = req.args.get("username", "Domisnnet")
     theme_name = req.args.get("theme", "tokyonight")
     theme = THEMES.get(theme_name, THEMES["tokyonight"])
 
-    docs = db.collection("repos").stream()
-
+    repos_docs = db.collection("repos").stream()
     repos = []
     langs = Counter()
 
-    for doc in docs:
+    for doc in repos_docs:
         data = doc.to_dict()
         repos.append(data)
         if data.get("language"):
             langs[data["language"]] += 1
 
-    user = {"name": username, "login": username}
+    user = {"name": GITHUB_USERNAME, "login": GITHUB_USERNAME}
 
     svg = build_combined_svg(user, repos, langs, theme)
-
     etag = make_etag(svg)
-    client_etag = req.headers.get("If-None-Match")
 
-    if client_etag == etag:
+    if req.headers.get("If-None-Match") == etag:
         return https_fn.Response(status=304)
 
     return https_fn.Response(
