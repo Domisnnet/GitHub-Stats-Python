@@ -1,30 +1,16 @@
-from firebase_functions import https_fn, scheduler_fn
+from firebase_functions import https_fn
 from firebase_functions.options import set_global_options
 from firebase_admin import initialize_app, firestore
 from collections import Counter
 from datetime import datetime
-import requests
 import hashlib
-import os
 
-# ======================================================
+# =========================
 # CONFIGURAÇÃO GLOBAL
-# ======================================================
+# =========================
 
-set_global_options(region="us-central1", max_instances=10)
+set_global_options(max_instances=10)
 initialize_app()
-
-db = firestore.client()
-
-GITHUB_USERNAME = "Domisnnet"
-GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
-
-GITHUB_API = "https://api.github.com"
-
-HEADERS = {
-    "Authorization": f"Bearer {GITHUB_TOKEN}",
-    "Accept": "application/vnd.github+json"
-}
 
 # =========================
 # CORES POR LINGUAGEM
@@ -45,7 +31,6 @@ LANG_COLORS = {
     "Ruby": "#701516",
     "Shell": "#89e051",
     "TypeScript": "#2b7489",
-    "Vue": "#41b883",
     "Other": "#ededed",
 }
 
@@ -120,159 +105,158 @@ THEMES = {
     },
 }
 
-# ======================================================
-# HELPERS
-# ======================================================
+# =========================
+# ETag
+# =========================
 
 def make_etag(svg: str) -> str:
     return hashlib.md5(svg.encode("utf-8")).hexdigest()
 
-# ======================================================
-# SYNC — GITHUB → FIRESTORE (FONTE DA VERDADE)
-# ======================================================
+# =========================
+# SVG COMPONENTES
+# =========================
 
-@scheduler_fn.on_schedule(schedule="every 24 hours")
-def sync_github_data(event):
-    repos = []
-    page = 1
+def render_lang_bars(counter: Counter, center_x: int, start_y: int, max_width: int, theme: dict) -> str:
+    total = sum(counter.values())
 
-    # Busca TODOS os repositórios (paginação correta)
-    while True:
-        resp = requests.get(
-            f"{GITHUB_API}/users/{GITHUB_USERNAME}/repos",
-            headers=HEADERS,
-            params={"per_page": 100, "page": page}
+    if total == 0:
+        return (
+            f'<text x="{center_x}" y="{start_y}" '
+            f'fill="{theme["text"]}" text-anchor="middle" font-size="14">'
+            f'No language data available.</text>'
         )
 
-        if resp.status_code != 200:
-            raise RuntimeError("Erro ao buscar repositórios do GitHub")
+    top = counter.most_common(5)
+    y = start_y
+    gap = 26
+    bar_h = 10
+    left = center_x - max_width // 2
+    svg = ""
 
-        data = resp.json()
-        if not data:
-            break
+    for i, (lang, val) in enumerate(top):
+        pct = (val / total) * 100
+        width = max_width * (pct / 100)
+        color = LANG_COLORS.get(lang, LANG_COLORS["Other"])
+        delay = 0.2 + i * 0.15
 
-        repos.extend(data)
-        page += 1
+        svg += f"""
+<text x="{left - 12}" y="{y}" fill="{theme['text']}" font-size="12" text-anchor="end">
+  {lang}
+</text>
+<rect x="{left}" y="{y - 9}" width="{max_width}" height="{bar_h}" rx="5" fill="{theme['bar_bg']}"/>
+<rect x="{left}" y="{y - 9}" width="0" height="{bar_h}" rx="5" fill="{color}">
+  <animate attributeName="width" from="0" to="{width}" dur="0.8s" begin="{delay}s" fill="freeze"/>
+</rect>
+<text x="{left + max_width + 10}" y="{y}" fill="{theme['text']}" font-size="12">
+  {pct:.1f}%
+</text>
+"""
+        y += gap
 
-    langs_counter = Counter()
-    repos_data = []
+    return svg
 
-    for repo in repos:
-        # Ignora forks (boa prática)
-        if repo["fork"]:
-            continue
+def build_combined_svg(user: dict, repos: list, langs: Counter, theme: dict) -> str:
+    stars = sum(r.get("stars", 0) for r in repos)
+    forks = sum(r.get("forks", 0) for r in repos)
+    user_name = user.get("name") or user.get("login", "GitHub User")
 
-        # Linguagens reais por bytes
-        lang_resp = requests.get(repo["languages_url"], headers=HEADERS)
-        if lang_resp.status_code == 200:
-            for lang, size in lang_resp.json().items():
-                langs_counter[lang] += size
+    return f"""
+<svg viewBox="0 0 900 380" xmlns="http://www.w3.org/2000/svg" opacity="0">
+<style>
+.stat-text {{
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+               Roboto, Helvetica, Arial, sans-serif;
+}}
+</style>
 
-        repos_data.append({
-            "name": repo["name"],
-            "stars": repo["stargazers_count"],
-            "forks": repo["forks_count"],
-            "issues": repo["open_issues_count"]
-        })
+<animate attributeName="opacity" from="0" to="1" dur="0.6s" fill="freeze"/>
 
-    # Limpa coleção antiga
-    batch = db.batch()
-    repos_ref = db.collection("repos")
+<rect width="100%" height="100%" rx="28"
+      fill="{theme['bg']}"
+      stroke="{theme['border']}"
+      stroke-width="4"/>
 
-    for doc in repos_ref.stream():
-        batch.delete(doc.reference)
+<defs>
+  <radialGradient id="logoAura" cx="50%" cy="50%" r="60%">
+    <stop offset="0%" stop-color="{theme['accent']}" stop-opacity="0.35"/>
+    <stop offset="100%" stop-color="{theme['accent']}" stop-opacity="0"/>
+  </radialGradient>
+</defs>
 
-    # Salva repos atualizados
-    for repo in repos_data:
-        batch.set(repos_ref.document(repo["name"]), repo)
+<circle cx="90" cy="95" r="48" fill="url(#logoAura)">
+  <animate attributeName="opacity" from="0.35" to="0.65"
+           dur="2.4s" repeatCount="indefinite"/>
+</circle>
 
-    # Metadata do sync
-    batch.set(
-        db.collection("meta").document("sync"),
-        {"last_sync": firestore.SERVER_TIMESTAMP}
-    )
+<circle cx="90" cy="95" r="34" fill="{theme['bar_bg']}"/>
+<circle cx="90" cy="95" r="34" fill="none"
+        stroke="{theme['accent']}" stroke-width="4"/>
 
-    # Linguagens agregadas
-    batch.set(
-        db.collection("stats").document("languages"),
-        {"data": dict(langs_counter)}
-    )
+<text x="90" y="106" text-anchor="middle"
+      fill="{theme['accent']}" font-size="30"
+      font-weight="bold" letter-spacing="5">&lt;/&gt;</text>
 
-    batch.commit()
+<text x="160" y="68" fill="{theme['title']}"
+      font-size="22" font-weight="bold">
+  {user_name} · Developer Dashboard
+</text>
 
-    print(f"SYNC OK — {len(repos_data)} repositórios processados")
+<text x="160" y="92" fill="{theme['text']}" font-size="13">
+  Da faísca da ideia à Constelação do código.
+</text>
 
-# ======================================================
-# SVG — LEITURA APENAS DO FIRESTORE
-# ======================================================
+<text x="160" y="112" fill="{theme['text']}" font-size="13">
+  Construindo um Universo de possibilidades!!
+</text>
+
+<text x="160" y="145" fill="{theme['text']}" font-size="13">
+  📦 {len(repos)} Repositórios · ⭐ {stars} Stars · 🍴 {forks} Forks · 🧠 {len(langs)} Linguagens
+</text>
+
+<circle cx="825" cy="95" r="46" fill="none" stroke="#2a2a2a" stroke-width="7"/>
+<circle cx="825" cy="95" r="46" fill="none"
+        stroke="{theme['accent']}" stroke-width="7"
+        stroke-dasharray="290" stroke-dashoffset="290"
+        transform="rotate(-90 825 95)">
+  <animate attributeName="stroke-dashoffset"
+           from="290" to="30" dur="1.4s" fill="freeze"/>
+</circle>
+
+<text x="825" y="112" text-anchor="middle"
+      fill="{theme['accent']}" font-size="34" font-weight="bold">A</text>
+
+<text x="450" y="210" text-anchor="middle"
+      fill="{theme['accent']}" font-size="16" font-weight="bold">
+  Top Languages
+</text>
+
+{render_lang_bars(langs, 450, 240, 360, theme)}
+</svg>
+"""
+
+# =========================
+# HTTP FUNCTION
+# =========================
 
 @https_fn.on_request()
 def statsSvg(req):
-    theme = THEMES["merko"]
+    db = firestore.client()
 
-    repos_docs = db.collection("repos").stream()
-    langs_doc = db.collection("stats").document("languages").get()
-    meta_doc = db.collection("meta").document("sync").get()
+    username = req.args.get("username", "Domisnnet")
+    theme_name = req.args.get("theme", "tokyonight")
+    theme = THEMES.get(theme_name, THEMES["tokyonight"])
 
-    repos = [doc.to_dict() for doc in repos_docs]
-    langs = Counter(langs_doc.to_dict().get("data", {})) if langs_doc.exists else Counter()
+    repos = []
+    langs = Counter()
 
-    stars = sum(r["stars"] for r in repos)
-    forks = sum(r["forks"] for r in repos)
+    for doc in db.collection("repos").stream():
+        data = doc.to_dict()
+        repos.append(data)
+        if data.get("language"):
+            langs[data["language"]] += 1
 
-    last_sync = meta_doc.to_dict().get("last_sync") if meta_doc.exists else None
-    last_sync_str = last_sync.strftime("%Y-%m-%d %H:%M UTC") if last_sync else "never"
-
-    total_langs = sum(langs.values()) or 1
-    top_langs = langs.most_common(5)
-
-    # --------------------------------------------------
-    # SVG
-    # --------------------------------------------------
-
-    svg = f"""
-<svg viewBox="0 0 900 380" xmlns="http://www.w3.org/2000/svg">
-  <rect width="100%" height="100%" rx="28"
-        fill="{theme['bg']}" stroke="{theme['border']}" stroke-width="4"/>
-
-  <text x="160" y="70" fill="{theme['title']}"
-        font-size="22" font-weight="bold">
-    DomisDev · Developer Dashboard
-  </text>
-
-  <text x="160" y="105" fill="{theme['text']}" font-size="13">
-    📦 {len(repos)} Repositórios · ⭐ {stars} Stars · 🍴 {forks} Forks
-  </text>
-
-  <text x="450" y="165" text-anchor="middle"
-        fill="{theme['accent']}" font-size="16" font-weight="bold">
-    Top Languages
-  </text>
-"""
-
-    y = 200
-    for lang, size in top_langs:
-        pct = (size / total_langs) * 100
-        color = LANG_COLORS.get(lang, LANG_COLORS["Other"])
-        width = int(pct * 3)
-
-        svg += f"""
-  <text x="260" y="{y}" fill="{theme['text']}" font-size="12">{lang}</text>
-  <rect x="340" y="{y - 10}" width="{width}" height="10"
-        rx="5" fill="{color}"/>
-  <text x="700" y="{y}" fill="{theme['text']}" font-size="12">
-    {pct:.1f}%
-  </text>
-"""
-        y += 26
-
-    svg += f"""
-  <text x="450" y="355" text-anchor="middle"
-        fill="{theme['text']}" font-size="11">
-    Last sync: {last_sync_str}
-  </text>
-</svg>
-"""
+    user = {"name": username, "login": username}
+    svg = build_combined_svg(user, repos, langs, theme)
 
     etag = make_etag(svg)
     if req.headers.get("If-None-Match") == etag:
@@ -283,6 +267,6 @@ def statsSvg(req):
         headers={
             "Content-Type": "image/svg+xml; charset=utf-8",
             "Cache-Control": "no-cache",
-            "ETag": etag
-        }
+            "ETag": etag,
+        },
     )
