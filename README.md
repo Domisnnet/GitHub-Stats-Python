@@ -1,4 +1,4 @@
-<h2 id="gerador-de-estatisticas">1. 📊 Gerador de Estatísticas</h2>
+<h2 id="gerador-de-estatisticas">1.  Gerador de Estatísticas 📊</h2>
 
 ![Status do Deploy](https://img.shields.io/badge/Status-Online-brightgreen)
 ![Tecnologias](https://img.shields.io/badge/Tecnologias-HTML%20%7C%20CSS%20%7C%20JS%20%7C%20Python-blue)
