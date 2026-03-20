@@ -26,7 +26,7 @@ Crie e exiba um dashboard dinâmico com suas estatísticas do GitHub
 Clique no botão abaixo para acessar o Dashboard agora mesmo:
 
 <a href="https://github-stats-68157678-42e04.web.app/" target="_blank">
-    <img alt="Botão Acessar Dashboard" src="public/assets/botão.webp" width="70" />
+  <img alt="Botão Acessar Dashboard" src="public/assets/botão.webp" width="70" />
 </a>
 
 ---
