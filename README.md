@@ -1,3 +1,7 @@
+![GitHub repo size](https://img.shields.io/github/repo-size/Domisnnet/Github-Stats-Python?style=for-the-badge)
+![GitHub stars](https://img.shields.io/github/stars/Domisnnet/Github-Stats-Python?style=for-the-badge)
+![GitHub last commit](https://img.shields.io/github/last-commit/Domisnnet/Github-Stats-Python?style=for-the-badge)
+
 <h2 id="gerador-de-estatisticas">1.  Gerador de Estatísticas 📊</h2>
 
 ![Status do Deploy](https://img.shields.io/badge/Status-Online-brightgreen)
@@ -62,11 +66,11 @@ Adicione este projeto ao seu "deck" de desenvolvedor! Siga a jornada abaixo para
 
 | Fase | Ação | Link / Comando |
 | :---: | :--- | :--- |
-| **01** | **Prepare o Terreno** | [![Fork](https://img.shields.io/badge/-Fazer%20Fork-blue?style=flat-square&logo=github)](https://github.com/Domisnnet/GitHub-Stats/fork) |
+| **01** | **Prepare o Terreno** | [![Fork](https://img.shields.io/badge/-Fazer%20Fork-blue?style=flat-square&logo=github)](https://github.com/Domisnnet/GitHub-Stats-Python/fork) |
 | **02** | **Crie uma Branch** | `git checkout -b feature/NovaMelhoria` |
 | **03** | **Guarde as Mudanças** | `git commit -m 'feat: Adiciona nova funcionalidade'` |
 | **04** | **Envie o Código** | `git push origin feature/NovaMelhoria` |
-| **05** | **Desafio Final** | [![Abrir PR](https://img.shields.io/badge/-Abrir%20PR-green?style=flat-square&logo=git)](https://github.com/Domisnnet/GitHub-Stats/compare) |
+| **05** | **Desafio Final** | [![Abrir PR](https://img.shields.io/badge/-Abrir%20PR-green?style=flat-square&logo=git)](https://github.com/Domisnnet/GitHub-Stats-Python/compare) |
 
 ### 🐛 Encontrou um problema?
 Se algo não estiver funcionando como esperado, não hesite em abrir um chamado:
@@ -80,10 +84,10 @@ Se algo não estiver funcionando como esperado, não hesite em abrir um chamado:
 
 ```bash
 # Clonar o repositório
-git clone [https://github.com/Domisnnet/GitHub-Stats.git](https://github.com/Domisnnet/GitHub-Stats.git)
+git clone [https://github.com/Domisnnet/GitHub-Stats-Python.git](https://github.com/Domisnnet/GitHub-Stats-Python.git)
 
 # Acessar a pasta
-cd GitHub-Stats
+cd GitHub-Stats-Python
 ```
 
 ---
@@ -121,7 +125,7 @@ cd GitHub-Stats
 <summary><strong>Como posso entrar em contato ou sugerir melhorias ❓</strong></summary>
 <p>Adoramos feedbacks! Você pode interagir das seguintes formas:</p>
 <p><strong>🐛 Reportar bugs ou sugestões:</strong></p>
-<a href="https://github.com/Domisnnet/GitHub-Stats/issues">
+<a href="https://github.com/Domisnnet/GitHub-Stats-Python/issues">
   <img src="https://img.shields.io/badge/Abrir-Issue-red?style=for-the-badge&logo=github" alt="Report Issue">
 </a>
 <p><strong>👨‍💻 Contato direto:</strong></p>
@@ -136,7 +140,7 @@ cd GitHub-Stats
 
 Gostou do Dashboard? Para ver o código-fonte e contribuir com o projeto, acesse:
 
-[![Repositório](https://img.shields.io/badge/Repositório-Domisnnet%2FGitHub--Stats-blue?style=for-the-badge&logo=github)](https://github.com/Domisnnet/GitHub-Stats)
+[![Repositório](https://img.shields.io/badge/Repositório-Domisnnet%2FGitHub--Stats--Python-blue?style=for-the-badge&logo=github)](https://github.com/Domisnnet/GitHub-Stats-Python)
 
 ---
 
@@ -148,7 +152,7 @@ Gostou do Dashboard? Para ver o código-fonte e contribuir com o projeto, acesse
 
 <h2 id="licenca">11. 📄 Licença</h2>
 
-Este projeto é *open source* e está licenciado sob a [![Licença MIT](https://img.shields.io/github/license/Domisnnet/GitHub-Stats)](https://github.com/Domisnnet/GitHub-Stats/edit/main/LICENSE)
+Este projeto é *open source* e está licenciado sob a [![Licença MIT](https://img.shields.io/github/license/Domisnnet/GitHub-Stats-Python)](https://github.com/Domisnnet/GitHub-Stats-Python/edit/main/LICENSE)
 
 ---
 
