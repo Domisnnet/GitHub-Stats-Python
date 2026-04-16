@@ -84,7 +84,7 @@ Se algo não estiver funcionando como esperado, não hesite em abrir um chamado:
 
 ```bash
 # Clonar o repositório
-git clone [https://github.com/Domisnnet/GitHub-Stats-Python.git](https://github.com/Domisnnet/GitHub-Stats-Python.git)
+git clone https://github.com/Domisnnet/GitHub-Stats-Python.git(https://github.com/Domisnnet/GitHub-Stats-Python.git)
 
 # Acessar a pasta
 cd GitHub-Stats-Python
