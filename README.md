@@ -8,7 +8,6 @@
 ![Tecnologias](https://img.shields.io/badge/Tecnologias-HTML%20%7C%20CSS%20%7C%20JS%20%7C%20Python-blue)
 [![Licença MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/Domisnnet/GitHub-Stats-Python/blob/main/LICENSE)
 
-<br>
 <p align="center">
   <strong>Dashboard Dinâmico</strong><br>
   <img src="https://us-central1-github-stats-68157678-42e04.cloudfunctions.net/statsSvg?username=Domisnnet&theme=tokyonight" alt="Dashboard Animado" width="100%" />
