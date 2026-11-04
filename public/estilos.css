@@ -22,7 +22,7 @@ form {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap; 
-  gap: 15px;      
+  gap: 20px;      
   margin-bottom: 2rem;
   width: 100%;
 }
@@ -52,10 +52,10 @@ button {
 }
 
 #stats-container svg {
+  display: block;
   width: 100%;
   height: auto;
   max-width: 900px; 
-  display: block;
 }
 
 @media (max-width: 600px) {
