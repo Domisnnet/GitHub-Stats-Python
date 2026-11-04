@@ -2,28 +2,13 @@
   "hosting": {
     "public": "public",
     "rewrites": [
-      {
-        "source": "/api/**",
-        "function": "statsSvg"
-      }
+      { "source": "/api/**", "function": "statsSvg" }
     ]
   },
-  "functions": {
-    "source": "functions",
-    "runtime": "python311"
-  },
+  "functions": { "source": "functions", "runtime": "nodejs18" },
   "emulators": {
-    "hosting": {
-      "host": "127.0.0.1",
-      "port": 5000
-    },
-    "functions": {
-      "host": "127.0.0.1",
-      "port": 5001
-    },
-    "ui": {
-      "host": "127.0.0.1",
-      "port": 4000
-    }
+    "hosting": { "host": "127.0.0.1", "port": 5000 },
+    "functions": { "host": "127.0.0.1", "port": 5001 },
+    "ui": { "host": "127.0.0.1", "port": 4000 }
   }
 }
