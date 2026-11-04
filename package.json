@@ -1,8 +1,0 @@
-{
-  "name": "github-stats-python",
-  "version": "1.0.0",
-  "description": "GitHub Stats Dashboard",
-  "scripts": { "deploy": "cd functions && npm install && firebase deploy --only functions" },
-  "engines": { "node": "18" },
-  "private": true
-}
