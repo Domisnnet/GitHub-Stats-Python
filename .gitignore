@@ -5,15 +5,18 @@ __pycache__/
 *.so
 venv/
 .venv/
+.vscode/
 *.local
+requirements.txt
 
 # Node.js
 node_modules/
 npm-debug.log*
+package-lock.json
 
 # Firebase
 .firebase/
-*.log
+.firebaserc
 
 # IDE
 .idea/
@@ -25,3 +28,7 @@ npm-debug.log*
 # OS
 .DS_Store
 Thumbs.db
+
+# Environment
+.env
+.env.local
