@@ -110,7 +110,15 @@ function renderLangBars(langsObj, centerX, startY, maxWidth, theme) {
   const langsArray = Object.entries(langsObj);
   const total = langsArray.reduce((sum, [, val]) => sum + val, 0);
   if (total === 0) {
-    return `<text x="${centerX}" y="${startY}" fill="${theme.text}" text-anchor="middle" font-size="14">No language data available.</text>`;
+    return `
+      <text x="${centerX}" y="${startY}" 
+        fill="${theme.text}" 
+        text-anchor="middle" 
+        font-size="14"
+      >
+        No language data available.
+      </text>
+    `;
   }
   
   const top = langsArray.sort((a, b) => b[1] - a[1]).slice(0, 6);
@@ -119,35 +127,53 @@ function renderLangBars(langsObj, centerX, startY, maxWidth, theme) {
   const barH = 10;
   const left = centerX - (maxWidth / 2);
   let svg = "";
-  
   top.forEach(([lang, val], i) => {
     const pct = (val / total) * 100;
     const width = maxWidth * (pct / 100);
     const color = LANG_COLORS[lang] || LANG_COLORS["Other"];
     const delay = 0.2 + (i * 0.15);
-    
     svg += `
-      <text x="${left - 12}" y="${y}" fill="${theme.text}" font-size="12" text-anchor="end">${lang}</text>
-      <rect x="${left}" y="${y - 9}" width="${maxWidth}" height="${barH}" rx="5" fill="${theme.bar_bg}"/>
+      <text x="${left - 12}" y="${y}" 
+        fill="${theme.text}" 
+        font-size="12" 
+        text-anchor="end">${lang}
+      </text>
+      <rect x="${left}" y="${y - 9}" 
+        width="${maxWidth}" 
+        height="${barH}" 
+        rx="5" fill="${theme.bar_bg}"
+      />
       <rect x="${left}" y="${y - 9}" width="0" height="${barH}" rx="5" fill="${color}">
-        <animate attributeName="width" from="0" to="${width}" dur="0.8s" begin="${delay}s" fill="freeze"/>
+        <animate attributeName="width" from="0" to="${width}" dur="0.8s" begin="${delay}s"fill="freeze"/>
       </rect>
-      <text x="${left + maxWidth + 10}" y="${y}" fill="${theme.text}" font-size="12">${pct.toFixed(1)}%</text>
+      <text x="${left + maxWidth + 10}" 
+        y="${y}" fill="${theme.text}" 
+        font-size="12">${pct.toFixed(1)}%
+      </text>
     `;
     y += gap;
-  });
-  
-  return svg;
+  }); return svg;
 }
 
 function buildCombinedSvg(user, langs, theme) {
   const userName = escapeXml(user.name || user.login || "GitHub User"); 
-  
   return `
     <svg viewBox="0 0 900 380" xmlns="http://www.w3.org/2000/svg" opacity="0">
-      <style>.stat-text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }</style>
+      <style> .stat-text { 
+        font-family: -apple-system, 
+        BlinkMacSystemFont, "Segoe UI", 
+        Roboto, Helvetica, 
+        Arial, sans-serif; 
+      }</style>
       <animate attributeName="opacity" from="0" to="1" dur="0.6s" fill="freeze"/>
-      <rect width="100%" height="100%" rx="28" fill="${theme.bg}" stroke="${theme.border}" stroke-width="4"/>
+      <rect 
+        width="100%" 
+        height="100%" 
+        rx="28" 
+        fill="${theme.bg}" 
+        stroke="${theme.border}" 
+        stroke-width="4"
+      />
       <defs>
         <radialGradient id="logoAura" cx="50%" cy="50%" r="60%">
           <stop offset="0%" stop-color="${theme.accent}" stop-opacity="0.35"/>
@@ -159,17 +185,65 @@ function buildCombinedSvg(user, langs, theme) {
       </circle>
       <circle cx="90" cy="95" r="34" fill="${theme.bar_bg}"/>
       <circle cx="90" cy="95" r="34" fill="none" stroke="${theme.accent}" stroke-width="4"/>
-      <text x="90" y="106" text-anchor="middle" fill="${theme.accent}" font-size="30" font-weight="bold" letter-spacing="5">&lt;/&gt;</text>
-      <text x="160" y="68" fill="${theme.title}" font-size="22" font-weight="bold">${userName} · Developer Dashboard</text>
-      <text x="160" y="92" fill="${theme.text}" font-size="13">Da faísca da ideia à Constelação do código.</text>
-      <text x="160" y="112" fill="${theme.text}" font-size="13">Construindo um Universo de possibilidades!!</text>
-      <text x="160" y="145" fill="${theme.text}" font-size="13">📦 ${user.total_repos} Repositórios · ⭐ ${user.total_stars} Stars · 📊 ${user.total_commits_year} Commits/ano · 🧠 ${Object.keys(langs).length} Linguagens</text>
+      <text 
+        x="90" 
+        y="106" 
+        text-anchor="middle" 
+        fill="${theme.accent}" 
+        font-size="30" 
+        font-weight="bold" 
+        letter-spacing="5"
+      >&lt;/&gt;</text>
+      <text 
+        x="160" 
+        y="68" 
+        fill="${theme.title}" 
+        font-size="22" 
+        font-weight="bold"
+      >${userName} · Developer Dashboard</text>
+      <text 
+        x="160" 
+        y="92" 
+        fill="${theme.text}" 
+        font-size="13"
+      >Da faísca da ideia à Constelação do código.</text>
+      <text 
+        x="160" 
+        y="112" 
+        fill="${theme.text}" 
+        font-size="13"
+      >Construindo um Universo de possibilidades!!</text>
+      <text 
+        x="160" 
+        y="145" 
+        fill="${theme.text}" 
+        font-size="13"
+      >
+        📦 ${user.total_repos} 
+        Repositórios · ⭐ ${user.total_stars} 
+        Stars · 📊 ${user.total_commits_year} 
+        Commits/ano · 🧠 ${Object.keys(langs).length} Linguagens
+      </text>
       <circle cx="825" cy="95" r="46" fill="none" stroke="#2a2a2a" stroke-width="7"/>
       <circle cx="825" cy="95" r="46" fill="none" stroke="${theme.accent}" stroke-width="7" stroke-dasharray="290" stroke-dashoffset="290" transform="rotate(-90 825 95)">
         <animate attributeName="stroke-dashoffset" from="290" to="30" dur="1.4s" fill="freeze"/>
       </circle>
-      <text x="825" y="112" text-anchor="middle" fill="${theme.accent}" font-size="34" font-weight="bold">A</text>
-      <text x="450" y="210" text-anchor="middle" fill="${theme.accent}" font-size="16" font-weight="bold">Top Languages</text>
+      <text 
+        x="825" 
+        y="112" 
+        text-anchor="middle" 
+        fill="${theme.accent}" 
+        font-size="34" 
+        font-weight="bold"
+      >A</text>
+      <text 
+        x="450" 
+        y="210" 
+        text-anchor="middle" 
+        fill="${theme.accent}" 
+        font-size="16" 
+        font-weight="bold"
+      >Top Languages</text>
       ${renderLangBars(langs, 450, 240, 360, theme)}
     </svg>
   `;
@@ -179,12 +253,10 @@ exports.statsSvg = onRequest({ maxInstances: 10 }, async (req, res) => {
   const username = req.query.username || "Domisnnet";
   const themeName = req.query.theme || "tokyonight";
   const theme = THEMES[themeName] || THEMES["tokyonight"];
-  
   try {
     const response = await fetch(STATS_JSON_URL);
     if (!response.ok) throw new Error("Falha ao buscar stats.json");
     const data = await response.json();
-    
     const user = {
       name: username,
       login: username,
@@ -192,14 +264,9 @@ exports.statsSvg = onRequest({ maxInstances: 10 }, async (req, res) => {
       total_commits_year: data.total_commits_year || 0,
       total_stars: data.total_stars || 0
     };
-    
     const svg = buildCombinedSvg(user, data.top_languages || {}, theme);
     const etag = makeEtag(svg);
-    
-    if (req.headers["if-none-match"] === etag) {
-      return res.status(304).end();
-    }
-    
+    if (req.headers["if-none-match"] === etag) { return res.status(304).end(); }
     res.set({
       "Content-Type": "image/svg+xml; charset=utf-8",
       "Cache-Control": "public, max-age=3600",
