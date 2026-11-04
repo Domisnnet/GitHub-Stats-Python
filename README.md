@@ -1,16 +1,34 @@
-![GitHub repo size](https://img.shields.io/github/repo-size/Domisnnet/Github-Stats-Python?style=for-the-badge)
-![GitHub stars](https://img.shields.io/github/stars/Domisnnet/Github-Stats-Python?style=for-the-badge)
-![GitHub last commit](https://img.shields.io/github/last-commit/Domisnnet/Github-Stats-Python?style=for-the-badge)
+![GitHub repo size](https://img.shields.io/github/repo-size/Domisnnet/GitHub-Stats-Python?style=for-the-badge)
+![GitHub stars](https://img.shields.io/github/stars/Domisnnet/GitHub-Stats-Python?style=for-the-badge)
+![GitHub last commit](https://img.shields.io/github/last-commit/Domisnnet/GitHub-Stats-Python?style=for-the-badge)
 
-<h2 id="gerador-de-estatisticas">1.  Gerador de Estatísticas 📊</h2>
+<h2 id="gerador-de-estatisticas">1. Gerador de Estatísticas 📊</h2>
 
 ![Status do Deploy](https://img.shields.io/badge/Status-Online-brightgreen)
 ![Tecnologias](https://img.shields.io/badge/Tecnologias-HTML%20%7C%20CSS%20%7C%20JS%20%7C%20Python-blue)
-[![Licença MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/Domisnnet/GitHub-Stats/edit/main/LICENSE)
+[![Licença MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/Domisnnet/GitHub-Stats-Python/blob/main/LICENSE)
 
-![Dashboard](public/assets/github-stats-print.png)
+<br>
 
-Crie e exiba um dashboard dinâmico com suas estatísticas do GitHub
+<!-- DASHBOARD ANIMADO (SVG via Firebase Function) -->
+<p align="center">
+  <strong>Dashboard Dinâmico (SVG Animado)</strong><br>
+  <img src="https://us-central1-github-stats-68157678-42e04.cloudfunctions.net/statsSvg?username=Domisnnet&theme=tokyonight" alt="Dashboard Animado" width="100%" />
+</p>
+
+<br>
+
+<!-- GRÁFICO ESTÁTICO (PNG via Python + GitHub Actions) -->
+<p align="center">
+  <strong>Histórico de Commits - Gráfico Estático</strong><br>
+  <img src="https://raw.githubusercontent.com/Domisnnet/GitHub-Stats-Generator-Python/main/output/github-stats.png" alt="Gráfico de Commits" width="100%" />
+</p>
+
+<br>
+
+<p align="center">
+  <em>Crie e exiba um dashboard dinâmico e automatizado com suas estatísticas reais do GitHub.</em>
+</p>
 
 ---
 
