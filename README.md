@@ -8,7 +8,7 @@
 ![Tecnologias](https://img.shields.io/badge/Tecnologias-HTML%20%7C%20CSS%20%7C%20JS%20%7C%20Python-blue)
 [![Licença MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/Domisnnet/GitHub-Stats/edit/main/LICENSE)
 
-![Dashboard](public/assets/github-stats.png)
+![Dashboard](public/assets/github-stats-print.png)
 
 Crie e exiba um dashboard dinâmico com suas estatísticas do GitHub
 
@@ -161,3 +161,9 @@ Este projeto é *open source* e está licenciado sob a [![Licença MIT](https://
 <a href="https://github.com/Domisnnet"> 
   <img src="public/assets/DomisDev.png" width="90" alt="Acessar perfil GitHub"> 
 </a>
+&nbsp;
+<p align="center">
+  <a href="#sobre-o-cli">
+    <img src="https://img.shields.io/badge/⬆️%20VOLTAR%20AO%20TOPO-26FF00?style=flat&labelColor=111827&color=0A0F1C" alt="Voltar ao topo" style="height: 30px;">
+  </a>
+</p>
