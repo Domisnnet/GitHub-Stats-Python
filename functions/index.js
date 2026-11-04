@@ -98,7 +98,7 @@ function renderLangBars(langsObj, centerX, startY, maxWidth, theme) {
   if (total === 0) {
     return `<text x="${centerX}" y="${startY}" fill="${theme.text}" text-anchor="middle" font-size="14">No language data available.</text>`;
   }
-  const top = langsArray.sort((a, b) => b[1] - a[1]).slice(0, 5);
+  const top = langsArray.sort((a, b) => b[1] - a[1]).slice(0, 10);
   let y = startY;
   const gap = 26;
   const barH = 10;
