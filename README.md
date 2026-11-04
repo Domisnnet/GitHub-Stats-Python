@@ -9,22 +9,10 @@
 [![Licença MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/Domisnnet/GitHub-Stats-Python/blob/main/LICENSE)
 
 <br>
-
-<!-- DASHBOARD ANIMADO (SVG via Firebase Function) -->
 <p align="center">
-  <strong>Dashboard Dinâmico (SVG Animado)</strong><br>
+  <strong>Dashboard Dinâmico</strong><br>
   <img src="https://us-central1-github-stats-68157678-42e04.cloudfunctions.net/statsSvg?username=Domisnnet&theme=tokyonight" alt="Dashboard Animado" width="100%" />
 </p>
-
-<br>
-
-<!-- GRÁFICO ESTÁTICO (PNG via Python + GitHub Actions) -->
-<p align="center">
-  <strong>Histórico de Commits - Gráfico Estático</strong><br>
-  <img src="https://raw.githubusercontent.com/Domisnnet/GitHub-Stats-Generator-Python/main/output/github-stats.png" alt="Gráfico de Commits" width="100%" />
-</p>
-
-<br>
 
 <p align="center">
   <em>Crie e exiba um dashboard dinâmico e automatizado com suas estatísticas reais do GitHub.</em>
