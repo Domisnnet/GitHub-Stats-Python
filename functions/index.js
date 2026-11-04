@@ -158,7 +158,7 @@ function renderLangBars(langsObj, centerX, startY, maxWidth, theme) {
 function buildCombinedSvg(user, langs, theme) {
   const userName = escapeXml(user.name || user.login || "GitHub User"); 
   return `
-    <svg viewBox="0 0 900 380" xmlns="http://www.w3.org/2000/svg" opacity="0">
+    <svg viewBox="0 0 900 440" xmlns="http://www.w3.org/2000/svg" opacity="0">
       <style> .stat-text { 
         font-family: -apple-system, 
         BlinkMacSystemFont, "Segoe UI", 
@@ -244,7 +244,7 @@ function buildCombinedSvg(user, langs, theme) {
         font-size="16" 
         font-weight="bold"
       >Top Languages</text>
-      ${renderLangBars(langs, 450, 240, 360, theme)}
+      ${renderLangBars(langs, 450, 230, 360, theme)}
     </svg>
   `;
 }
