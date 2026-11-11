@@ -1,6 +1,7 @@
 ![GitHub repo size](https://img.shields.io/github/repo-size/Domisnnet/GitHub-Stats-Python?style=for-the-badge)
 ![GitHub stars](https://img.shields.io/github/stars/Domisnnet/GitHub-Stats-Python?style=for-the-badge)
 ![GitHub last commit](https://img.shields.io/github/last-commit/Domisnnet/GitHub-Stats-Python?style=for-the-badge)
+[![Version](https://img.shields.io/github/package-json/v/Domisnnet/GitHub-Stats-Python?style=for-the-badge&logo=python&logoColor=white&labelColor=3776AB)](https://github.com/Domisnnet/GitHub-Stats-Python)
 
 <h2 id="gerador-de-estatisticas">1. Gerador de Estatísticas 📊</h2>
 
@@ -8,7 +9,6 @@
 ![Tecnologias](https://img.shields.io/badge/Tecnologias-HTML%20%7C%20CSS%20%7C%20JS%20%7C%20Python-blue)
 [![Licença MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/Domisnnet/GitHub-Stats-Python/blob/main/LICENSE)
 
-<br>
 <p align="center">
   <strong>Dashboard Dinâmico</strong><br>
   <img src="https://us-central1-github-stats-68157678-42e04.cloudfunctions.net/statsSvg?username=Domisnnet&theme=tokyonight" alt="Dashboard Animado" width="100%" />
@@ -88,11 +88,15 @@ Se algo não estiver funcionando como esperado, não hesite em abrir um chamado:
 
 <h2 id="instalacao-local">7. 🚀 Instalação e Configuração Local</h2>
 
-```bash
-# Clonar o repositório
-git clone https://github.com/Domisnnet/GitHub-Stats-Python.git(https://github.com/Domisnnet/GitHub-Stats-Python.git)
+<h4>Para clonar o repositório:</h4>
 
-# Acessar a pasta
+```bash
+git clone https://github.com/Domisnnet/GitHub-Stats-Python.git(https://github.com/Domisnnet/GitHub-Stats-Python.git)
+```
+
+<h4>Para acessar a pasta:</h4>
+
+```bash
 cd GitHub-Stats-Python
 ```
 
@@ -146,7 +150,7 @@ cd GitHub-Stats-Python
 
 Gostou do Dashboard? Para ver o código-fonte e contribuir com o projeto, acesse:
 
-[![Repositório](https://img.shields.io/badge/Repositório-Domisnnet%2FGitHub--Stats--Python-blue?style=for-the-badge&logo=github)](https://github.com/Domisnnet/GitHub-Stats-Python)
+[![Repositório](https://img.shields.io/badge/Repositório-Domisnnet%2FGitHub--Stats--Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://github.com/Domisnnet/GitHub-Stats-Python)
 
 ---
 
@@ -158,7 +162,7 @@ Gostou do Dashboard? Para ver o código-fonte e contribuir com o projeto, acesse
 
 <h2 id="licenca">11. 📄 Licença</h2>
 
-Este projeto é *open source* e está licenciado sob a [![Licença MIT](https://img.shields.io/github/license/Domisnnet/GitHub-Stats-Python)](https://github.com/Domisnnet/GitHub-Stats-Python/edit/main/LICENSE)
+Este projeto é *Open Source* e está licenciado sob a &nbsp;[![Licença MIT](https://img.shields.io/github/license/Domisnnet/GitHub-Stats-Python)](https://github.com/Domisnnet/GitHub-Stats-Python/edit/main/LICENSE)
 
 ---
 
@@ -169,7 +173,7 @@ Este projeto é *open source* e está licenciado sob a [![Licença MIT](https://
 </a>
 &nbsp;
 <p align="center">
-  <a href="#sobre-o-cli">
+  <a href="#gerador-de-estatisticas">
     <img src="https://img.shields.io/badge/⬆️%20VOLTAR%20AO%20TOPO-26FF00?style=flat&labelColor=111827&color=0A0F1C" alt="Voltar ao topo" style="height: 30px;">
   </a>
 </p>
