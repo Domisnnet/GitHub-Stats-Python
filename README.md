@@ -162,7 +162,7 @@ Gostou do Dashboard? Para ver o código-fonte e contribuir com o projeto, acesse
 
 <h2 id="licenca">11. 📄 Licença</h2>
 
-Este projeto é *open source* e está licenciado sob a [![Licença MIT](https://img.shields.io/github/license/Domisnnet/GitHub-Stats-Python)](https://github.com/Domisnnet/GitHub-Stats-Python/edit/main/LICENSE)
+Este projeto é *Open Source* e está licenciado sob a &nbsp;[![Licença MIT](https://img.shields.io/github/license/Domisnnet/GitHub-Stats-Python)](https://github.com/Domisnnet/GitHub-Stats-Python/edit/main/LICENSE)
 
 ---
 
