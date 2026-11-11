@@ -111,11 +111,7 @@ function renderLangBars(langsObj, centerX, startY, maxWidth, theme) {
   const total = langsArray.reduce((sum, [, val]) => sum + val, 0);
   if (total === 0) {
     return `
-      <text x="${centerX}" y="${startY}" 
-        fill="${theme.text}" 
-        text-anchor="middle" 
-        font-size="14"
-      >
+      <text x="${centerX}" y="${startY}" fill="${theme.text}" text-anchor="middle" font-size="14">
         No language data available.
       </text>
     `;
@@ -133,22 +129,14 @@ function renderLangBars(langsObj, centerX, startY, maxWidth, theme) {
     const color = LANG_COLORS[lang] || LANG_COLORS["Other"];
     const delay = 0.2 + (i * 0.15);
     svg += `
-      <text x="${left - 12}" y="${y}" 
-        fill="${theme.text}" 
-        font-size="12" 
-        text-anchor="end">${lang}
+      <text x="${left - 12}" y="${y}" fill="${theme.text}" font-size="12" text-anchor="end">${lang}
       </text>
-      <rect x="${left}" y="${y - 9}" 
-        width="${maxWidth}" 
-        height="${barH}" 
-        rx="5" fill="${theme.bar_bg}"
-      />
+      <rect x="${left}" y="${y - 9}" width="${maxWidth}" height="${barH}" rx="5" fill="${theme.bar_bg}"/>
       <rect x="${left}" y="${y - 9}" width="0" height="${barH}" rx="5" fill="${color}">
         <animate attributeName="width" from="0" to="${width}" dur="0.8s" begin="${delay}s"fill="freeze"/>
       </rect>
-      <text x="${left + maxWidth + 10}" 
-        y="${y}" fill="${theme.text}" 
-        font-size="12">${pct.toFixed(1)}%
+      <text x=
+        "${left + maxWidth + 10}" y="${y}" fill="${theme.text}" font-size="12">${pct.toFixed(1)}%
       </text>
     `;
     y += gap;
