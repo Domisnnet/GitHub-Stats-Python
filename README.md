@@ -1,6 +1,7 @@
 ![GitHub repo size](https://img.shields.io/github/repo-size/Domisnnet/GitHub-Stats-Python?style=for-the-badge)
 ![GitHub stars](https://img.shields.io/github/stars/Domisnnet/GitHub-Stats-Python?style=for-the-badge)
 ![GitHub last commit](https://img.shields.io/github/last-commit/Domisnnet/GitHub-Stats-Python?style=for-the-badge)
+[![Version](https://img.shields.io/github/package-json/v/Domisnnet/GitHub-Stats-Python?style=for-the-badge&logo=python&logoColor=white&labelColor=3776AB)]
 
 <h2 id="gerador-de-estatisticas">1. Gerador de Estatísticas 📊</h2>
 
@@ -149,7 +150,7 @@ cd GitHub-Stats-Python
 
 Gostou do Dashboard? Para ver o código-fonte e contribuir com o projeto, acesse:
 
-[![Version](https://img.shields.io/github/package-json/v/Domisnnet/GitHub-Stats-Python?style=for-the-badge&logo=python&logoColor=white&labelColor=3776AB)](https://github.com/Domisnnet/GitHub-Stats-Python)
+[![Repositório](https://img.shields.io/badge/Repositório-Domisnnet%2FGitHub--Stats--Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://github.com/Domisnnet/GitHub-Stats-Python)
 
 ---
 
