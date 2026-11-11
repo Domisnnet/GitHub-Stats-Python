@@ -150,7 +150,7 @@ cd GitHub-Stats-Python
 
 Gostou do Dashboard? Para ver o código-fonte e contribuir com o projeto, acesse:
 
-[![Repositório](https://img.shields.io/badge/Repositório-Domisnnet%2FGitHub--Stats--Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://github.com/Domisnnet/GitHub-Stats-Python)
+[![Repositório](https://img.shields.io/badge/Repositório-Domisnnet%2FGitHub--Stats--Python-3776AB?style=flat&label=python&logoColor=white)](https://github.com/Domisnnet/GitHub-Stats-Python)
 
 ---
 
