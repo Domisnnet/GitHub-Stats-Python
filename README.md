@@ -173,7 +173,7 @@ Este projeto é *Open Source* e está licenciado sob a &nbsp;[![Licença MIT](ht
 </a>
 &nbsp;
 <p align="center">
-  <a href="#sobre-o-cli">
+  <a href="#gerador-de-estatisticas">
     <img src="https://img.shields.io/badge/⬆️%20VOLTAR%20AO%20TOPO-26FF00?style=flat&labelColor=111827&color=0A0F1C" alt="Voltar ao topo" style="height: 30px;">
   </a>
 </p>
