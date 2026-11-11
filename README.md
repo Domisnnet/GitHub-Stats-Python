@@ -1,7 +1,7 @@
-![GitHub repo size](https://img.shields.io/github/repo-size/Domisnnet/GitHub-Stats-Python?style=for-the-badge)
-![GitHub stars](https://img.shields.io/github/stars/Domisnnet/GitHub-Stats-Python?style=for-the-badge)
-![GitHub last commit](https://img.shields.io/github/last-commit/Domisnnet/GitHub-Stats-Python?style=for-the-badge)
-[![Version](https://img.shields.io/github/package-json/v/Domisnnet/GitHub-Stats-Python?style=for-the-badge&logo=python&logoColor=white&labelColor=3776AB)](https://github.com/Domisnnet/GitHub-Stats-Python)
+![Repo Size](https://img.shields.io/github/repo-size/Domisnnet/GitHub-Stats-Python?style=flat&label=REPO%20SIZE&labelColor=2d333b&color=0969da)
+![Stars](https://img.shields.io/github/stars/Domisnnet/GitHub-Stats-Python?style=flat&label=STARS&labelColor=2d333b&color=0969da)
+![Last Commit](https://img.shields.io/github/last-commit/Domisnnet/GitHub-Stats-Python?style=flat&label=LAST%20COMMIT&labelColor=2d333b&color=2ea44f)
+![Version](https://img.shields.io/github/package-json/v/Domisnnet/GitHub-Stats-Python?style=flat&label=VERSION&labelColor=2d333b&color=0969da&logo=python&logoColor=white)
 
 <h2 id="gerador-de-estatisticas">1. Gerador de Estatísticas 📊</h2>
 
