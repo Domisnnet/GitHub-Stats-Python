@@ -1,7 +1,7 @@
 ![GitHub repo size](https://img.shields.io/github/repo-size/Domisnnet/GitHub-Stats-Python?style=for-the-badge)
 ![GitHub stars](https://img.shields.io/github/stars/Domisnnet/GitHub-Stats-Python?style=for-the-badge)
 ![GitHub last commit](https://img.shields.io/github/last-commit/Domisnnet/GitHub-Stats-Python?style=for-the-badge)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/Domisnnet/GitHub-Stats-Python/python-app.yml?style=for-the-badge&logo=github-actions&logoColor=white&label=CI%2FCD)](https://github.com/Domisnnet/GitHub-Stats-Python/actions)
+[![Version](https://img.shields.io/github/package-json/v/Domisnnet/GitHub-Stats-Python?style=for-the-badge&logo=python&logoColor=white&labelColor=3776AB)](https://github.com/Domisnnet/GitHub-Stats-Python)
 
 <h2 id="gerador-de-estatisticas">1. Gerador de Estatísticas 📊</h2>
 
