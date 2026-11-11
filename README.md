@@ -87,13 +87,13 @@ Se algo não estiver funcionando como esperado, não hesite em abrir um chamado:
 
 <h2 id="instalacao-local">7. 🚀 Instalação e Configuração Local</h2>
 
-<h4>Clonar o repositório:</h4>h4>
+<h4>Para clonar o repositório:</h4>
 
 ```bash
 git clone https://github.com/Domisnnet/GitHub-Stats-Python.git(https://github.com/Domisnnet/GitHub-Stats-Python.git)
 ```
 
-<h4>Acessar a pasta:</h4>
+<h4>Para acessar a pasta:</h4>
 
 ```bash
 cd GitHub-Stats-Python
